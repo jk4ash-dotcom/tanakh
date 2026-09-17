@@ -28,18 +28,22 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextDirection
+import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.tanakhpoc.learner.data.Gloss
+import com.tanakhpoc.learner.data.GlossDisplay
 import com.tanakhpoc.learner.data.Token
 import com.tanakhpoc.learner.data.Verse
 import com.tanakhpoc.learner.ui.theme.ChipHebrew
@@ -59,6 +63,7 @@ fun VerseScreen(
     } else {
         "${verse.book} ${verse.chapter}:${verse.verse}"
     }
+    val tokens = GlossDisplay.displayTokens(verse)
 
     Scaffold(
         topBar = {
@@ -86,38 +91,45 @@ fun VerseScreen(
                 color = MaterialTheme.colorScheme.onSurfaceVariant
             )
             Spacer(Modifier.height(8.dp))
-            Row(
-                Modifier.fillMaxWidth().horizontalScroll(rememberScrollState()),
-                horizontalArrangement = Arrangement.spacedBy(8.dp),
-                verticalAlignment = Alignment.Top
-            ) {
-                verse.words.forEach { token ->
-                    Column(
-                        horizontalAlignment = Alignment.CenterHorizontally,
-                        modifier = Modifier.widthIn(min = 64.dp)
-                    ) {
-                        AssistChip(
-                            onClick = { selected = token },
-                            label = {
-                                Text(
-                                    token.he,
-                                    fontSize = 20.sp,
-                                    fontFamily = FontFamily.Serif,
-                                    textAlign = TextAlign.Center,
-                                    style = MaterialTheme.typography.titleLarge.copy(
-                                        textDirection = TextDirection.Rtl
+            // Force LTR so RTL device locale cannot reverse OSHB token order.
+            CompositionLocalProvider(LocalLayoutDirection provides LayoutDirection.Ltr) {
+                Row(
+                    Modifier.fillMaxWidth().horizontalScroll(rememberScrollState()),
+                    horizontalArrangement = Arrangement.spacedBy(8.dp),
+                    verticalAlignment = Alignment.Top
+                ) {
+                    tokens.forEach { token ->
+                        Column(
+                            horizontalAlignment = Alignment.CenterHorizontally,
+                            modifier = Modifier.widthIn(min = 64.dp)
+                        ) {
+                            AssistChip(
+                                onClick = { selected = token },
+                                label = {
+                                    Text(
+                                        token.he,
+                                        fontSize = 20.sp,
+                                        fontFamily = FontFamily.Serif,
+                                        textAlign = TextAlign.Center,
+                                        style = MaterialTheme.typography.titleLarge.copy(
+                                            textDirection = TextDirection.Rtl
+                                        )
                                     )
-                                )
-                            },
-                            colors = AssistChipDefaults.assistChipColors(containerColor = ChipHebrew)
-                        )
-                        AssistChip(
-                            onClick = { selected = token },
-                            label = {
-                                Text(token.phonetic, style = MaterialTheme.typography.bodyMedium, textAlign = TextAlign.Center)
-                            },
-                            colors = AssistChipDefaults.assistChipColors(containerColor = ChipPhonetic)
-                        )
+                                },
+                                colors = AssistChipDefaults.assistChipColors(containerColor = ChipHebrew)
+                            )
+                            AssistChip(
+                                onClick = { selected = token },
+                                label = {
+                                    Text(
+                                        token.phonetic,
+                                        style = MaterialTheme.typography.bodyMedium,
+                                        textAlign = TextAlign.Center
+                                    )
+                                },
+                                colors = AssistChipDefaults.assistChipColors(containerColor = ChipPhonetic)
+                            )
+                        }
                     }
                 }
             }
@@ -144,14 +156,18 @@ fun VerseScreen(
 
     val token = selected
     if (token != null) {
-        val gloss = resolveGloss(token.glossId)
+        val shown = GlossDisplay.forToken(token, resolveGloss(token.glossId))
         ModalBottomSheet(onDismissRequest = { selected = null }, sheetState = sheetState) {
             Column(
                 Modifier.fillMaxWidth().navigationBarsPadding().padding(horizontal = 24.dp, vertical = 8.dp)
             ) {
                 Text("Possible sense(s)", style = MaterialTheme.typography.titleLarge)
                 Spacer(Modifier.height(8.dp))
-                Text("${token.he} · ${token.phonetic}", style = MaterialTheme.typography.titleMedium, fontFamily = FontFamily.Serif)
+                Text(
+                    "${token.he} · ${token.phonetic}",
+                    style = MaterialTheme.typography.titleMedium,
+                    fontFamily = FontFamily.Serif
+                )
                 if (token.divineName) {
                     Text(
                         "Divine name: יהוה / YHWH (no vocalization invented)",
@@ -168,28 +184,51 @@ fun VerseScreen(
                     )
                 }
                 token.procliticNote?.let {
-                    Text(it, style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant, modifier = Modifier.padding(top = 4.dp))
+                    Text(
+                        it,
+                        style = MaterialTheme.typography.bodySmall,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant,
+                        modifier = Modifier.padding(top = 4.dp)
+                    )
                 }
                 token.ketiv?.let {
-                    Text("Ketiv (written): $it — phonetic follows qere", style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
+                    Text(
+                        "Ketiv (written): $it — phonetic follows qere",
+                        style = MaterialTheme.typography.bodySmall,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant
+                    )
                 }
                 Spacer(Modifier.height(12.dp))
-                if (gloss == null) {
-                    Text("No gloss available for this token.", style = MaterialTheme.typography.bodyLarge)
-                } else {
-                    Text(gloss.primary, style = MaterialTheme.typography.titleMedium)
-                    gloss.senses.filter { it.isNotBlank() && it != gloss.primary }.forEach { s ->
-                        Text("• $s", style = MaterialTheme.typography.bodyLarge, modifier = Modifier.padding(top = 4.dp))
-                    }
-                    gloss.definition?.takeIf { it.isNotBlank() }?.let { def ->
-                        Spacer(Modifier.height(8.dp))
-                        Text(def.take(400), style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
-                    }
+                Text(shown.primary, style = MaterialTheme.typography.titleMedium)
+                shown.senses.forEach { s ->
+                    Text("• $s", style = MaterialTheme.typography.bodyLarge, modifier = Modifier.padding(top = 4.dp))
+                }
+                shown.policyNote?.let { note ->
+                    Text(
+                        note,
+                        style = MaterialTheme.typography.bodySmall,
+                        color = MaterialTheme.colorScheme.primary,
+                        modifier = Modifier.padding(top = 6.dp)
+                    )
+                }
+                shown.definition?.let { def ->
                     Spacer(Modifier.height(8.dp))
-                    Text("Source: ${gloss.source.ifBlank { "lexicon" }}", style = MaterialTheme.typography.labelMedium, color = MaterialTheme.colorScheme.onSurfaceVariant)
+                    Text(def, style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
+                }
+                if (shown.source.isNotBlank()) {
+                    Spacer(Modifier.height(8.dp))
+                    Text(
+                        "Source: ${shown.source}",
+                        style = MaterialTheme.typography.labelMedium,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant
+                    )
                 }
                 Spacer(Modifier.height(16.dp))
-                Text("Gloss ≠ verse translation", style = MaterialTheme.typography.labelLarge, color = MaterialTheme.colorScheme.secondary)
+                Text(
+                    "Gloss ≠ verse translation",
+                    style = MaterialTheme.typography.labelLarge,
+                    color = MaterialTheme.colorScheme.secondary
+                )
                 Spacer(Modifier.height(24.dp))
             }
         }

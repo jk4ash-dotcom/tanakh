@@ -2,7 +2,7 @@
 
 Offline-first Android POC for learning Hebrew Tanakh (Genesis 1–3).
 
-**Package:** `com.tanakhpoc.learner` · **versionName:** `0.1.0-poc`
+**Package:** `com.tanakhpoc.learner` · **versionName:** `0.1.1-poc`
 
 ## What ships in this build
 

@@ -1,6 +1,8 @@
 package com.tanakhpoc.learner.data
 
 import android.content.Context
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 import kotlinx.serialization.json.Json
 
 class PackRepository private constructor(private val pack: Pack) {
@@ -26,15 +28,31 @@ class PackRepository private constructor(private val pack: Pack) {
             isLenient = true
         }
 
-        fun getInstance(context: Context): PackRepository =
-            instance ?: synchronized(this) {
-                instance ?: run {
-                    val text = context.applicationContext.assets
-                        .open(ASSET)
-                        .bufferedReader(Charsets.UTF_8)
-                        .use { it.readText() }
-                    PackRepository(json.decodeFromString(Pack.serializer(), text)).also { instance = it }
+        /** Pure parse for unit tests and IO loaders. */
+        fun parse(text: String): PackRepository =
+            PackRepository(json.decodeFromString(Pack.serializer(), text))
+
+        /**
+         * Loads pack off the main thread. Safe to call repeatedly; caches singleton.
+         */
+        suspend fun load(context: Context): PackRepository {
+            instance?.let { return it }
+            return withContext(Dispatchers.IO) {
+                instance ?: synchronized(this) {
+                    instance ?: run {
+                        val text = context.applicationContext.assets
+                            .open(ASSET)
+                            .bufferedReader(Charsets.UTF_8)
+                            .use { it.readText() }
+                        parse(text).also { instance = it }
+                    }
                 }
             }
+        }
+
+        /** Test/reset only. */
+        fun clearInstanceForTests() {
+            instance = null
+        }
     }
 }
