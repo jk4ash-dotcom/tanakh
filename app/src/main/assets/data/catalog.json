@@ -1,8 +1,8 @@
 {
   "name": "tanakh-learner",
-  "version": "0.2.1-poc",
-  "generatedAt": "2026-09-17T21:25:50.621Z",
-  "scope": "Torah (Gen–Deut)",
+  "version": "0.3.0-poc",
+  "generatedAt": "2026-09-17T22:34:15.733370+00:00",
+  "scope": "Torah + Nevi'im",
   "navOrder": "Jewish Tanakh",
   "hebrewPin": "OSHB morphhb v.2.2",
   "books": [
@@ -60,15 +60,246 @@
       "asset": "data/books/Deut.json",
       "assetGz": "data/books/Deut.json.gz",
       "aramaic": false
+    },
+    {
+      "osis": "Josh",
+      "title": "Joshua",
+      "division": "Nevi'im",
+      "jewishOrder": 5,
+      "chapters": 24,
+      "verses": 658,
+      "asset": "data/books/Josh.json",
+      "assetGz": "data/books/Josh.json.gz",
+      "aramaic": false
+    },
+    {
+      "osis": "Judg",
+      "title": "Judges",
+      "division": "Nevi'im",
+      "jewishOrder": 6,
+      "chapters": 21,
+      "verses": 618,
+      "asset": "data/books/Judg.json",
+      "assetGz": "data/books/Judg.json.gz",
+      "aramaic": false
+    },
+    {
+      "osis": "1Sam",
+      "title": "1 Samuel",
+      "division": "Nevi'im",
+      "jewishOrder": 7,
+      "chapters": 31,
+      "verses": 811,
+      "asset": "data/books/1Sam.json",
+      "assetGz": "data/books/1Sam.json.gz",
+      "aramaic": false
+    },
+    {
+      "osis": "2Sam",
+      "title": "2 Samuel",
+      "division": "Nevi'im",
+      "jewishOrder": 8,
+      "chapters": 24,
+      "verses": 695,
+      "asset": "data/books/2Sam.json",
+      "assetGz": "data/books/2Sam.json.gz",
+      "aramaic": false
+    },
+    {
+      "osis": "1Kgs",
+      "title": "1 Kings",
+      "division": "Nevi'im",
+      "jewishOrder": 9,
+      "chapters": 22,
+      "verses": 817,
+      "asset": "data/books/1Kgs.json",
+      "assetGz": "data/books/1Kgs.json.gz",
+      "aramaic": false
+    },
+    {
+      "osis": "2Kgs",
+      "title": "2 Kings",
+      "division": "Nevi'im",
+      "jewishOrder": 10,
+      "chapters": 25,
+      "verses": 719,
+      "asset": "data/books/2Kgs.json",
+      "assetGz": "data/books/2Kgs.json.gz",
+      "aramaic": false
+    },
+    {
+      "osis": "Isa",
+      "title": "Isaiah",
+      "division": "Nevi'im",
+      "jewishOrder": 11,
+      "chapters": 66,
+      "verses": 1291,
+      "asset": "data/books/Isa.json",
+      "assetGz": "data/books/Isa.json.gz",
+      "aramaic": false
+    },
+    {
+      "osis": "Jer",
+      "title": "Jeremiah",
+      "division": "Nevi'im",
+      "jewishOrder": 12,
+      "chapters": 52,
+      "verses": 1364,
+      "asset": "data/books/Jer.json",
+      "assetGz": "data/books/Jer.json.gz",
+      "aramaic": false
+    },
+    {
+      "osis": "Ezek",
+      "title": "Ezekiel",
+      "division": "Nevi'im",
+      "jewishOrder": 13,
+      "chapters": 48,
+      "verses": 1273,
+      "asset": "data/books/Ezek.json",
+      "assetGz": "data/books/Ezek.json.gz",
+      "aramaic": false
+    },
+    {
+      "osis": "Hos",
+      "title": "Hosea",
+      "division": "Nevi'im",
+      "jewishOrder": 14,
+      "chapters": 14,
+      "verses": 197,
+      "asset": "data/books/Hos.json",
+      "assetGz": "data/books/Hos.json.gz",
+      "aramaic": false
+    },
+    {
+      "osis": "Joel",
+      "title": "Joel",
+      "division": "Nevi'im",
+      "jewishOrder": 15,
+      "chapters": 4,
+      "verses": 73,
+      "asset": "data/books/Joel.json",
+      "assetGz": "data/books/Joel.json.gz",
+      "aramaic": false
+    },
+    {
+      "osis": "Amos",
+      "title": "Amos",
+      "division": "Nevi'im",
+      "jewishOrder": 16,
+      "chapters": 9,
+      "verses": 146,
+      "asset": "data/books/Amos.json",
+      "assetGz": "data/books/Amos.json.gz",
+      "aramaic": false
+    },
+    {
+      "osis": "Obad",
+      "title": "Obadiah",
+      "division": "Nevi'im",
+      "jewishOrder": 17,
+      "chapters": 1,
+      "verses": 21,
+      "asset": "data/books/Obad.json",
+      "assetGz": "data/books/Obad.json.gz",
+      "aramaic": false
+    },
+    {
+      "osis": "Jonah",
+      "title": "Jonah",
+      "division": "Nevi'im",
+      "jewishOrder": 18,
+      "chapters": 4,
+      "verses": 48,
+      "asset": "data/books/Jonah.json",
+      "assetGz": "data/books/Jonah.json.gz",
+      "aramaic": false
+    },
+    {
+      "osis": "Mic",
+      "title": "Micah",
+      "division": "Nevi'im",
+      "jewishOrder": 19,
+      "chapters": 7,
+      "verses": 105,
+      "asset": "data/books/Mic.json",
+      "assetGz": "data/books/Mic.json.gz",
+      "aramaic": false
+    },
+    {
+      "osis": "Nah",
+      "title": "Nahum",
+      "division": "Nevi'im",
+      "jewishOrder": 20,
+      "chapters": 3,
+      "verses": 47,
+      "asset": "data/books/Nah.json",
+      "assetGz": "data/books/Nah.json.gz",
+      "aramaic": false
+    },
+    {
+      "osis": "Hab",
+      "title": "Habakkuk",
+      "division": "Nevi'im",
+      "jewishOrder": 21,
+      "chapters": 3,
+      "verses": 56,
+      "asset": "data/books/Hab.json",
+      "assetGz": "data/books/Hab.json.gz",
+      "aramaic": false
+    },
+    {
+      "osis": "Zeph",
+      "title": "Zephaniah",
+      "division": "Nevi'im",
+      "jewishOrder": 22,
+      "chapters": 3,
+      "verses": 53,
+      "asset": "data/books/Zeph.json",
+      "assetGz": "data/books/Zeph.json.gz",
+      "aramaic": false
+    },
+    {
+      "osis": "Hag",
+      "title": "Haggai",
+      "division": "Nevi'im",
+      "jewishOrder": 23,
+      "chapters": 2,
+      "verses": 38,
+      "asset": "data/books/Hag.json",
+      "assetGz": "data/books/Hag.json.gz",
+      "aramaic": false
+    },
+    {
+      "osis": "Zech",
+      "title": "Zechariah",
+      "division": "Nevi'im",
+      "jewishOrder": 24,
+      "chapters": 14,
+      "verses": 211,
+      "asset": "data/books/Zech.json",
+      "assetGz": "data/books/Zech.json.gz",
+      "aramaic": false
+    },
+    {
+      "osis": "Mal",
+      "title": "Malachi",
+      "division": "Nevi'im",
+      "jewishOrder": 25,
+      "chapters": 3,
+      "verses": 55,
+      "asset": "data/books/Mal.json",
+      "assetGz": "data/books/Mal.json.gz",
+      "aramaic": false
     }
   ],
   "glossesAsset": "data/glosses.json",
   "glossesAssetGz": "data/glosses.json.gz",
   "totals": {
-    "books": 5,
-    "verses": 5853,
-    "glosses": 3532,
-    "ketivQere": 67,
-    "gaps": 144
+    "books": 26,
+    "verses": 15149,
+    "glosses": 6712,
+    "ketivQere": 739,
+    "gaps": 0
   }
 }

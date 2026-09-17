@@ -20,8 +20,10 @@ object GlossDisplay {
             """adonai[-\s]?vowel|unpronounced\s+except"""
     )
 
+    private val JEHOVAH_WORD = Regex("""(?i)jehovah|yehovah|ye\.?\s*ho\.?\s*vah""")
+
     fun forToken(token: Token, gloss: Gloss?): DisplayedGloss {
-        if (token.divineName || isYhwhLemma(token)) {
+        if (token.divineName || isYhwhLemma(token) || consonantsAreYhwh(token.he)) {
             return yhwhDisplay(gloss)
         }
         if (gloss == null) {
@@ -32,8 +34,11 @@ object GlossDisplay {
                 source = ""
             )
         }
-        val primary = sanitizeLine(gloss.primary) ?: gloss.primary
+        // HIGH: never `sanitizeLine ?: primary` — that re-leaks Jehovah-nissi (H3071 / Exod.17.15)
+        val primary = safePrimary(gloss.primary, gloss.senses)
         val senses = gloss.senses
+            .mapNotNull { sanitizeLine(it) }
+            .map { rewriteJehovah(it) }
             .mapNotNull { sanitizeLine(it) }
             .filter { it.isNotBlank() && !it.equals(primary, ignoreCase = true) }
             .distinct()
@@ -60,14 +65,22 @@ object GlossDisplay {
     /** Pure helper: chip/display order is always words[] as packed (never reversed). */
     fun displayTokens(verse: Verse): List<Token> = verse.words
 
-    private fun isYhwhLemma(token: Token): Boolean =
-        token.lemmaId == "H3068" || token.glossId == "H3068" ||
-            token.he.contains("יהוה")
+    private fun isYhwhLemma(token: Token): Boolean {
+        val id = token.lemmaId ?: token.glossId ?: return false
+        return id == "H3068" || id == "H3069" ||
+            id.startsWith("H3068") || id.startsWith("H3069")
+    }
+
+    private fun consonantsAreYhwh(he: String): Boolean {
+        val cons = he.filter { it in '\u05D0'..'\u05EA' }
+        return cons == "יהוה" || cons.endsWith("יהוה")
+    }
 
     private fun yhwhDisplay(gloss: Gloss?): DisplayedGloss {
         val primary = when {
             gloss?.primary.equals("LORD", ignoreCase = true) -> "LORD"
             gloss?.primary.equals("God", ignoreCase = true) -> "God"
+            gloss?.primary?.contains("God", ignoreCase = true) == true -> "God"
             else -> "LORD"
         }
         return DisplayedGloss(
@@ -78,6 +91,24 @@ object GlossDisplay {
             policyNote = "יהוה / YHWH — no vocalization invented"
         )
     }
+
+    /**
+     * Safe primary: never fall back to a forbidden raw primary (H3071 Jehovah-nissi leak).
+     */
+    private fun safePrimary(primary: String, senses: List<String>): String {
+        sanitizeLine(primary)?.let { return it }
+        val rewritten = rewriteJehovah(primary)
+        sanitizeLine(rewritten)?.let { return it }
+        senses.asSequence()
+            .map { rewriteJehovah(it) }
+            .mapNotNull { sanitizeLine(it) }
+            .firstOrNull()
+            ?.let { return it }
+        return "—"
+    }
+
+    private fun rewriteJehovah(line: String): String =
+        JEHOVAH_WORD.replace(line, "LORD")
 
     private fun sanitizeLine(line: String?): String? {
         if (line.isNullOrBlank()) return null

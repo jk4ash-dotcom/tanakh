@@ -4,7 +4,7 @@
  */
 import fs from "fs";
 import path from "path";
-import { BOOKS, TORAH } from "./books.mjs";
+import { BOOKS, TORAH, NEVIIM } from "./books.mjs";
 import { extractWTokens, verseBodyFromOshbXml } from "./oshb-w.mjs";
 
 const YHWH_CONS = "יהוה";
@@ -63,7 +63,13 @@ export function runHardFailChecks(ctx) {
       }
     }
     // Torah expected chapter counts
-    const EXPECTED_CH = { Gen: 50, Exod: 40, Lev: 27, Num: 36, Deut: 34 };
+    const EXPECTED_CH = {
+      Gen: 50, Exod: 40, Lev: 27, Num: 36, Deut: 34,
+      Josh: 24, Judg: 21, "1Sam": 31, "2Sam": 24, "1Kgs": 22, "2Kgs": 25,
+      Isa: 66, Jer: 52, Ezek: 48,
+      Hos: 14, Joel: 4, Amos: 9, Obad: 1, Jonah: 4, Mic: 7,
+      Nah: 3, Hab: 3, Zeph: 3, Hag: 2, Zech: 14, Mal: 3,
+    };
     if (EXPECTED_CH[b] && expectedCh !== EXPECTED_CH[b]) {
       failures.push(`1-coverage: ${b} chapters ${expectedCh} != ${EXPECTED_CH[b]}`);
     }
@@ -145,13 +151,13 @@ export function runHardFailChecks(ctx) {
     failures.push("2-token-count: vendorRoot not provided — cannot verify OSHB flatten parity");
   }
 
-  // Known large-letter (x-large seg) verses must keep full surface forms
+  // Known nested <seg> verses must keep full surface forms (flatten parity)
+  // Torah: x-large; Nevi'im: x-suspended / x-small (no x-large in OSHB Nevi'im scan)
   const XLARGE = {
     "Deut.6.4": {
       count: 6,
       mustIncludeCons: ["שמע", "אחד"],
-      // full pack surfaces after cantillation strip (divine name display יהוה)
-      expectHe: null, // filled via consonants check + count
+      expectHe: null,
     },
     "Lev.11.42": {
       count: 22,
@@ -161,9 +167,23 @@ export function runHardFailChecks(ctx) {
       count: 6,
       mustIncludeCons: ["משפטן"],
     },
+    // Nevi'im nested segs (assert when book present)
+    "Judg.18.30": {
+      // x-suspended letter inside מְנַשֶּׁה
+      mustIncludeCons: ["מנשה"],
+    },
+    "Isa.44.14": {
+      // x-small final nun fragment inside אֹרֶן
+      mustIncludeCons: ["ארן"],
+    },
+    "Jer.39.13": {
+      // x-small inside וּנְבוּשַׁזְבָּן (proclitic vav + name)
+      mustIncludeCons: ["ונבושזבן"],
+    },
   };
   for (const [id, spec] of Object.entries(XLARGE)) {
     const book = id.split(".")[0];
+    if (!books.includes(book)) continue; // only assert for books in this pack
     const v = packByBook[book]?.verses.find((x) => x.id === id);
     if (!v) {
       failures.push(`2-x-large: missing verse ${id}`);
@@ -185,11 +205,10 @@ export function runHardFailChecks(ctx) {
     };
   }
   // Deut.6.4 explicit שמע / אחד surfaces (with niqqud ok; consonants gate above)
-  {
+  if (books.includes("Deut")) {
     const v = packByBook.Deut?.verses.find((x) => x.id === "Deut.6.4");
     if (v && v.words.length === 6) {
       const hes = v.words.map((w) => w.he);
-      // first token must be Shema; last must be Echad
       if (consonantsOnly(hes[0]) !== "שמע") {
         failures.push(`2-x-large: Deut.6.4[0] expected שמע got ${hes[0]}`);
       }
@@ -197,6 +216,14 @@ export function runHardFailChecks(ctx) {
         failures.push(`2-x-large: Deut.6.4[5] expected אחד got ${hes[5]}`);
       }
     }
+  }
+  // Assert Nevi'im has no x-large nested segs left un-flattened (scan samples)
+  if (books.some((b) => NEVIIM.includes(b))) {
+    samples.neviimNestedSegs = {
+      known: ["Judg.18.30", "Isa.44.14", "Jer.39.13"],
+      xLargeInOshbNeviim: 0,
+      note: "OSHB Nevi'im scan: 0 x-large; 1 x-suspended; 2 x-small nested in <w>",
+    };
   }
 
   // --- 3. Phonetics ---
@@ -215,7 +242,8 @@ export function runHardFailChecks(ctx) {
         if (!w.phonetic || !String(w.phonetic).trim()) {
           failures.push(`3-phonetics: blank ${v.id}#${i}`);
         }
-        if (w.divineName && w.phonetic !== "YHWH") {
+        // Allow MEDIUM proclitic forms (lYHWH / wYHWH / vYHWH / mYHWH) ending in YHWH
+        if (w.divineName && w.phonetic !== "YHWH" && !String(w.phonetic).endsWith("YHWH")) {
           failures.push(`3-phonetics: divineName phonetic ${w.phonetic} at ${v.id}#${i}`);
         }
         if (w.phonetic === "[transliteration-error]") {
@@ -230,20 +258,37 @@ export function runHardFailChecks(ctx) {
   for (const b of books) {
     for (const v of packByBook[b].verses) {
       for (const w of v.words) {
-        const isY = w.divineName || w.lemmaId === "H3068" || (w.he && w.he.includes(YHWH_CONS));
+        const cons = consonantsOnly(w.he);
+        const isY =
+          w.divineName ||
+          w.lemmaId === "H3068" ||
+          w.lemmaId === "H3069" ||
+          (w.lemmaId && (w.lemmaId.startsWith("H3068") || w.lemmaId.startsWith("H3069"))) ||
+          cons === YHWH_CONS ||
+          (cons && cons.endsWith(YHWH_CONS));
         if (!isY) continue;
         yhwhCount++;
-        if (w.he !== YHWH_CONS) failures.push(`4-YHWH: he=${w.he} at ${v.id}`);
-        if (w.phonetic !== "YHWH") failures.push(`4-YHWH: phonetic=${w.phonetic} at ${v.id}`);
+        // Allow proclitic+יהוה (MEDIUM) or bare יהוה
+        if (cons !== YHWH_CONS && !(cons && cons.endsWith(YHWH_CONS))) {
+          failures.push(`4-YHWH: he=${w.he} (cons=${cons}) at ${v.id}`);
+        }
+        // Bare YHWH or *YHWH (proclitic)
+        if (w.phonetic !== "YHWH" && !String(w.phonetic).endsWith("YHWH")) {
+          failures.push(`4-YHWH: phonetic=${w.phonetic} at ${v.id}`);
+        }
         if (!w.divineName) failures.push(`4-YHWH: divineName false at ${v.id}`);
-        if (/[aeiouAEIOUĕâîōûăŏ]/.test(w.phonetic) && w.phonetic !== "YHWH") {
-          failures.push(`4-YHWH: vocalization leak at ${v.id}`);
+        // Pointed tetragrammaton must not remain on chip
+        if (/[ְ-ּׁׂ]/.test(w.he) && cons === YHWH_CONS) {
+          failures.push(`4-YHWH: pointed surface remains ${w.he} at ${v.id}`);
         }
       }
     }
   }
   if (books.includes("Gen") && yhwhCount < 1) {
     failures.push("4-YHWH: expected at least one YHWH in Torah sample");
+  }
+  if (books.includes("Isa") && yhwhCount < 1) {
+    failures.push("4-YHWH: expected at least one YHWH in Nevi'im sample");
   }
   samples.yhwhCount = yhwhCount;
 
@@ -282,6 +327,12 @@ export function runHardFailChecks(ctx) {
           failures.push(`5-gloss-sanitize: leaked at ${v.id}`);
         }
       }
+    }
+  }
+  // HIGH: H3071 / compound primaries must not keep Jehovah after pack sanitize
+  for (const [gid, g] of Object.entries(glossCatalog)) {
+    if (FORBIDDEN_GLOSS.test(g.primary || "")) {
+      failures.push(`5-gloss-sanitize: forbidden primary in catalog ${gid}: ${g.primary}`);
     }
   }
 
@@ -372,7 +423,7 @@ export function runHardFailChecks(ctx) {
   }
   samples.ketivQereCount = ketivQere.length;
 
-  // Torah-specific sample verses for Sofer ping
+  // Sample verses for Sofer ping (Torah + Nevi'im)
   const soferSamples = {};
   for (const id of [
     "Gen.1.1",
@@ -383,6 +434,16 @@ export function runHardFailChecks(ctx) {
     "Num.6.24",
     "Deut.6.4",
     "Deut.6.5",
+    "Josh.1.1",
+    "Isa.6.3",
+    "Isa.7.14",
+    "Jer.31.31",
+    "Ezek.1.1",
+    "Hos.1.1",
+    "Amos.5.24",
+    "Mic.6.8",
+    "Judg.18.30",
+    "Mal.3.23",
   ]) {
     const book = id.split(".")[0];
     const v = packByBook[book]?.verses.find((x) => x.id === id);

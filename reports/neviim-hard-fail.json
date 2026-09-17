@@ -1,0 +1,296 @@
+{
+  "ok": true,
+  "failures": [],
+  "samples": {
+    "Judg_18_30": {
+      "wordCount": 21,
+      "hes": [
+        "וַיָּקִימוּ",
+        "לָהֶם",
+        "בְּנֵי",
+        "דָן",
+        "אֶת",
+        "הַפָּסֶל",
+        "וִיהוֹנָתָן",
+        "בֶּן",
+        "גֵּרְשֹׁם",
+        "בֶּן",
+        "מְנַשֶּׁה",
+        "הוּא",
+        "וּבָנָיו",
+        "הָיוּ",
+        "כֹהֲנִים",
+        "לְשֵׁבֶט",
+        "הַדָּנִי",
+        "עַד",
+        "יוֹם",
+        "גְּלוֹת",
+        "הָאָרֶץ"
+      ],
+      "consonants": [
+        "ויקימו",
+        "להם",
+        "בני",
+        "דן",
+        "את",
+        "הפסל",
+        "ויהונתן",
+        "בן",
+        "גרשם",
+        "בן",
+        "מנשה",
+        "הוא",
+        "ובניו",
+        "היו",
+        "כהנים",
+        "לשבט",
+        "הדני",
+        "עד",
+        "יום",
+        "גלות",
+        "הארץ"
+      ]
+    },
+    "Isa_44_14": {
+      "wordCount": 14,
+      "hes": [
+        "לִכְרָת",
+        "לוֹ",
+        "אֲרָזִים",
+        "וַיִּקַּח",
+        "תִּרְזָה",
+        "וְאַלּוֹן",
+        "וַיְאַמֶּץ",
+        "לוֹ",
+        "בַּעֲצֵי",
+        "יָעַר",
+        "נָטַע",
+        "אֹרֶן",
+        "וְגֶשֶׁם",
+        "יְגַדֵּל"
+      ],
+      "consonants": [
+        "לכרת",
+        "לו",
+        "ארזים",
+        "ויקח",
+        "תרזה",
+        "ואלון",
+        "ויאמץ",
+        "לו",
+        "בעצי",
+        "יער",
+        "נטע",
+        "ארן",
+        "וגשם",
+        "יגדל"
+      ]
+    },
+    "Jer_39_13": {
+      "wordCount": 16,
+      "hes": [
+        "וַיִּשְׁלַח",
+        "נְבוּזַרְאֲדָן",
+        "רַב",
+        "טַבָּחִים",
+        "וּנְבוּשַׁזְבָּן",
+        "רַב",
+        "סָרִיס",
+        "וְנֵרְגַל",
+        "שַׂר",
+        "אֶצֶר",
+        "רַב",
+        "מָג",
+        "וְכֹל",
+        "רַבֵּי",
+        "מֶלֶךְ",
+        "בָּבֶל"
+      ],
+      "consonants": [
+        "וישלח",
+        "נבוזראדן",
+        "רב",
+        "טבחים",
+        "ונבושזבן",
+        "רב",
+        "סריס",
+        "ונרגל",
+        "שר",
+        "אצר",
+        "רב",
+        "מג",
+        "וכל",
+        "רבי",
+        "מלך",
+        "בבל"
+      ]
+    },
+    "neviimNestedSegs": {
+      "known": [
+        "Judg.18.30",
+        "Isa.44.14",
+        "Jer.39.13"
+      ],
+      "xLargeInOshbNeviim": 0,
+      "note": "OSHB Nevi'im scan: 0 x-large; 1 x-suspended; 2 x-small nested in <w>"
+    },
+    "yhwhCount": 3523,
+    "h3068": {
+      "primary": "LORD",
+      "definitionHasJehovah": true,
+      "sanitized": "1) the proper name of the one true God",
+      "displayPrimary": "LORD"
+    },
+    "missingJps": 0,
+    "ketivQereCount": 672
+  },
+  "soferSamples": {
+    "Josh.1.1": {
+      "english": "NOW IT came to pass after the death of Moses the servant of the LORD, that the LORD spoke unto Joshua the son of Nun, Mo",
+      "wordCount": 15,
+      "first": {
+        "he": "וַיְהִי",
+        "phonetic": "wayĕhî"
+      },
+      "yhwh": [
+        {
+          "he": "יהוה",
+          "phonetic": "YHWH"
+        },
+        {
+          "he": "יהוה",
+          "phonetic": "YHWH"
+        }
+      ]
+    },
+    "Isa.6.3": {
+      "english": "And one called unto another, and said: Holy, holy, holy, is the LORD of hosts; the whole earth is full of His glory.",
+      "wordCount": 14,
+      "first": {
+        "he": "וְקָרָא",
+        "phonetic": "wĕqārāʾ"
+      },
+      "yhwh": [
+        {
+          "he": "יהוה",
+          "phonetic": "YHWH"
+        }
+      ]
+    },
+    "Isa.7.14": {
+      "english": "Therefore the Lord Himself shall give you a sign: behold, the young woman shall conceive, and bear a son, and shall call",
+      "wordCount": 15,
+      "first": {
+        "he": "לָכֵן",
+        "phonetic": "lākhēn"
+      },
+      "yhwh": []
+    },
+    "Jer.31.31": {
+      "english": "Behold, the days come, saith the LORD, that I will make a new covenant with the house of Israel, and with the house of J",
+      "wordCount": 14,
+      "first": {
+        "he": "הִנֵּה",
+        "phonetic": "hinnēh"
+      },
+      "yhwh": [
+        {
+          "he": "יהוה",
+          "phonetic": "YHWH"
+        }
+      ]
+    },
+    "Ezek.1.1": {
+      "english": "NOW IT came to pass in the thirtieth year, in the fourth month, in the fifth day of the month, as I was among the captiv",
+      "wordCount": 17,
+      "first": {
+        "he": "וַיְהִי",
+        "phonetic": "wayĕhî"
+      },
+      "yhwh": []
+    },
+    "Hos.1.1": {
+      "english": "THE WORD of the LORD that came unto Hosea the son of Beeri, in the days of Uzziah, Jotham, Ahaz, and Hezekiah, kings of ",
+      "wordCount": 21,
+      "first": {
+        "he": "דְּבַר",
+        "phonetic": "dĕvar"
+      },
+      "yhwh": [
+        {
+          "he": "יהוה",
+          "phonetic": "YHWH"
+        }
+      ]
+    },
+    "Amos.5.24": {
+      "english": "But let justice well up as waters, and righteousness as a mighty stream.",
+      "wordCount": 6,
+      "first": {
+        "he": "וְיִגַּל",
+        "phonetic": "wĕyiggal"
+      },
+      "yhwh": []
+    },
+    "Mic.6.8": {
+      "english": "It hath been told thee, O man, what is good, and what the LORD doth require of thee: only to do justly, and to love merc",
+      "wordCount": 19,
+      "first": {
+        "he": "הִגִּיד",
+        "phonetic": "higgîd"
+      },
+      "yhwh": [
+        {
+          "he": "יהוה",
+          "phonetic": "YHWH"
+        }
+      ]
+    },
+    "Judg.18.30": {
+      "english": "And the children of Dan set up for themselves the graven image; and Jonathan, the son of Gershom, the son of Manasseh, h",
+      "wordCount": 21,
+      "first": {
+        "he": "וַיָּקִימוּ",
+        "phonetic": "wayyāqîmû"
+      },
+      "yhwh": []
+    },
+    "Mal.3.23": {
+      "english": "Behold, I will send you Elijah the prophet before the coming of the great and terrible day of the LORD.",
+      "wordCount": 13,
+      "first": {
+        "he": "הִנֵּה",
+        "phonetic": "hinnēh"
+      },
+      "yhwh": [
+        {
+          "he": "יהוה",
+          "phonetic": "YHWH"
+        }
+      ]
+    }
+  },
+  "checkedBooks": [
+    "Josh",
+    "Judg",
+    "1Sam",
+    "2Sam",
+    "1Kgs",
+    "2Kgs",
+    "Isa",
+    "Jer",
+    "Ezek",
+    "Hos",
+    "Joel",
+    "Amos",
+    "Obad",
+    "Jonah",
+    "Mic",
+    "Nah",
+    "Hab",
+    "Zeph",
+    "Hag",
+    "Zech",
+    "Mal"
+  ]
+}

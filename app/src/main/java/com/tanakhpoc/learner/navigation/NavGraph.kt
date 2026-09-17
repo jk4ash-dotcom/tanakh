@@ -56,7 +56,7 @@ fun TanakhNavGraph() {
                 } else {
                     CircularProgressIndicator()
                     Spacer(Modifier.height(16.dp))
-                    Text("Loading Torah catalog…", style = MaterialTheme.typography.bodyLarge)
+                    Text("Loading Tanakh catalog…", style = MaterialTheme.typography.bodyLarge)
                 }
             }
         }

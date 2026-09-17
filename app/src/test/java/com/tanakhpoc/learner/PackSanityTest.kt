@@ -63,23 +63,37 @@ class PackSanityTest {
 
     @Test
     fun yhwh_hardRule_consonantsAndPhonetic() {
+        fun cons(s: String) = s.filter { it in '\u05D0'..'\u05EA' }
         val tokens = listOf("Gen.2.4", "Gen.4.3", "Exod.3.15", "Deut.6.4")
             .flatMap { repo.verse(it)!!.words }
             .filter { it.divineName }
         assertTrue(tokens.isNotEmpty())
         tokens.forEach { t ->
-            assertEquals("יהוה", t.he)
-            assertEquals("YHWH", t.phonetic)
-            assertEquals("H3068", t.lemmaId)
-            assertFalse(Regex("[aeiouAEIOUĕâîōû]").containsMatchIn(t.phonetic))
+            assertTrue(
+                "expected יהוה consonants on ${t.he}",
+                cons(t.he) == "יהוה" || cons(t.he).endsWith("יהוה")
+            )
+            assertTrue(
+                "expected YHWH phonetic on ${t.phonetic}",
+                t.phonetic == "YHWH" || t.phonetic.endsWith("YHWH")
+            )
+            assertTrue(
+                t.lemmaId == "H3068" || t.lemmaId == "H3069" ||
+                    (t.lemmaId?.startsWith("H3068") == true) ||
+                    (t.lemmaId?.startsWith("H3069") == true)
+            )
+            // Bare YHWH has no vowels; proclitic+YHWH may include prefix vowels (laYHWH)
+            if (t.phonetic == "YHWH") {
+                assertFalse(Regex("[aeiouAEIOUĕâîōû]").containsMatchIn(t.phonetic))
+            }
         }
         val g24 = repo.verse("Gen.2.4")!!.words.first { it.divineName }
         assertEquals("יהוה", g24.he)
         assertEquals("YHWH", g24.phonetic)
-        // Prefixed surface still displays יהוה only
+        // MEDIUM: proclitic kept on chip (ליהוה) + laYHWH phonetics
         val g43 = repo.verse("Gen.4.3")!!.words.first { it.divineName }
-        assertEquals("יהוה", g43.he)
-        assertEquals("YHWH", g43.phonetic)
+        assertEquals("ליהוה", g43.he)
+        assertEquals("laYHWH", g43.phonetic)
         assertNotNull(g43.procliticNote)
     }
 
@@ -264,6 +278,52 @@ class PackSanityTest {
         val num = repo.verse("Num.27.5")!!
         assertTrue(num.words.any { cons(it.he) == "משפטן" })
         assertEquals(6, num.words.size)
+    }
+
+
+    @Test
+    fun glossDisplay_h3071_jehovahNissi_doesNotLeakPrimary() {
+        val token = Token(
+            he = "נִסִּי",
+            lemmaId = "H3071",
+            phonetic = "nissî",
+            glossId = "H3071",
+            divineName = false
+        )
+        val gloss = Gloss(
+            id = "H3071",
+            primary = "YHWH/Jehovah-nissi",
+            senses = listOf("YHWH/Jehovah-nissi"),
+            source = "TBESH",
+            definition = "Jehovah-nissi = \"Jehovah is my banner\""
+        )
+        val d = GlossDisplay.forToken(token, gloss)
+        assertFalse(d.primary.contains("Jehovah", ignoreCase = true))
+        assertFalse(d.primary.contains("yehovah", ignoreCase = true))
+        d.senses.forEach { assertFalse(it.contains("Jehovah", ignoreCase = true)) }
+        assertNull(d.definition)
+    }
+
+    @Test
+    fun glossDisplay_h3069_pointed_usesYhwhPath() {
+        val token = Token(
+            he = "יְהוִה",
+            lemmaId = "H3069",
+            phonetic = "YHWH",
+            glossId = "H3069",
+            divineName = false
+        )
+        val gloss = Gloss(
+            id = "H3069",
+            primary = "YHWH/God",
+            senses = listOf("YHWH/God"),
+            source = "TBESH",
+            definition = "Jehovah-used primarily"
+        )
+        val d = GlossDisplay.forToken(token, gloss)
+        assertEquals("God", d.primary)
+        assertEquals("divine name — see About", d.senses.first())
+        assertNull(d.definition)
     }
 
 }

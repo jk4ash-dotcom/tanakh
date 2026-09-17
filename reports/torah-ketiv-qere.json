@@ -1,7 +1,7 @@
 {
-  "version": "0.2.1-poc",
+  "version": "0.3.0-poc",
   "division": "Torah",
-  "generatedAt": "2026-09-17T21:25:50.621Z",
+  "generatedAt": "2026-09-17T22:34:31.210Z",
   "count": 67,
   "byBook": {
     "Gen": 16,
@@ -22,7 +22,7 @@
       "qerePhonetic": "hayĕtsēʾ",
       "lemmaId": "H3318",
       "morph": "HVhv2ms",
-      "oshbId": "01S7t"
+      "oshbId": null
     },
     {
       "verseId": "Gen.13.3",
@@ -35,7 +35,7 @@
       "qerePhonetic": "ʾohŏlô",
       "lemmaId": "H0168",
       "morph": "HNcmsc/Sp3ms",
-      "oshbId": "01Gdj"
+      "oshbId": null
     },
     {
       "verseId": "Gen.14.2",
@@ -48,7 +48,7 @@
       "qerePhonetic": "tsĕvôyîm",
       "lemmaId": "H6636",
       "morph": "HNp",
-      "oshbId": "01kJL"
+      "oshbId": null
     },
     {
       "verseId": "Gen.14.8",
@@ -61,7 +61,7 @@
       "qerePhonetic": "tsĕvôyīm",
       "lemmaId": "H6636",
       "morph": "HNp",
-      "oshbId": "01Jqs"
+      "oshbId": null
     },
     {
       "verseId": "Gen.24.33",
@@ -74,7 +74,7 @@
       "qerePhonetic": "wayyûsam",
       "lemmaId": "H7760a",
       "morph": "HC/VHw3ms",
-      "oshbId": "01SiU"
+      "oshbId": null
     },
     {
       "verseId": "Gen.25.23",
@@ -87,7 +87,7 @@
       "qerePhonetic": "gôyīm",
       "lemmaId": "H1471a",
       "morph": "HNcmpa",
-      "oshbId": "01eWf"
+      "oshbId": null
     },
     {
       "verseId": "Gen.27.3",
@@ -100,7 +100,7 @@
       "qerePhonetic": "tsāyīd",
       "lemmaId": "H6720",
       "morph": "HNcbsa",
-      "oshbId": "01ydd"
+      "oshbId": null
     },
     {
       "verseId": "Gen.27.29",
@@ -113,7 +113,7 @@
       "qerePhonetic": "wĕyishtaḥăwû",
       "lemmaId": "H7812",
       "morph": "HC/Vvj3mp",
-      "oshbId": "01DTM"
+      "oshbId": null
     },
     {
       "verseId": "Gen.30.11",
@@ -126,7 +126,7 @@
       "qerePhonetic": "bāʾ",
       "lemmaId": "H0935",
       "morph": "HVqrmsa",
-      "oshbId": "01Q3H"
+      "oshbId": null
     },
     {
       "verseId": "Gen.36.5",
@@ -139,7 +139,7 @@
       "qerePhonetic": "yĕʿûsh",
       "lemmaId": "H3266",
       "morph": "HNp",
-      "oshbId": "01PEh"
+      "oshbId": null
     },
     {
       "verseId": "Gen.36.14",
@@ -152,7 +152,7 @@
       "qerePhonetic": "yĕʿûsh",
       "lemmaId": "H3266",
       "morph": "HNp",
-      "oshbId": "019PN"
+      "oshbId": null
     },
     {
       "verseId": "Gen.39.20",
@@ -165,7 +165,7 @@
       "qerePhonetic": "ʾăsîrê",
       "lemmaId": "H0615",
       "morph": "HNcmpc",
-      "oshbId": "01qVE"
+      "oshbId": null
     },
     {
       "verseId": "Gen.43.28",
@@ -178,7 +178,7 @@
       "qerePhonetic": "wayyishtaḥăwwû",
       "lemmaId": "H7812",
       "morph": "HC/Vvw3mp",
-      "oshbId": "01UGx"
+      "oshbId": null
     },
     {
       "verseId": "Gen.49.10",
@@ -191,7 +191,7 @@
       "qerePhonetic": "shîlô",
       "lemmaId": "H7886",
       "morph": "HNp",
-      "oshbId": "01KU3"
+      "oshbId": null
     },
     {
       "verseId": "Gen.49.11",
@@ -204,7 +204,7 @@
       "qerePhonetic": "ʿîrô",
       "lemmaId": "H5895",
       "morph": "HNcmsc/Sp3ms",
-      "oshbId": "01BN1"
+      "oshbId": null
     },
     {
       "verseId": "Gen.49.11",
@@ -217,7 +217,7 @@
       "qerePhonetic": "sûthô",
       "lemmaId": "H5497",
       "morph": "HNcmsc/Sp3ms",
-      "oshbId": "01Chx"
+      "oshbId": null
     },
     {
       "verseId": "Exod.4.2",
@@ -230,7 +230,7 @@
       "qerePhonetic": "mah",
       "lemmaId": "H4100",
       "morph": "HTi",
-      "oshbId": "02Hmd"
+      "oshbId": null
     },
     {
       "verseId": "Exod.16.2",
@@ -243,7 +243,7 @@
       "qerePhonetic": "wayyillônû",
       "lemmaId": "H3885b",
       "morph": "HC/VNw3mp",
-      "oshbId": "02iJj"
+      "oshbId": null
     },
     {
       "verseId": "Exod.16.7",
@@ -256,7 +256,7 @@
       "qerePhonetic": "thallînû",
       "lemmaId": "H3885b",
       "morph": "HVhi2mp",
-      "oshbId": "02yoM"
+      "oshbId": null
     },
     {
       "verseId": "Exod.21.8",
@@ -269,7 +269,7 @@
       "qerePhonetic": "lô",
       "lemmaId": "H9005",
       "morph": "HR/Sp3ms",
-      "oshbId": "023Mv"
+      "oshbId": null
     },
     {
       "verseId": "Exod.22.4",
@@ -282,7 +282,7 @@
       "qerePhonetic": "bĕʿîrô",
       "lemmaId": "H1165",
       "morph": "HNcmsc/Sp3ms",
-      "oshbId": "02ADR"
+      "oshbId": null
     },
     {
       "verseId": "Exod.22.26",
@@ -295,7 +295,7 @@
       "qerePhonetic": "khĕsûthô",
       "lemmaId": "H3682",
       "morph": "HNcfsc/Sp3ms",
-      "oshbId": "02CvC"
+      "oshbId": null
     },
     {
       "verseId": "Exod.27.11",
@@ -308,7 +308,7 @@
       "qerePhonetic": "wĕʿammûdāyw",
       "lemmaId": "H5982",
       "morph": "HC/Ncmpc/Sp3ms",
-      "oshbId": "02Uja"
+      "oshbId": null
     },
     {
       "verseId": "Exod.28.28",
@@ -321,7 +321,7 @@
       "qerePhonetic": "miṭṭabbĕʿōthāyw",
       "lemmaId": "H2885",
       "morph": "HR/Ncfpc/Sp3ms",
-      "oshbId": "02Kuy"
+      "oshbId": null
     },
     {
       "verseId": "Exod.32.19",
@@ -334,7 +334,7 @@
       "qerePhonetic": "miyyādāyw",
       "lemmaId": "H3027",
       "morph": "HR/Ncbdc/Sp3ms",
-      "oshbId": "02Qza"
+      "oshbId": null
     },
     {
       "verseId": "Exod.37.8",
@@ -347,7 +347,7 @@
       "qerePhonetic": "qĕtsôthāyw",
       "lemmaId": "H7098",
       "morph": "HNcbpc/Sp3ms",
-      "oshbId": "027VD"
+      "oshbId": null
     },
     {
       "verseId": "Exod.39.4",
@@ -360,7 +360,7 @@
       "qerePhonetic": "qĕtsôthāyw",
       "lemmaId": "H7098",
       "morph": "HNcbpc/Sp3ms",
-      "oshbId": "02fC7"
+      "oshbId": null
     },
     {
       "verseId": "Exod.39.33",
@@ -373,7 +373,7 @@
       "qerePhonetic": "bĕrîḥāyw",
       "lemmaId": "H1280",
       "morph": "HNcmpc/Sp3ms",
-      "oshbId": "02V5k"
+      "oshbId": null
     },
     {
       "verseId": "Lev.9.22",
@@ -386,7 +386,7 @@
       "qerePhonetic": "yādāyw",
       "lemmaId": "H3027",
       "morph": "HNcbdc/Sp3ms",
-      "oshbId": "03KEV"
+      "oshbId": null
     },
     {
       "verseId": "Lev.11.21",
@@ -399,7 +399,7 @@
       "qerePhonetic": "lô",
       "lemmaId": "H9005",
       "morph": "HR/Sp3ms",
-      "oshbId": "03iGP"
+      "oshbId": null
     },
     {
       "verseId": "Lev.16.21",
@@ -412,7 +412,7 @@
       "qerePhonetic": "yādāyw",
       "lemmaId": "H3027",
       "morph": "HNcbdc/Sp3ms",
-      "oshbId": "03MQc"
+      "oshbId": null
     },
     {
       "verseId": "Lev.21.5",
@@ -425,7 +425,7 @@
       "qerePhonetic": "yiqrĕḥû",
       "lemmaId": "H7139",
       "morph": "HVqi3mp",
-      "oshbId": "03nEy"
+      "oshbId": null
     },
     {
       "verseId": "Lev.25.30",
@@ -438,7 +438,7 @@
       "qerePhonetic": "lô",
       "lemmaId": "H9005",
       "morph": "HR/Sp3ms",
-      "oshbId": "03mN4"
+      "oshbId": null
     },
     {
       "verseId": "Num.1.16",
@@ -451,7 +451,7 @@
       "qerePhonetic": "qĕrûʾê",
       "lemmaId": "H7121",
       "morph": "HVqsmpc",
-      "oshbId": "04GK3"
+      "oshbId": null
     },
     {
       "verseId": "Num.12.3",
@@ -464,7 +464,7 @@
       "qerePhonetic": "ʿānāyw",
       "lemmaId": "H6035",
       "morph": "HAamsa",
-      "oshbId": "04HkZ"
+      "oshbId": null
     },
     {
       "verseId": "Num.14.36",
@@ -477,7 +477,7 @@
       "qerePhonetic": "wayyallînû",
       "lemmaId": "H3885b",
       "morph": "HC/Vhw3mp",
-      "oshbId": "04DkJ"
+      "oshbId": null
     },
     {
       "verseId": "Num.16.11",
@@ -490,7 +490,7 @@
       "qerePhonetic": "thallînû",
       "lemmaId": "H3885b",
       "morph": "HVhi2mp",
-      "oshbId": "04h7f"
+      "oshbId": null
     },
     {
       "verseId": "Num.21.32",
@@ -503,7 +503,7 @@
       "qerePhonetic": "wayyôresh",
       "lemmaId": "H3423",
       "morph": "HC/Vhw3ms",
-      "oshbId": "044RU"
+      "oshbId": null
     },
     {
       "verseId": "Num.23.13",
@@ -516,7 +516,7 @@
       "qerePhonetic": "lĕkhâ",
       "lemmaId": "H1980",
       "morph": "HVqv2ms/Sh",
-      "oshbId": "04TcW"
+      "oshbId": null
     },
     {
       "verseId": "Num.26.9",
@@ -529,7 +529,7 @@
       "qerePhonetic": "qĕrîʾê",
       "lemmaId": "H7148",
       "morph": "HAampc",
-      "oshbId": "04aXz"
+      "oshbId": null
     },
     {
       "verseId": "Num.32.7",
@@ -542,7 +542,7 @@
       "qerePhonetic": "thĕnîʾûn",
       "lemmaId": "H5106",
       "morph": "HVhi2mp/Sn",
-      "oshbId": "046rm"
+      "oshbId": null
     },
     {
       "verseId": "Num.34.4",
@@ -555,7 +555,7 @@
       "qerePhonetic": "wĕhāyû",
       "lemmaId": "H1961",
       "morph": "HC/Vqq3cp",
-      "oshbId": "04t1e"
+      "oshbId": null
     },
     {
       "verseId": "Deut.2.33",
@@ -568,7 +568,7 @@
       "qerePhonetic": "bānāyw",
       "lemmaId": "H1121a",
       "morph": "HNcmpc/Sp3ms",
-      "oshbId": "05WBd"
+      "oshbId": null
     },
     {
       "verseId": "Deut.5.10",
@@ -581,7 +581,7 @@
       "qerePhonetic": "mitswōthāy",
       "lemmaId": "H4687",
       "morph": "HNcfpc/Sp1cs",
-      "oshbId": "05rMa"
+      "oshbId": null
     },
     {
       "verseId": "Deut.7.9",
@@ -594,7 +594,7 @@
       "qerePhonetic": "mitswōthāyw",
       "lemmaId": "H4687",
       "morph": "HNcfpc/Sp3ms",
-      "oshbId": "05JW8"
+      "oshbId": null
     },
     {
       "verseId": "Deut.8.2",
@@ -607,7 +607,7 @@
       "qerePhonetic": "mitswōthāyw",
       "lemmaId": "H4687",
       "morph": "HNcfpc/Sp3ms",
-      "oshbId": "05Hxg"
+      "oshbId": null
     },
     {
       "verseId": "Deut.13.16",
@@ -620,7 +620,7 @@
       "qerePhonetic": "hahîʾ",
       "lemmaId": "H1931",
       "morph": "HTd/Pp3fs",
-      "oshbId": "05oxJ"
+      "oshbId": null
     },
     {
       "verseId": "Deut.21.7",
@@ -633,7 +633,7 @@
       "qerePhonetic": "shāfĕkhû",
       "lemmaId": "H8210",
       "morph": "HVqp3cp",
-      "oshbId": "05aaD"
+      "oshbId": null
     },
     {
       "verseId": "Deut.22.15",
@@ -646,7 +646,7 @@
       "qerePhonetic": "hannaʿărâ",
       "lemmaId": "H5291",
       "morph": "HTd/Ncfsa",
-      "oshbId": "05jCu"
+      "oshbId": null
     },
     {
       "verseId": "Deut.22.15",
@@ -659,7 +659,7 @@
       "qerePhonetic": "hannaʿărâ",
       "lemmaId": "H5291",
       "morph": "HTd/Ncfsa",
-      "oshbId": "05U11"
+      "oshbId": null
     },
     {
       "verseId": "Deut.22.16",
@@ -672,7 +672,7 @@
       "qerePhonetic": "hannaʿarâ",
       "lemmaId": "H5291",
       "morph": "HTd/Ncfsa",
-      "oshbId": "05DcB"
+      "oshbId": null
     },
     {
       "verseId": "Deut.22.20",
@@ -685,7 +685,7 @@
       "qerePhonetic": "lannaʿărâ",
       "lemmaId": "H5291",
       "morph": "HRd/Ncfsa",
-      "oshbId": "05nD3"
+      "oshbId": null
     },
     {
       "verseId": "Deut.22.21",
@@ -698,7 +698,7 @@
       "qerePhonetic": "hannaʿărâ",
       "lemmaId": "H5291",
       "morph": "HTd/Ncfsa",
-      "oshbId": "05BCo"
+      "oshbId": null
     },
     {
       "verseId": "Deut.22.23",
@@ -711,7 +711,7 @@
       "qerePhonetic": "naʿărâ",
       "lemmaId": "H5291",
       "morph": "HNcfsa",
-      "oshbId": "05138"
+      "oshbId": null
     },
     {
       "verseId": "Deut.22.24",
@@ -724,7 +724,7 @@
       "qerePhonetic": "hannaʿărâ",
       "lemmaId": "H5291",
       "morph": "HTd/Ncfsa",
-      "oshbId": "05P19"
+      "oshbId": null
     },
     {
       "verseId": "Deut.22.25",
@@ -737,7 +737,7 @@
       "qerePhonetic": "hannaʿărâ",
       "lemmaId": "H5291",
       "morph": "HTd/Ncfsa",
-      "oshbId": "05oHD"
+      "oshbId": null
     },
     {
       "verseId": "Deut.22.26",
@@ -750,7 +750,7 @@
       "qerePhonetic": "wĕlannaʿărâ",
       "lemmaId": "H5291",
       "morph": "HC/Rd/Ncfsa",
-      "oshbId": "05KPR"
+      "oshbId": null
     },
     {
       "verseId": "Deut.22.26",
@@ -763,7 +763,7 @@
       "qerePhonetic": "lannaʿărâ",
       "lemmaId": "H5291",
       "morph": "HRd/Ncfsa",
-      "oshbId": "051j8"
+      "oshbId": null
     },
     {
       "verseId": "Deut.22.27",
@@ -776,7 +776,7 @@
       "qerePhonetic": "hannaʿărâ",
       "lemmaId": "H5291",
       "morph": "HTd/Ncfsa",
-      "oshbId": "053Hq"
+      "oshbId": null
     },
     {
       "verseId": "Deut.22.28",
@@ -789,7 +789,7 @@
       "qerePhonetic": "naʿărâ",
       "lemmaId": "H5291",
       "morph": "HNcfsa",
-      "oshbId": "05tB6"
+      "oshbId": null
     },
     {
       "verseId": "Deut.22.29",
@@ -802,7 +802,7 @@
       "qerePhonetic": "hannaʿărâ",
       "lemmaId": "H5291",
       "morph": "HTd/Ncfsa",
-      "oshbId": "05FRd"
+      "oshbId": null
     },
     {
       "verseId": "Deut.28.27",
@@ -815,7 +815,7 @@
       "qerePhonetic": "ûvaṭṭĕḥōrîm",
       "lemmaId": "H2914",
       "morph": "HC/Rd/Ncmpa",
-      "oshbId": "056qu"
+      "oshbId": null
     },
     {
       "verseId": "Deut.28.30",
@@ -828,7 +828,7 @@
       "qerePhonetic": "yishkāvennâ",
       "lemmaId": "H7901",
       "morph": "HVqi3ms/Sp3fs",
-      "oshbId": "0578q"
+      "oshbId": null
     },
     {
       "verseId": "Deut.29.22",
@@ -841,7 +841,7 @@
       "qerePhonetic": "ûtsĕvôyīm",
       "lemmaId": "H6636",
       "morph": "HC/Np",
-      "oshbId": "05A35"
+      "oshbId": null
     },
     {
       "verseId": "Deut.32.13",
@@ -854,7 +854,7 @@
       "qerePhonetic": "bomŏthê",
       "lemmaId": "H1116",
       "morph": "HNcfpc",
-      "oshbId": "05Ajm"
+      "oshbId": null
     },
     {
       "verseId": "Deut.33.2",
@@ -867,7 +867,7 @@
       "qerePhonetic": "ʾēsh",
       "lemmaId": "H0784",
       "morph": "HNcbsc",
-      "oshbId": "059bG"
+      "oshbId": null
     },
     {
       "verseId": "Deut.33.9",
@@ -880,7 +880,7 @@
       "qerePhonetic": "bānāyw",
       "lemmaId": "H1121a",
       "morph": "HNcmpc/Sp3ms",
-      "oshbId": "05HDg"
+      "oshbId": null
     }
   ]
 }

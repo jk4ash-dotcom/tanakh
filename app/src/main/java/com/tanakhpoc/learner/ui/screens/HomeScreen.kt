@@ -36,6 +36,14 @@ fun HomeScreen(
     onOpenBook: (String) -> Unit,
     onAbout: () -> Unit
 ) {
+    val divisions = listOf("Torah", "Nevi'im", "Ketuvim")
+    val grouped = divisions.mapNotNull { div ->
+        val subset = books.filter { it.division == div }
+        if (subset.isEmpty()) null else div to subset
+    }.ifEmpty {
+        listOf("Books" to books)
+    }
+
     Scaffold(
         topBar = {
             TopAppBar(
@@ -63,7 +71,7 @@ fun HomeScreen(
         ) {
             item {
                 Text(
-                    scope.ifBlank { "Torah (offline)" },
+                    scope.ifBlank { "Torah + Nevi'im (offline)" },
                     style = MaterialTheme.typography.titleMedium
                 )
                 Spacer(Modifier.height(4.dp))
@@ -74,20 +82,40 @@ fun HomeScreen(
                     color = MaterialTheme.colorScheme.onSurfaceVariant
                 )
             }
-            items(books, key = { it.osis }) { book ->
-                Card(
-                    onClick = { onOpenBook(book.osis) },
-                    modifier = Modifier.fillMaxWidth(),
-                    colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface)
-                ) {
-                    Column(Modifier.padding(16.dp)) {
-                        Text(book.title, style = MaterialTheme.typography.titleLarge)
-                        Text(
-                            "${book.chapters} chapters · ${book.verses} verses" +
-                                if (book.aramaic) " · Aramaic sections flagged" else "",
-                            style = MaterialTheme.typography.bodyMedium,
-                            color = MaterialTheme.colorScheme.onSurfaceVariant
-                        )
+            grouped.forEach { (division, divBooks) ->
+                item(key = "hdr-$division") {
+                    Spacer(Modifier.height(8.dp))
+                    Text(
+                        division,
+                        style = MaterialTheme.typography.titleLarge,
+                        color = MaterialTheme.colorScheme.primary
+                    )
+                    Text(
+                        when (division) {
+                            "Torah" -> "Genesis–Deuteronomy"
+                            "Nevi'im" -> "Former + Latter Prophets (incl. Twelve)"
+                            "Ketuvim" -> "Writings"
+                            else -> ""
+                        },
+                        style = MaterialTheme.typography.bodySmall,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant
+                    )
+                }
+                items(divBooks, key = { it.osis }) { book ->
+                    Card(
+                        onClick = { onOpenBook(book.osis) },
+                        modifier = Modifier.fillMaxWidth(),
+                        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface)
+                    ) {
+                        Column(Modifier.padding(16.dp)) {
+                            Text(book.title, style = MaterialTheme.typography.titleLarge)
+                            Text(
+                                "${book.chapters} chapters · ${book.verses} verses" +
+                                    if (book.aramaic) " · Aramaic sections flagged" else "",
+                                style = MaterialTheme.typography.bodyMedium,
+                                color = MaterialTheme.colorScheme.onSurfaceVariant
+                            )
+                        }
                     }
                 }
             }

@@ -9,12 +9,12 @@
 - `vendor/oshb/VerseMap.xml` (WLC ↔ KJV/engjps file refs)
 - `vendor/TBESH.txt`, `vendor/HebrewStrong.xml`
 
-## Torah build (this checkpoint)
+## Torah + Nevi’im build (this checkpoint)
 
 ```bash
 cd tools/pipeline
 npm install
-node build-pack.mjs --scope torah
+node build-pack.mjs --scope torah+neviim
 # optional: keep pretty JSON for debugging
 # node build-pack.mjs --scope torah --pretty --no-gzip
 ```
@@ -44,6 +44,8 @@ Run automatically at end of `build-pack.mjs`. Failures exit non-zero.
 6. **JPS verse-level** — every verse has English; not word-aligned  
 7. **LTR `displayTokens`** — never reverses `words[]`  
 8. **Ketiv/Qere** — `qereFlag` + `ketiv`; report complete; phonetic from qere  
+
+Nevi’im-only rebuild: `node build-pack.mjs --scope neviim` (does not keep Torah in catalog — prefer `torah+neviim`).
 
 ## Extending beyond Torah
 
