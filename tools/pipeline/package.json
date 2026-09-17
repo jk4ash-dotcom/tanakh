@@ -1,0 +1,18 @@
+{
+  "name": "tanakh-learner-pipeline",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "node build-pack.mjs"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "hebrew-transliteration": "^2.11.0"
+  },
+  "type": "module",
+  "private": "true"
+}
