@@ -38,7 +38,7 @@ class PackRepository private constructor(private val pack: Pack) {
         suspend fun load(context: Context): PackRepository {
             instance?.let { return it }
             return withContext(Dispatchers.IO) {
-                instance ?: synchronized(this) {
+                instance ?: synchronized(this@Companion) {
                     instance ?: run {
                         val text = context.applicationContext.assets
                             .open(ASSET)

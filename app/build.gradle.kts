@@ -13,8 +13,8 @@ android {
         applicationId = "com.tanakhpoc.learner"
         minSdk = 26
         targetSdk = 35
-        versionCode = 2
-        versionName = "0.1.1-poc"
+        versionCode = 3
+        versionName = "0.1.2-poc"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
