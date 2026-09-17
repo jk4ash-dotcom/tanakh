@@ -1,7 +1,7 @@
 {
   "meta": {
     "name": "tanakh-learner-test-samples",
-    "version": "0.2.0-poc",
+    "version": "0.2.1-poc",
     "scope": "Torah sample verses for unit tests",
     "hebrew": {
       "pin": "v.2.2"
@@ -101,6 +101,20 @@
       "verseIds": [
         "Deut.6.4",
         "Deut.6.5"
+      ]
+    },
+    {
+      "book": "Lev",
+      "chapter": 11,
+      "verseIds": [
+        "Lev.11.42"
+      ]
+    },
+    {
+      "book": "Num",
+      "chapter": 27,
+      "verseIds": [
+        "Num.27.5"
       ]
     }
   ],
@@ -1984,6 +1998,15 @@
       },
       "words": [
         {
+          "he": "שְׁמַע",
+          "lemmaId": "H8085",
+          "lemmaRaw": "8085",
+          "morph": "HVqv2ms",
+          "phonetic": "shĕmaʿ",
+          "glossId": "H8085",
+          "divineName": false
+        },
+        {
           "he": "יִשְׂרָאֵל",
           "lemmaId": "H3478",
           "lemmaRaw": "3478",
@@ -2018,6 +2041,15 @@
           "phonetic": "YHWH",
           "glossId": "H3068",
           "divineName": true
+        },
+        {
+          "he": "אֶחָד",
+          "lemmaId": "H0259",
+          "lemmaRaw": "259",
+          "morph": "HAcmsa",
+          "phonetic": "ʾeḥād",
+          "glossId": "H0259",
+          "divineName": false
         }
       ]
     },
@@ -2125,6 +2157,291 @@
           "phonetic": "mĕʾōdekhā",
           "glossId": "H3966",
           "divineName": false
+        }
+      ]
+    },
+    {
+      "id": "Lev.11.42",
+      "book": "Lev",
+      "chapter": 11,
+      "verse": 42,
+      "english": {
+        "text": "Whatsoever goeth upon the belly, and whatsoever goeth upon all fours, or whatsoever hath many feet, even all swarming things that swarm upon the earth, them ye shall not eat; for they are a detestable thing.",
+        "source": "JPS 1917",
+        "license": "Public Domain"
+      },
+      "words": [
+        {
+          "he": "כֹּל",
+          "lemmaId": "H3605",
+          "lemmaRaw": "3605",
+          "morph": "HNcmsa",
+          "phonetic": "kōl",
+          "glossId": "H3605",
+          "divineName": false
+        },
+        {
+          "he": "הוֹלֵךְ",
+          "lemmaId": "H1980",
+          "lemmaRaw": "1980",
+          "morph": "HVqrmsa",
+          "phonetic": "hôlēkh",
+          "glossId": "H1980",
+          "divineName": false
+        },
+        {
+          "he": "עַל",
+          "lemmaId": "H5921a",
+          "lemmaRaw": "5921 a",
+          "morph": "HR",
+          "phonetic": "ʿal",
+          "glossId": "H5921a",
+          "divineName": false
+        },
+        {
+          "he": "גָּחוֹן",
+          "lemmaId": "H1512",
+          "lemmaRaw": "1512",
+          "morph": "HNcmsa",
+          "phonetic": "gāḥôn",
+          "glossId": "H1512",
+          "divineName": false
+        },
+        {
+          "he": "וְכֹל",
+          "lemmaId": "H3605",
+          "lemmaRaw": "c/3605",
+          "morph": "HC/Ncmsa",
+          "phonetic": "wĕkhōl",
+          "glossId": "H3605",
+          "divineName": false,
+          "procliticNote": "וְ (vav) proclitic — often 'and'"
+        },
+        {
+          "he": "הוֹלֵךְ",
+          "lemmaId": "H1980",
+          "lemmaRaw": "1980",
+          "morph": "HVqrmsa",
+          "phonetic": "hôlēkh",
+          "glossId": "H1980",
+          "divineName": false
+        },
+        {
+          "he": "עַל",
+          "lemmaId": "H5921a",
+          "lemmaRaw": "5921 a",
+          "morph": "HR",
+          "phonetic": "ʿal",
+          "glossId": "H5921a",
+          "divineName": false
+        },
+        {
+          "he": "אַרְבַּע",
+          "lemmaId": "H0702",
+          "lemmaRaw": "702",
+          "morph": "HAcfsa",
+          "phonetic": "ʾarbaʿ",
+          "glossId": "H0702",
+          "divineName": false
+        },
+        {
+          "he": "עַד",
+          "lemmaId": "H5704",
+          "lemmaRaw": "5704",
+          "morph": "HR",
+          "phonetic": "ʿad",
+          "glossId": "H5704",
+          "divineName": false
+        },
+        {
+          "he": "כָּל",
+          "lemmaId": "H3605",
+          "lemmaRaw": "3605",
+          "morph": "HNcmsc",
+          "phonetic": "kol",
+          "glossId": "H3605",
+          "divineName": false
+        },
+        {
+          "he": "מַרְבֵּה",
+          "lemmaId": "H7235a",
+          "lemmaRaw": "7235 a",
+          "morph": "HVhrmsc",
+          "phonetic": "marbēh",
+          "glossId": "H7235a",
+          "divineName": false
+        },
+        {
+          "he": "רַגְלַיִם",
+          "lemmaId": "H7272",
+          "lemmaRaw": "7272",
+          "morph": "HNcfda",
+          "phonetic": "raglayim",
+          "glossId": "H7272",
+          "divineName": false
+        },
+        {
+          "he": "לְכָל",
+          "lemmaId": "H3605",
+          "lemmaRaw": "l/3605",
+          "morph": "HR/Ncmsc",
+          "phonetic": "lĕkhol",
+          "glossId": "H3605",
+          "divineName": false,
+          "procliticNote": "לְ (lamed) proclitic — often 'to/for'"
+        },
+        {
+          "he": "הַשֶּׁרֶץ",
+          "lemmaId": "H8318",
+          "lemmaRaw": "d/8318",
+          "morph": "HTd/Ncmsa",
+          "phonetic": "hashsherets",
+          "glossId": "H8318",
+          "divineName": false,
+          "procliticNote": "הַ (he) article/proclitic — often 'the'"
+        },
+        {
+          "he": "הַשֹּׁרֵץ",
+          "lemmaId": "H8317",
+          "lemmaRaw": "d/8317",
+          "morph": "HTd/Vqrmsa",
+          "phonetic": "hashshōrēts",
+          "glossId": "H8317",
+          "divineName": false,
+          "procliticNote": "הַ (he) article/proclitic — often 'the'"
+        },
+        {
+          "he": "עַל",
+          "lemmaId": "H5921a",
+          "lemmaRaw": "5921 a",
+          "morph": "HR",
+          "phonetic": "ʿal",
+          "glossId": "H5921a",
+          "divineName": false
+        },
+        {
+          "he": "הָאָרֶץ",
+          "lemmaId": "H0776",
+          "lemmaRaw": "d/776",
+          "morph": "HTd/Ncbsa",
+          "phonetic": "hāʾārets",
+          "glossId": "H0776",
+          "divineName": false,
+          "procliticNote": "הַ (he) article/proclitic — often 'the'"
+        },
+        {
+          "he": "לֹא",
+          "lemmaId": "H3808",
+          "lemmaRaw": "3808",
+          "morph": "HTn",
+          "phonetic": "lōʾ",
+          "glossId": "H3808",
+          "divineName": false
+        },
+        {
+          "he": "תֹאכְלוּם",
+          "lemmaId": "H0398",
+          "lemmaRaw": "398",
+          "morph": "HVqi2mp/Sp3mp",
+          "phonetic": "thōʾkhĕlûm",
+          "glossId": "H0398",
+          "divineName": false
+        },
+        {
+          "he": "כִּי",
+          "lemmaId": "H3588a",
+          "lemmaRaw": "3588 a",
+          "morph": "HC",
+          "phonetic": "kî",
+          "glossId": "H3588a",
+          "divineName": false
+        },
+        {
+          "he": "שֶׁקֶץ",
+          "lemmaId": "H8263",
+          "lemmaRaw": "8263",
+          "morph": "HNcmsa",
+          "phonetic": "sheqets",
+          "glossId": "H8263",
+          "divineName": false
+        },
+        {
+          "he": "הֵם",
+          "lemmaId": "H1992",
+          "lemmaRaw": "1992",
+          "morph": "HPp3mp",
+          "phonetic": "hēm",
+          "glossId": "H1992",
+          "divineName": false
+        }
+      ]
+    },
+    {
+      "id": "Num.27.5",
+      "book": "Num",
+      "chapter": 27,
+      "verse": 5,
+      "english": {
+        "text": "And Moses brought their cause before the LORD.",
+        "source": "JPS 1917",
+        "license": "Public Domain"
+      },
+      "words": [
+        {
+          "he": "וַיַּקְרֵב",
+          "lemmaId": "H7126",
+          "lemmaRaw": "c/7126",
+          "morph": "HC/Vhw3ms",
+          "phonetic": "wayyaqrēv",
+          "glossId": "H7126",
+          "divineName": false,
+          "procliticNote": "וְ (vav) proclitic — often 'and'"
+        },
+        {
+          "he": "מֹשֶׁה",
+          "lemmaId": "H4872",
+          "lemmaRaw": "4872",
+          "morph": "HNp",
+          "phonetic": "mōsheh",
+          "glossId": "H4872",
+          "divineName": false
+        },
+        {
+          "he": "אֶת",
+          "lemmaId": "H0853",
+          "lemmaRaw": "853",
+          "morph": "HTo",
+          "phonetic": "ʾeth",
+          "glossId": "H0853",
+          "divineName": false
+        },
+        {
+          "he": "מִשְׁפָּטָן",
+          "lemmaId": "H4941",
+          "lemmaRaw": "4941",
+          "morph": "HNcmsc/Sp3fp",
+          "phonetic": "mishpāṭān",
+          "glossId": "H4941",
+          "divineName": false
+        },
+        {
+          "he": "לִפְנֵי",
+          "lemmaId": "H6440",
+          "lemmaRaw": "l/6440",
+          "morph": "HR/Ncbpc",
+          "phonetic": "lifnê",
+          "glossId": "H6440",
+          "divineName": false,
+          "procliticNote": "לְ (lamed) proclitic — often 'to/for'"
+        },
+        {
+          "he": "יהוה",
+          "lemmaId": "H3068",
+          "lemmaRaw": "3068",
+          "morph": "HNp",
+          "phonetic": "YHWH",
+          "glossId": "H3068",
+          "divineName": true
         }
       ]
     }
@@ -3411,6 +3728,169 @@
       ],
       "source": "TBESH",
       "definition": "1) flesh\n1a) of the body\n1a1) of humans\n1a2) of animals\n1b) the body itself\n1c) male organ of generation (euphemism)\n1d) kindred, blood-relations\n1e) flesh as frail or erring (man against God)\n1f) all living things\n1g) animals\n1h) mankind\nAramaic equivalent: be.shar (בְּשַׁר \"flesh\" H1321)",
+      "note": null
+    },
+    "H0259": {
+      "id": "H0259",
+      "primary": "one",
+      "senses": [
+        "one",
+        "one (number)",
+        "each, every",
+        "a certain",
+        "an (indefinite article)",
+        "only, once, once for all",
+        "one...another, the one...the other, one after another, one by one",
+        "first"
+      ],
+      "source": "TBESH",
+      "definition": "1) one (number)\n1a) one (number)\n1b) each, every\n1c) a certain\n1d) an (indefinite article)\n1e) only, once, once for all\n1f) one...another, the one...the other, one after another, one by one\n1g) first\n1h) eleven (in combination), eleventh (ordinal)",
+      "note": null
+    },
+    "H0702": {
+      "id": "H0702",
+      "primary": "four",
+      "senses": [
+        "four"
+      ],
+      "source": "TBESH",
+      "definition": "four",
+      "note": null
+    },
+    "H1512": {
+      "id": "H1512",
+      "primary": "belly",
+      "senses": [
+        "belly"
+      ],
+      "source": "TBESH",
+      "definition": "belly (of reptiles)",
+      "note": null
+    },
+    "H1980": {
+      "id": "H1980",
+      "primary": "to go: went",
+      "senses": [
+        "to go: went",
+        "to go, walk, come",
+        "(Qal)",
+        "(Piel)",
+        "(Hithpael)",
+        "(Niphal) to lead, bring, lead away, carry, cause to walk"
+      ],
+      "source": "TBESH",
+      "definition": ": went/go[away]\n1) to go, walk, come\n1a) (Qal)\n1a1) to go, walk, come, depart, proceed, move, go away\n1a2) to die, live, manner of life (fig.)\n1b) (Piel)\n1b1) to walk\n1b2) to walk (fig.)\n1c) (Hithpael)\n1c1) to traverse\n1c2) to walk about\n1d) (Niphal) to lead, bring, lead away, carry, cause to walk",
+      "note": null
+    },
+    "H1992": {
+      "id": "H1992",
+      "primary": "they(masc.)",
+      "senses": [
+        "they(masc.)"
+      ],
+      "source": "TBESH",
+      "definition": "they, these, the same, who",
+      "note": null
+    },
+    "H4941": {
+      "id": "H4941",
+      "primary": "justice: judgement",
+      "senses": [
+        "justice: judgement",
+        "judgment, justice, ordinance",
+        "judgment",
+        "justice, right, rectitude (attributes of God or man)",
+        "ordinance",
+        "decision (in law)",
+        "right, privilege, due (legal)",
+        "proper, fitting, measure, fitness, custom, manner, plan"
+      ],
+      "source": "TBESH",
+      "definition": ": judgement/punishment\n1) judgment, justice, ordinance\n1a) judgment\n1a1) act of deciding a case\n1a2) place, court, seat of judgment\n1a3) process, procedure, litigation (before judges)\n1a4) case, cause (presented for judgment)\n1a5) sentence, decision (of judgment)\n1a6) execution (of judgment)\n1a7) time (of judgment)\n1b) justice, right, rectitude (attributes of God or man)\n1c) ordinance\n1d) decision (in law)\n1e) right, privilege, due (legal)\n1f) proper, fitting, measure, fitness, custom, manner, p",
+      "note": null
+    },
+    "H5704": {
+      "id": "H5704",
+      "primary": "till",
+      "senses": [
+        "till",
+        "as far as, even to, until, up to, while, as far as",
+        "of space",
+        "in combination",
+        "of time",
+        "of degree",
+        "until, while, to the point that, so that even"
+      ],
+      "source": "TBESH",
+      "definition": "prep\n1) as far as, even to, until, up to, while, as far as\n1a) of space\n1a1) as far as, up to, even to\n1b) in combination\n1b1) from...as far as, both...and (with 'min' -from)\n1c) of time\n1c1) even to, until, unto, till, during, end\n1d) of degree\n1d1) even to, to the degree of, even like\nconj\n2) until, while, to the point that, so that even\nAramaic equivalent: ad (עַד \"till\" H5705)",
+      "note": null
+    },
+    "H7126": {
+      "id": "H7126",
+      "primary": "to present: come",
+      "senses": [
+        "to present: come",
+        "to come near, approach, enter into, draw near",
+        "(Qal) to approach, draw near",
+        "(Niphal) to be brought near",
+        "(Piel) to cause to approach, bring near, cause to draw near",
+        "(Hiphil) to bring near, bring, present"
+      ],
+      "source": "TBESH",
+      "definition": ": come/approach\n1) to come near, approach, enter into, draw near\n1a) (Qal) to approach, draw near\n1b) (Niphal) to be brought near\n1c) (Piel) to cause to approach, bring near, cause to draw near\n1d) (Hiphil) to bring near, bring, present",
+      "note": null
+    },
+    "H7272": {
+      "id": "H7272",
+      "primary": "foot",
+      "senses": [
+        "foot",
+        "foot, leg",
+        "of God (anthropomorphic)",
+        "of seraphim, cherubim, idols, animals, table",
+        "according to the pace of (with prep)",
+        "three times (feet, paces)"
+      ],
+      "source": "TBESH",
+      "definition": "1) foot\n1a) foot, leg\n1b) of God (anthropomorphic)\n1c) of seraphim, cherubim, idols, animals, table\n1d) according to the pace of (with prep)\n1e) three times (feet, paces)\nAramaic equivalent: re.gal (רְגַל \"foot\" H7271)",
+      "note": null
+    },
+    "H8085": {
+      "id": "H8085",
+      "primary": "to hear: hear",
+      "senses": [
+        "to hear: hear",
+        "to hear, listen to, obey",
+        "(Qal)",
+        "(Niphal)",
+        "(Piel) to cause to hear, call to hear, summon",
+        "(Hiphil)",
+        "sound"
+      ],
+      "source": "TBESH",
+      "definition": ": hear\nv\n1) to hear, listen to, obey\n1a) (Qal)\n1a1) to hear (perceive by ear)\n1a2) to hear of or concerning\n1a3) to hear (have power to hear)\n1a4) to hear with attention or interest, listen to\n1a5) to understand (language)\n1a6) to hear (of judicial cases)\n1a7) to listen, give heed\n1a7a) to consent, agree\n1a7b) to grant request\n1a8) to listen to, yield to\n1a9) to obey, be obedient\n1b) (Niphal)\n1b1) to be heard (of voice or sound)\n1b2) to be heard of\n1b3) to be regarded, be obeyed\n1c) (Piel) to ca",
+      "note": null
+    },
+    "H8263": {
+      "id": "H8263",
+      "primary": "detestation",
+      "senses": [
+        "detestation"
+      ],
+      "source": "TBESH",
+      "definition": "detestable thing or idol, an unclean thing, an abomination, detestation",
+      "note": null
+    },
+    "H8318": {
+      "id": "H8318",
+      "primary": "swarm",
+      "senses": [
+        "swarm",
+        "teeming or swarming things, creepers, swarmers",
+        "of insects, animals, small reptiles, quadrupeds"
+      ],
+      "source": "TBESH",
+      "definition": "1) teeming or swarming things, creepers, swarmers\n1a) of insects, animals, small reptiles, quadrupeds",
       "note": null
     }
   }

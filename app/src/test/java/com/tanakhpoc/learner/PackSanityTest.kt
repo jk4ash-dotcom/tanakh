@@ -236,4 +236,34 @@ class PackSanityTest {
         val present = order.filter { it in osis }
         assertEquals(present, present.sortedBy { order.indexOf(it) })
     }
+
+    @Test
+    fun deut64_xLargeSegFlatten_sixTokensIncludingShemaEchad() {
+        val v = repo.verse("Deut.6.4")!!
+        assertEquals(6, v.words.size)
+        assertEquals("שְׁמַע", v.words[0].he)
+        assertEquals("יִשְׂרָאֵל", v.words[1].he)
+        assertEquals("יהוה", v.words[2].he)
+        assertTrue(v.words[2].divineName)
+        assertEquals("YHWH", v.words[2].phonetic)
+        assertEquals("אֱלֹהֵינוּ", v.words[3].he)
+        assertEquals("יהוה", v.words[4].he)
+        assertEquals("אֶחָד", v.words[5].he)
+        // consonants: שמע … אחד (nested x-large seg must not drop letters)
+        fun cons(s: String) = s.filter { it in '\u05D0'..'\u05EA' }
+        assertEquals("שמע", cons(v.words[0].he))
+        assertEquals("אחד", cons(v.words[5].he))
+    }
+
+    @Test
+    fun xLargeSegVerses_lev1142_num275_keepLargeLetterWords() {
+        fun cons(s: String) = s.filter { it in '\u05D0'..'\u05EA' }
+        val lev = repo.verse("Lev.11.42")!!
+        assertTrue(lev.words.any { cons(it.he) == "גחון" })
+        assertEquals(22, lev.words.size)
+        val num = repo.verse("Num.27.5")!!
+        assertTrue(num.words.any { cons(it.he) == "משפטן" })
+        assertEquals(6, num.words.size)
+    }
+
 }

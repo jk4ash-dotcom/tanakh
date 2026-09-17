@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * Offline pack builder — Torah checkpoint (v0.2) with full-corpus hooks.
+ * Offline pack builder — Torah checkpoint (v0.2.1) with full-corpus hooks.
  *
  * - Ingests OSHB morphhb WLC book XML (pin v.2.2), not Gen-only
  * - Jewish Tanakh nav order (see books.mjs)
@@ -20,6 +20,7 @@ import { createRequire } from "module";
 import { BOOKS, TORAH, ARAMAIC_FLAG_BOOKS, jewishSortKey } from "./books.mjs";
 import { createSoferSblLearnerSchema } from "./sofer-sbl-learner.mjs";
 import { runHardFailChecks } from "./hard-fail-checks.mjs";
+import { extractWTokens } from "./oshb-w.mjs";
 
 const require = createRequire(import.meta.url);
 const { transliterate } = require("hebrew-transliteration");
@@ -29,7 +30,7 @@ const ROOT = path.resolve(__dirname, "../..");
 const VENDOR = path.join(ROOT, "vendor");
 const OUT_DIR = path.join(ROOT, "app/src/main/assets/data");
 const REPORTS = path.join(ROOT, "reports");
-const PACK_VERSION = "0.2.0-poc";
+const PACK_VERSION = "0.2.1-poc";
 const schema = createSoferSblLearnerSchema();
 
 const CANTILLATION = /[\u0591-\u05AF\u05BD\u05BF\u05C0\u05C3\u05C6]/g;
@@ -376,53 +377,11 @@ function parseOshbBook(xmlPath, bookOsis) {
     while ((vm = verseRe.exec(bodyCh))) {
       const osisId = vm[1];
       const body = vm[2];
-      const tokens = [];
-      const ketivRe =
-        /<w type="x-ketiv"[^>]*lemma="([^"]*)"[^>]*morph="([^"]*)"[^>]*id="([^"]*)"[^>]*>([^<]*)<\/w>\s*<note type="variant">[\s\S]*?<rdg type="x-qere"><w([^>]*)>([^<]*)<\/w>/g;
-      let km;
-      while ((km = ketivRe.exec(body))) {
-        const qereAttrs = km[5];
-        const qereLemma = (qereAttrs.match(/lemma="([^"]*)"/) || [])[1] || km[1];
-        const qereMorph = (qereAttrs.match(/morph="([^"]*)"/) || [])[1] || km[2];
-        const qereId = (qereAttrs.match(/id="([^"]*)"/) || [])[1] || km[3];
-        tokens.push({
-          order: km.index,
-          heRaw: km[6],
-          lemma: qereLemma,
-          morph: qereMorph,
-          id: qereId,
-          ketiv: stripCantillation(km[4].replace(/\//g, "")),
-          qere: true,
-        });
-      }
-      const wRe = /<w(?![^>]*type="x-ketiv")([^>]*)>([^<]*)<\/w>/g;
-      let wm;
-      while ((wm = wRe.exec(body))) {
-        if (/type="x-qere"/.test(wm[0]) || /type="x-ketiv"/.test(wm[0])) continue;
-        const before = body.slice(Math.max(0, wm.index - 80), wm.index);
-        if (/x-qere[^>]*>\s*$/.test(before) || /<rdg type="x-qere">\s*$/.test(before)) {
-          continue;
-        }
-        const attrs = wm[1];
-        tokens.push({
-          order: wm.index,
-          heRaw: wm[2],
-          lemma: (attrs.match(/lemma="([^"]*)"/) || [])[1] || "",
-          morph: (attrs.match(/morph="([^"]*)"/) || [])[1] || "",
-          id: (attrs.match(/id="([^"]*)"/) || [])[1] || "",
-          ketiv: null,
-          qere: false,
-        });
-      }
-      tokens.sort((a, b) => a.order - b.order);
-      const seen = new Set();
-      const uniq = [];
-      for (const t of tokens) {
-        const key = t.id || `${t.order}`;
-        if (seen.has(key)) continue;
-        seen.add(key);
-        uniq.push(t);
-      }
+      // Flatten nested <seg> (x-large etc.) inside <w> before emit — [^<]* drops those words
+      const uniq = extractWTokens(body).map((t) => ({
+        ...t,
+        ketiv: t.ketiv != null ? stripCantillation(t.ketiv) : null,
+      }));
       const verseNum = parseInt(osisId.split(".")[2], 10);
       verses.push({ osisId, book: bookOsis, chapter: ch, verse: verseNum, tokens: uniq });
     }
@@ -725,6 +684,7 @@ function main() {
     ketivQere: allKetivQere,
     gaps: allGaps,
     verseMap,
+    vendorRoot: VENDOR,
   });
   fs.writeFileSync(
     path.join(REPORTS, "torah-hard-fail.json"),

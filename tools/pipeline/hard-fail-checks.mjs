@@ -2,7 +2,10 @@
  * Sofer hard-fail quality gates (1–8) for pack build / CI.
  * Any failure throws via returned { ok:false, failures }.
  */
+import fs from "fs";
+import path from "path";
 import { BOOKS, TORAH } from "./books.mjs";
+import { extractWTokens, verseBodyFromOshbXml } from "./oshb-w.mjs";
 
 const YHWH_CONS = "יהוה";
 const FORBIDDEN_GLOSS = /jehovah|ye\.?\s*ho\.?\s*vah|yehovah|vowel\s*pointings?\s+of|a\.?\s*do\.?\s*na/i;
@@ -25,8 +28,12 @@ function displayTokens(verse) {
   return verse.words;
 }
 
+function consonantsOnly(s) {
+  return [...String(s || "")].filter((ch) => /[\u05D0-\u05EA]/.test(ch)).join("");
+}
+
 export function runHardFailChecks(ctx) {
-  const { catalog, packByBook, glossCatalog, ketivQere } = ctx;
+  const { catalog, packByBook, glossCatalog, ketivQere, vendorRoot } = ctx;
   const failures = [];
   const samples = {};
 
@@ -97,6 +104,97 @@ export function runHardFailChecks(ctx) {
           }
         }
         samples.gen11 = { hes, phonetics: v.words.map((w) => w.phonetic) };
+      }
+    }
+  }
+
+  // --- 2b. Token-count vs OSHB (same flatten as pack emit) + known x-large verses ---
+  if (vendorRoot) {
+    for (const b of books) {
+      const meta = BOOKS[b];
+      if (!meta?.oshbFile) continue;
+      const xmlPath = path.join(vendorRoot, "oshb", meta.oshbFile);
+      if (!fs.existsSync(xmlPath)) {
+        failures.push(`2-token-count: missing OSHB ${xmlPath}`);
+        continue;
+      }
+      const xml = fs.readFileSync(xmlPath, "utf8");
+      const pack = packByBook[b];
+      let mismatch = 0;
+      for (const v of pack.verses) {
+        const body = verseBodyFromOshbXml(xml, v.id);
+        if (body == null) {
+          failures.push(`2-token-count: OSHB missing verse ${v.id}`);
+          continue;
+        }
+        const oshbCount = extractWTokens(body).length;
+        if (oshbCount !== v.words.length) {
+          mismatch++;
+          if (mismatch <= 15) {
+            failures.push(
+              `2-token-count: ${v.id} pack=${v.words.length} oshb(flattened)=${oshbCount}`
+            );
+          }
+        }
+      }
+      if (mismatch > 15) {
+        failures.push(`2-token-count: ${b} ${mismatch} verses mismatched (showing first 15)`);
+      }
+    }
+  } else {
+    failures.push("2-token-count: vendorRoot not provided — cannot verify OSHB flatten parity");
+  }
+
+  // Known large-letter (x-large seg) verses must keep full surface forms
+  const XLARGE = {
+    "Deut.6.4": {
+      count: 6,
+      mustIncludeCons: ["שמע", "אחד"],
+      // full pack surfaces after cantillation strip (divine name display יהוה)
+      expectHe: null, // filled via consonants check + count
+    },
+    "Lev.11.42": {
+      count: 22,
+      mustIncludeCons: ["גחון"],
+    },
+    "Num.27.5": {
+      count: 6,
+      mustIncludeCons: ["משפטן"],
+    },
+  };
+  for (const [id, spec] of Object.entries(XLARGE)) {
+    const book = id.split(".")[0];
+    const v = packByBook[book]?.verses.find((x) => x.id === id);
+    if (!v) {
+      failures.push(`2-x-large: missing verse ${id}`);
+      continue;
+    }
+    if (spec.count != null && v.words.length !== spec.count) {
+      failures.push(`2-x-large: ${id} expected ${spec.count} tokens got ${v.words.length}`);
+    }
+    const cons = v.words.map((w) => consonantsOnly(w.he));
+    for (const need of spec.mustIncludeCons) {
+      if (!cons.includes(need)) {
+        failures.push(`2-x-large: ${id} missing surface consonants ${need} (got ${cons.join(",")})`);
+      }
+    }
+    samples[id.replace(/\./g, "_")] = {
+      wordCount: v.words.length,
+      hes: v.words.map((w) => w.he),
+      consonants: cons,
+    };
+  }
+  // Deut.6.4 explicit שמע / אחד surfaces (with niqqud ok; consonants gate above)
+  {
+    const v = packByBook.Deut?.verses.find((x) => x.id === "Deut.6.4");
+    if (v && v.words.length === 6) {
+      const hes = v.words.map((w) => w.he);
+      // first token must be Shema; last must be Echad
+      if (consonantsOnly(hes[0]) !== "שמע") {
+        failures.push(`2-x-large: Deut.6.4[0] expected שמע got ${hes[0]}`);
+      }
+      if (consonantsOnly(hes[5]) !== "אחד") {
+        failures.push(`2-x-large: Deut.6.4[5] expected אחד got ${hes[5]}`);
       }
     }
   }

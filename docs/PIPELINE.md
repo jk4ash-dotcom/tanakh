@@ -66,6 +66,8 @@ Full corpus size ballpark: **~10–25MB compressed** content.
 
 **Do not NFC-normalize** Hebrew surfaces. Strip cantillation for UI; keep niqqud as in OSHB.
 
+Nested OSHB `<seg>` (e.g. `type="x-large"`) inside `<w>` must be **flattened** (concatenate text nodes; ignore seg tags for surface form) — see `tools/pipeline/oshb-w.mjs`. Hard-fail token-count uses the same flatten.
+
 ## Biblical Aramaic (Dan / Ezra)
 
 Sections in Daniel and Ezra are **Biblical Aramaic**. Pipeline flags `aramaic: true` on those books (`ARAMAIC_FLAG_BOOKS`).

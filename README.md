@@ -2,7 +2,7 @@
 
 Offline-first Android learner for Hebrew Tanakh.
 
-**Package:** `com.tanakhpoc.learner` · **versionName:** `0.2.0-poc` · **scope:** Torah (Genesis–Deuteronomy)
+**Package:** `com.tanakhpoc.learner` · **versionName:** `0.2.1-poc` · **scope:** Torah (Genesis–Deuteronomy)
 
 ## What ships in this build
 

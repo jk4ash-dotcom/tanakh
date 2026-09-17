@@ -1,7 +1,7 @@
 # Torah Ketiv/Qere report (auto)
 
-Pack version: **0.2.0-poc**
-Generated: 2026-09-17T21:14:51.727Z
+Pack version: **0.2.1-poc**
+Generated: 2026-09-17T21:25:50.621Z
 Total K/Q pairs: **67**
 
 | Book | Count |

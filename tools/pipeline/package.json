@@ -6,7 +6,8 @@
   "scripts": {
     "build": "node build-pack.mjs --scope torah",
     "build:torah": "node build-pack.mjs --scope torah",
-    "build:book": "node build-pack.mjs --scope book=Gen"
+    "build:book": "node build-pack.mjs --scope book=Gen",
+    "test": "node --test oshb-w.test.mjs"
   },
   "keywords": [],
   "author": "",
