@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.widthIn
@@ -36,9 +37,10 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalLayoutDirection
-import androidx.compose.ui.text.font.FontFamily
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextDirection
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -48,6 +50,8 @@ import com.tanakhpoc.learner.data.Token
 import com.tanakhpoc.learner.data.Verse
 import com.tanakhpoc.learner.ui.theme.ChipHebrew
 import com.tanakhpoc.learner.ui.theme.ChipPhonetic
+import com.tanakhpoc.learner.ui.theme.HebrewFontFamily
+import com.tanakhpoc.learner.ui.theme.Ink
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -101,22 +105,32 @@ fun VerseScreen(
                     tokens.forEach { token ->
                         Column(
                             horizontalAlignment = Alignment.CenterHorizontally,
-                            modifier = Modifier.widthIn(min = 64.dp)
+                            modifier = Modifier.widthIn(min = 72.dp)
                         ) {
                             AssistChip(
                                 onClick = { selected = token },
+                                modifier = Modifier.heightIn(min = 40.dp),
                                 label = {
                                     Text(
-                                        token.he,
+                                        text = token.he,
+                                        color = Ink,
                                         fontSize = 20.sp,
-                                        fontFamily = FontFamily.Serif,
+                                        lineHeight = 28.sp,
+                                        fontFamily = HebrewFontFamily,
                                         textAlign = TextAlign.Center,
-                                        style = MaterialTheme.typography.titleLarge.copy(
-                                            textDirection = TextDirection.Rtl
+                                        softWrap = false,
+                                        overflow = TextOverflow.Visible,
+                                        maxLines = 1,
+                                        style = TextStyle(
+                                            textDirection = TextDirection.Rtl,
+                                            fontFamily = HebrewFontFamily
                                         )
                                     )
                                 },
-                                colors = AssistChipDefaults.assistChipColors(containerColor = ChipHebrew)
+                                colors = AssistChipDefaults.assistChipColors(
+                                    containerColor = ChipHebrew,
+                                    labelColor = Ink
+                                )
                             )
                             AssistChip(
                                 onClick = { selected = token },
@@ -124,10 +138,14 @@ fun VerseScreen(
                                     Text(
                                         token.phonetic,
                                         style = MaterialTheme.typography.bodyMedium,
+                                        color = Ink,
                                         textAlign = TextAlign.Center
                                     )
                                 },
-                                colors = AssistChipDefaults.assistChipColors(containerColor = ChipPhonetic)
+                                colors = AssistChipDefaults.assistChipColors(
+                                    containerColor = ChipPhonetic,
+                                    labelColor = Ink
+                                )
                             )
                         }
                     }
@@ -164,14 +182,24 @@ fun VerseScreen(
                 Text("Possible sense(s)", style = MaterialTheme.typography.titleLarge)
                 Spacer(Modifier.height(8.dp))
                 Text(
-                    "${token.he} · ${token.phonetic}",
+                    text = token.he,
+                    style = MaterialTheme.typography.titleLarge.copy(
+                        fontFamily = HebrewFontFamily,
+                        textDirection = TextDirection.Rtl
+                    ),
+                    fontFamily = HebrewFontFamily,
+                    color = Ink
+                )
+                Text(
+                    token.phonetic,
                     style = MaterialTheme.typography.titleMedium,
-                    fontFamily = FontFamily.Serif
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                    modifier = Modifier.padding(top = 2.dp)
                 )
                 if (token.divineName) {
                     Text(
                         "Divine name: יהוה / YHWH (no vocalization invented)",
-                        style = MaterialTheme.typography.bodyMedium,
+                        style = MaterialTheme.typography.bodyMedium.copy(fontFamily = HebrewFontFamily),
                         color = MaterialTheme.colorScheme.primary,
                         modifier = Modifier.padding(top = 4.dp)
                     )
@@ -194,7 +222,7 @@ fun VerseScreen(
                 token.ketiv?.let {
                     Text(
                         "Ketiv (written): $it — phonetic follows qere",
-                        style = MaterialTheme.typography.bodySmall,
+                        style = MaterialTheme.typography.bodySmall.copy(fontFamily = HebrewFontFamily),
                         color = MaterialTheme.colorScheme.onSurfaceVariant
                     )
                 }

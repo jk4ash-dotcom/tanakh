@@ -90,9 +90,16 @@ fun AboutScreen(meta: PackMeta, onBack: () -> Unit) {
                 color = MaterialTheme.colorScheme.onSurfaceVariant
             )
             Spacer(Modifier.height(12.dp))
+            Text("Hebrew UI font", style = MaterialTheme.typography.titleMedium)
+            Text(
+                "Noto Sans Hebrew (Google / Noto Project) — SIL Open Font License 1.1. Embedded for reliable Hebrew glyph coverage on device chips and gloss sheet. See third_party/NotoSansHebrew/.",
+                style = MaterialTheme.typography.bodyMedium,
+                color = MaterialTheme.colorScheme.onSurfaceVariant
+            )
+            Spacer(Modifier.height(12.dp))
             Text("Licenses", style = MaterialTheme.typography.titleMedium)
             Text(
-                "OSHB (PD + CC BY 4.0) · TBESH (CC BY 4.0, STEPBible) · JPS 1917 (PD) · hebrew-transliteration (MIT).",
+                "OSHB (PD + CC BY 4.0) · TBESH (CC BY 4.0, STEPBible) · JPS 1917 (PD) · hebrew-transliteration (MIT) · Noto Sans Hebrew (SIL OFL 1.1).",
                 style = MaterialTheme.typography.bodyMedium,
                 color = MaterialTheme.colorScheme.onSurfaceVariant
             )

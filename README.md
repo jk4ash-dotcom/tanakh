@@ -2,7 +2,7 @@
 
 Offline-first Android POC for learning Hebrew Tanakh (Genesis 1–3).
 
-**Package:** `com.tanakhpoc.learner` · **versionName:** `0.1.1-poc`
+**Package:** `com.tanakhpoc.learner` · **versionName:** `0.1.3-poc`
 
 ## What ships in this build
 
@@ -30,6 +30,10 @@ Rebuild the offline pack after changing vendor data:
 ```bash
 cd tools/pipeline && npm install && node build-pack.mjs
 ```
+
+## Fonts
+
+Hebrew UI uses embedded **Noto Sans Hebrew** (SIL Open Font License 1.1) from the [Noto Hebrew](https://github.com/notofonts/hebrew) project — see `third_party/NotoSansHebrew/` and `app/src/main/res/font/`. Applied to verse chips and gloss-sheet Hebrew so devices without system Hebrew fonts still render glyphs.
 
 ## UI
 

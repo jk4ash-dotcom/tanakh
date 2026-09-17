@@ -6,3 +6,7 @@ English: Jewish Publication Society Tanakh 1917 — Public Domain (via ebible.or
 Glosses: TBESH — Translators Brief lexicon of Extended Strongs for Hebrew — STEPBible / Tyndale House — CC BY 4.0.
   Fallback: OSHB HebrewStrong.xml — CC BY 4.0.
 Phonetics: generated with hebrew-transliteration (MIT, Charles Loder) using Sofer SBL-Learner schema.
+
+UI font: Noto Sans Hebrew (Google / Noto Project) — SIL Open Font License 1.1.
+  Source: https://github.com/notofonts/hebrew (NotoSansHebrew-v2.004).
+  Files: app/src/main/res/font/noto_sans_hebrew_*.ttf · license: third_party/NotoSansHebrew/OFL.txt
