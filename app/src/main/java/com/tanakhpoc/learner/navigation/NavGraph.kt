@@ -10,7 +10,11 @@ import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
@@ -22,7 +26,10 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.tanakhpoc.learner.TanakhApp
+import com.tanakhpoc.learner.data.BookTitles
+import com.tanakhpoc.learner.data.ChapterIndex
 import com.tanakhpoc.learner.ui.screens.AboutScreen
+import com.tanakhpoc.learner.ui.screens.BookScreen
 import com.tanakhpoc.learner.ui.screens.ChapterScreen
 import com.tanakhpoc.learner.ui.screens.HomeScreen
 import com.tanakhpoc.learner.ui.screens.VerseScreen
@@ -39,7 +46,7 @@ fun TanakhNavGraph() {
         Box(Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
             Column(horizontalAlignment = Alignment.CenterHorizontally, modifier = Modifier.padding(24.dp)) {
                 if (loadError != null) {
-                    Text("Could not load pack", style = MaterialTheme.typography.titleMedium)
+                    Text("Could not load catalog", style = MaterialTheme.typography.titleMedium)
                     Spacer(Modifier.height(8.dp))
                     Text(
                         loadError ?: "",
@@ -49,7 +56,7 @@ fun TanakhNavGraph() {
                 } else {
                     CircularProgressIndicator()
                     Spacer(Modifier.height(16.dp))
-                    Text("Loading Genesis pack…", style = MaterialTheme.typography.bodyLarge)
+                    Text("Loading Torah catalog…", style = MaterialTheme.typography.bodyLarge)
                 }
             }
         }
@@ -59,13 +66,50 @@ fun TanakhNavGraph() {
     NavHost(navController, startDestination = Routes.HOME) {
         composable(Routes.HOME) {
             HomeScreen(
-                chapters = ready.chapters,
-                onOpenChapter = { b, c -> navController.navigate(Routes.chapter(b, c)) },
+                books = ready.bookSummaries,
+                scope = ready.scope,
+                onOpenBook = { b -> navController.navigate(Routes.book(b)) },
                 onAbout = { navController.navigate(Routes.ABOUT) }
             )
         }
         composable(Routes.ABOUT) {
-            AboutScreen(meta = ready.meta, onBack = { navController.popBackStack() })
+            AboutScreen(
+                version = ready.metaVersion,
+                scope = ready.scope,
+                totals = ready.catalog.totals,
+                onBack = { navController.popBackStack() }
+            )
+        }
+        composable(
+            Routes.BOOK,
+            arguments = listOf(navArgument("book") { type = NavType.StringType })
+        ) { e ->
+            val book = e.arguments?.getString("book") ?: return@composable
+            var chapters by remember(book) { mutableStateOf<List<ChapterIndex>?>(null) }
+            var err by remember(book) { mutableStateOf<String?>(null) }
+            LaunchedEffect(book) {
+                runCatching { ready.ensureBook(book) }
+                    .onSuccess { chapters = it.chapters }
+                    .onFailure { err = it.message }
+            }
+            when {
+                err != null -> Box(Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
+                    Text(err ?: "Error", color = MaterialTheme.colorScheme.error)
+                }
+                chapters == null -> Box(Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
+                    Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                        CircularProgressIndicator()
+                        Spacer(Modifier.height(12.dp))
+                        Text("Loading ${BookTitles.title(book)}…")
+                    }
+                }
+                else -> BookScreen(
+                    book = book,
+                    chapters = chapters!!,
+                    onBack = { navController.popBackStack() },
+                    onOpenChapter = { b, c -> navController.navigate(Routes.chapter(b, c)) }
+                )
+            }
         }
         composable(
             Routes.CHAPTER,
@@ -76,25 +120,60 @@ fun TanakhNavGraph() {
         ) { e ->
             val book = e.arguments?.getString("book") ?: "Gen"
             val chapter = e.arguments?.getInt("chapter") ?: 1
-            ChapterScreen(
-                book = book,
-                chapter = chapter,
-                verses = ready.versesInChapter(book, chapter),
-                onBack = { navController.popBackStack() },
-                onOpenVerse = { id -> navController.navigate(Routes.verse(id)) }
-            )
+            var readyChapter by remember(book, chapter) { mutableStateOf(false) }
+            var err by remember(book, chapter) { mutableStateOf<String?>(null) }
+            LaunchedEffect(book, chapter) {
+                runCatching { ready.ensureBook(book) }
+                    .onSuccess { readyChapter = true }
+                    .onFailure { err = it.message }
+            }
+            when {
+                err != null -> Box(Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
+                    Text(err ?: "Error", color = MaterialTheme.colorScheme.error)
+                }
+                !readyChapter -> Box(Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
+                    CircularProgressIndicator()
+                }
+                else -> ChapterScreen(
+                    book = book,
+                    chapter = chapter,
+                    verses = ready.versesInChapter(book, chapter),
+                    onBack = { navController.popBackStack() },
+                    onOpenVerse = { id -> navController.navigate(Routes.verse(id)) }
+                )
+            }
         }
         composable(
             Routes.VERSE,
             arguments = listOf(navArgument("verseId") { type = NavType.StringType })
         ) { e ->
             val id = e.arguments?.getString("verseId") ?: return@composable
-            val verse = ready.verse(id) ?: return@composable
-            VerseScreen(
-                verse = verse,
-                resolveGloss = { ready.gloss(it) },
-                onBack = { navController.popBackStack() }
-            )
+            val book = id.substringBefore('.')
+            var verseReady by remember(id) { mutableStateOf(ready.verse(id) != null) }
+            var err by remember(id) { mutableStateOf<String?>(null) }
+            LaunchedEffect(id) {
+                if (!verseReady) {
+                    runCatching { ready.ensureBook(book) }
+                        .onSuccess { verseReady = true }
+                        .onFailure { err = it.message }
+                }
+            }
+            when {
+                err != null -> Box(Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
+                    Text(err ?: "Error", color = MaterialTheme.colorScheme.error)
+                }
+                !verseReady || ready.verse(id) == null -> Box(Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
+                    CircularProgressIndicator()
+                }
+                else -> {
+                    val verse = ready.verse(id)!!
+                    VerseScreen(
+                        verse = verse,
+                        resolveGloss = { ready.gloss(it) },
+                        onBack = { navController.popBackStack() }
+                    )
+                }
+            }
         }
     }
 }

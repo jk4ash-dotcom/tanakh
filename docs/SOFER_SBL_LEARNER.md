@@ -71,3 +71,7 @@ Syllabification options follow SBL defaults useful for Biblical Hebrew
 ```bash
 cd tools/pipeline && npm install && npm run build
 ```
+
+## Biblical Aramaic
+
+Daniel and Ezra contain Biblical Aramaic. Do **not** silently apply this Hebrew SBL-Learner schema to those spans. Flag for Sofer-approved Aramaic handling. Torah has no Aramaic body text.

@@ -1,51 +1,46 @@
-# Tanakh Learner (POC)
+# Tanakh Learner
 
-Offline-first Android POC for learning Hebrew Tanakh (Genesis 1–3).
+Offline-first Android learner for Hebrew Tanakh.
 
-**Package:** `com.tanakhpoc.learner` · **versionName:** `0.1.3-poc`
+**Package:** `com.tanakhpoc.learner` · **versionName:** `0.2.0-poc` · **scope:** Torah (Genesis–Deuteronomy)
 
 ## What ships in this build
 
 | Layer | Source | Status |
 |-------|--------|--------|
-| Hebrew tokens | OSHB / morphhb WLC **v.2.2** `Gen.xml` | **Real** |
-| Phonetics | `hebrew-transliteration` + **Sofer SBL-Learner** schema (from niqqud) | **Generated (real pipeline)** |
-| English verse row | **JPS 1917** (Public Domain) | **Real** (verse-level, not word-aligned) |
+| Hebrew tokens | OSHB / morphhb WLC **v.2.2** (all Torah books) | **Real** |
+| Phonetics | `hebrew-transliteration` + **Sofer SBL-Learner** (from niqqud) | **Generated** |
+| English verse row | **JPS 1917** (PD), VerseMap-aware | **Real** (verse-level) |
 | Glosses | **TBESH** primary, **HebrewStrong.xml** fallback | **Real** where lemma resolves |
 | Divine name | יהוה / **YHWH** only | **Policy enforced** |
+| Nav | **Jewish Tanakh order** | Torah books |
+| Assets | Per-book `.json.gz` lazy load | ~1.6MB compressed |
 
-See `docs/SOFER_SBL_LEARNER.md` and `docs/DATA_CONTRACT.md`.
+See `docs/SOFER_SBL_LEARNER.md`, `docs/DATA_CONTRACT.md`, `docs/PIPELINE.md`.
 
 ## Build & run
 
 ```bash
-export ANDROID_HOME=/path/to/Android/sdk
-export JAVA_HOME=/path/to/jdk-17
+export ANDROID_HOME=/workspace/android-sdk
+export JAVA_HOME=/workspace/.jdk/jdk-17.0.20.1+1
 ./gradlew :app:assembleDebug
 # APK: app/build/outputs/apk/debug/app-debug.apk
 ```
 
-Rebuild the offline pack after changing vendor data:
+Rebuild offline packs:
 
 ```bash
-cd tools/pipeline && npm install && node build-pack.mjs
+cd tools/pipeline && npm install && npm run build:torah
+# Prefer shipping gzip only under app/src/main/assets/data/
 ```
-
-## Fonts
-
-Hebrew UI uses embedded **Noto Sans Hebrew** (SIL Open Font License 1.1) from the [Noto Hebrew](https://github.com/notofonts/hebrew) project — see `third_party/NotoSansHebrew/` and `app/src/main/res/font/`. Applied to verse chips and gloss-sheet Hebrew so devices without system Hebrew fonts still render glyphs.
 
 ## UI
 
-- Home → Genesis 1 / 2 / 3
-- Verse: LTR **paired chips** (RTL Hebrew glyphs inside chip + LTR phonetic) in **OSHB token order**
-- Tap phonetic → bottom sheet **“Possible sense(s)”** with footer **“Gloss ≠ verse translation”**
-- About: licenses, Sofer policy, LTR display note
+- Home → Torah books (Jewish order)
+- Book → chapters → verse list
+- Verse: LTR **paired chips** (Noto Sans Hebrew + phonetic) in **OSHB token order**
+- Tap phonetic → **“Possible sense(s)”** / **“Gloss ≠ verse translation”**
 
-## Data contract (Sleuth / Sofer)
+## Quality gates
 
-Pack asset: `app/src/main/assets/data/pack_gen_1_3.json`
-
-- Single `words[]` array per verse — never reverse Hebrew independently of phonetics
-- English is verse-level JPS 1917
-- Phonetics derived from OSHB niqqud only (never from English)
+Pack build runs Sofer hard-fail checks 1–8 (coverage, token order, phonetics, YHWH, gloss sanitize, JPS, LTR, ketiv/qere). Auto K/Q report in `reports/torah-ketiv-qere.md`.

@@ -23,6 +23,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
+import com.tanakhpoc.learner.data.BookTitles
 import com.tanakhpoc.learner.data.Verse
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -34,7 +35,7 @@ fun ChapterScreen(
     onBack: () -> Unit,
     onOpenVerse: (String) -> Unit
 ) {
-    val title = if (book == "Gen") "Genesis $chapter" else "$book $chapter"
+    val title = BookTitles.chapterLabel(book, chapter)
     Scaffold(
         topBar = {
             TopAppBar(

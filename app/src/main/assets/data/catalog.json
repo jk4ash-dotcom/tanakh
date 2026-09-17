@@ -1,0 +1,74 @@
+{
+  "name": "tanakh-learner",
+  "version": "0.2.0-poc",
+  "generatedAt": "2026-09-17T21:14:51.727Z",
+  "scope": "Torah (Gen–Deut)",
+  "navOrder": "Jewish Tanakh",
+  "hebrewPin": "OSHB morphhb v.2.2",
+  "books": [
+    {
+      "osis": "Gen",
+      "title": "Genesis",
+      "division": "Torah",
+      "jewishOrder": 0,
+      "chapters": 50,
+      "verses": 1533,
+      "asset": "data/books/Gen.json",
+      "assetGz": "data/books/Gen.json.gz",
+      "aramaic": false
+    },
+    {
+      "osis": "Exod",
+      "title": "Exodus",
+      "division": "Torah",
+      "jewishOrder": 1,
+      "chapters": 40,
+      "verses": 1213,
+      "asset": "data/books/Exod.json",
+      "assetGz": "data/books/Exod.json.gz",
+      "aramaic": false
+    },
+    {
+      "osis": "Lev",
+      "title": "Leviticus",
+      "division": "Torah",
+      "jewishOrder": 2,
+      "chapters": 27,
+      "verses": 859,
+      "asset": "data/books/Lev.json",
+      "assetGz": "data/books/Lev.json.gz",
+      "aramaic": false
+    },
+    {
+      "osis": "Num",
+      "title": "Numbers",
+      "division": "Torah",
+      "jewishOrder": 3,
+      "chapters": 36,
+      "verses": 1289,
+      "asset": "data/books/Num.json",
+      "assetGz": "data/books/Num.json.gz",
+      "aramaic": false
+    },
+    {
+      "osis": "Deut",
+      "title": "Deuteronomy",
+      "division": "Torah",
+      "jewishOrder": 4,
+      "chapters": 34,
+      "verses": 959,
+      "asset": "data/books/Deut.json",
+      "assetGz": "data/books/Deut.json.gz",
+      "aramaic": false
+    }
+  ],
+  "glossesAsset": "data/glosses.json",
+  "glossesAssetGz": "data/glosses.json.gz",
+  "totals": {
+    "books": 5,
+    "verses": 5853,
+    "glosses": 3532,
+    "ketivQere": 67,
+    "gaps": 144
+  }
+}

@@ -21,11 +21,16 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.tanakhpoc.learner.BuildConfig
-import com.tanakhpoc.learner.data.PackMeta
+import com.tanakhpoc.learner.data.CatalogTotals
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun AboutScreen(meta: PackMeta, onBack: () -> Unit) {
+fun AboutScreen(
+    version: String,
+    scope: String,
+    totals: CatalogTotals,
+    onBack: () -> Unit
+) {
     Scaffold(
         topBar = {
             TopAppBar(
@@ -46,53 +51,53 @@ fun AboutScreen(meta: PackMeta, onBack: () -> Unit) {
                 .verticalScroll(rememberScrollState())
                 .padding(24.dp)
         ) {
-            Text("Tanakh Learner (POC)", style = MaterialTheme.typography.headlineSmall)
+            Text("Tanakh Learner", style = MaterialTheme.typography.headlineSmall)
             Spacer(Modifier.height(8.dp))
             Text(
-                "Accuracy-first offline Hebrew Tanakh learner. Scope: ${meta.scope.ifBlank { "Genesis 1–3" }}.",
+                "Accuracy-first offline Hebrew Tanakh learner. Scope: ${scope.ifBlank { "Torah" }}. " +
+                    "${totals.books} books · ${totals.verses} verses · ${totals.glosses} glosses · " +
+                    "${totals.ketivQere} ketiv/qere.",
                 style = MaterialTheme.typography.bodyLarge
             )
             Spacer(Modifier.height(16.dp))
+            Text("Navigation", style = MaterialTheme.typography.titleMedium)
+            Text(
+                "Jewish Tanakh order (Torah → Nevi’im → Ketuvim). Daniel is in Writings when present — not Christian/filename order.",
+                style = MaterialTheme.typography.bodyMedium,
+                color = MaterialTheme.colorScheme.onSurfaceVariant
+            )
+            Spacer(Modifier.height(12.dp))
             Text("Hebrew text", style = MaterialTheme.typography.titleMedium)
             Text(
-                "OSHB / morphhb WLC ${meta.hebrew["pin"] ?: "v.2.2"} — PD text; lemma/morphology CC BY 4.0 (Open Scriptures). Not UXLC.",
+                "OSHB / morphhb WLC v.2.2 — PD text; lemma/morphology CC BY 4.0 (Open Scriptures). Not UXLC. Surfaces are not NFC-normalized.",
                 style = MaterialTheme.typography.bodyMedium,
                 color = MaterialTheme.colorScheme.onSurfaceVariant
             )
             Spacer(Modifier.height(12.dp))
             Text("English (verse row)", style = MaterialTheme.typography.titleMedium)
             Text(
-                "JPS 1917 (Public Domain). Verse-level only — not word-aligned. English may use God/Lord/LORD independently of YHWH policy.",
+                "JPS 1917 (Public Domain). Verse-level only — not word-aligned. Hebrew WLC verse IDs are primary; engjps mapped via OSHB VerseMap.xml where WLC≠KJV.",
                 style = MaterialTheme.typography.bodyMedium,
                 color = MaterialTheme.colorScheme.onSurfaceVariant
             )
             Spacer(Modifier.height(12.dp))
             Text("Phonetics (Sofer SBL-Learner)", style = MaterialTheme.typography.titleMedium)
             Text(
-                meta.phonetics["policy"]
-                    ?: "From OSHB niqqud via hebrew-transliteration (MIT) + Sofer SBL-Learner: Biblical/Tiberian, digraphs sh/kh/ts/ʾ/ʿ, vocal shewa ĕ, NOT Modern Israeli. יהוה → YHWH only.",
+                "From OSHB niqqud via hebrew-transliteration (MIT) + Sofer SBL-Learner: Biblical/Tiberian, digraphs sh/kh/ts/ʾ/ʿ, vocal shewa ĕ, NOT Modern Israeli. יהוה → YHWH only. Biblical Aramaic (Dan/Ezra) must not silently use Hebrew-only rules — flagged for Sofer-approved handling.",
                 style = MaterialTheme.typography.bodyMedium,
                 color = MaterialTheme.colorScheme.onSurfaceVariant
             )
             Spacer(Modifier.height(12.dp))
             Text("Glosses", style = MaterialTheme.typography.titleMedium)
             Text(
-                "${meta.glosses["primary"] ?: "TBESH CC BY 4.0"}; fallback ${meta.glosses["fallback"] ?: "HebrewStrong.xml"}. UI: “Possible sense(s)” — Gloss ≠ verse translation.",
+                "TBESH CC BY 4.0 (STEPBible); fallback HebrewStrong.xml. UI: “Possible sense(s)” — Gloss ≠ verse translation. Jehovah / ye.ho.vah dumps sanitized.",
                 style = MaterialTheme.typography.bodyMedium,
                 color = MaterialTheme.colorScheme.onSurfaceVariant
             )
             Spacer(Modifier.height(12.dp))
             Text("Display order", style = MaterialTheme.typography.titleMedium)
             Text(
-                meta.display["tokenOrder"]
-                    ?: "Single token array keeps OSHB order. LTR paired chips are display-only — do not naïve-reverse the verse string.",
-                style = MaterialTheme.typography.bodyMedium,
-                color = MaterialTheme.colorScheme.onSurfaceVariant
-            )
-            Spacer(Modifier.height(12.dp))
-            Text("Hebrew UI font", style = MaterialTheme.typography.titleMedium)
-            Text(
-                "Noto Sans Hebrew (Google / Noto Project) — SIL Open Font License 1.1. Embedded for reliable Hebrew glyph coverage on device chips and gloss sheet. See third_party/NotoSansHebrew/.",
+                "Single token array keeps OSHB order. LTR paired chips are display-only — do not naïve-reverse the verse string. Noto Sans Hebrew for chips.",
                 style = MaterialTheme.typography.bodyMedium,
                 color = MaterialTheme.colorScheme.onSurfaceVariant
             )
@@ -103,14 +108,9 @@ fun AboutScreen(meta: PackMeta, onBack: () -> Unit) {
                 style = MaterialTheme.typography.bodyMedium,
                 color = MaterialTheme.colorScheme.onSurfaceVariant
             )
-            if (meta.gaps.isNotEmpty()) {
-                Spacer(Modifier.height(12.dp))
-                Text("Gaps", style = MaterialTheme.typography.titleMedium)
-                Text(meta.gaps.joinToString("\n") { "• $it" }, style = MaterialTheme.typography.bodySmall)
-            }
             Spacer(Modifier.height(24.dp))
             Text(
-                "App ${BuildConfig.VERSION_NAME} · pack ${meta.version} · ${BuildConfig.APPLICATION_ID}",
+                "App ${BuildConfig.VERSION_NAME} · pack $version · ${BuildConfig.APPLICATION_ID}",
                 style = MaterialTheme.typography.bodySmall,
                 color = MaterialTheme.colorScheme.onSurfaceVariant
             )

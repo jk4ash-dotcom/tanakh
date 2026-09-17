@@ -20,10 +20,10 @@ class PackSanityTest {
         @BeforeClass
         fun loadPack() {
             val stream = PackSanityTest::class.java.classLoader!!
-                .getResourceAsStream("data/pack_gen_1_3.json")
-                ?: error("Missing test resource data/pack_gen_1_3.json")
+                .getResourceAsStream("data/pack_torah_samples.json")
+                ?: error("Missing test resource data/pack_torah_samples.json")
             val text = stream.bufferedReader(Charsets.UTF_8).use { it.readText() }
-            repo = PackRepository.parse(text)
+            repo = PackRepository.parseCombined(text)
         }
     }
 
@@ -49,8 +49,23 @@ class PackSanityTest {
     }
 
     @Test
+    fun sampleVerses_perTorahBook_present() {
+        listOf(
+            "Gen.1.1", "Exod.3.14", "Lev.19.18", "Num.6.24", "Deut.6.4"
+        ).forEach { id ->
+            val v = repo.verse(id)
+            assertNotNull("missing $id", v)
+            assertTrue(v!!.words.isNotEmpty())
+            assertTrue(v.english.text.isNotBlank())
+            assertEquals(id.substringBefore('.'), v.book)
+        }
+    }
+
+    @Test
     fun yhwh_hardRule_consonantsAndPhonetic() {
-        val tokens = repo.verses.flatMap { it.words }.filter { it.divineName }
+        val tokens = listOf("Gen.2.4", "Gen.4.3", "Exod.3.15", "Deut.6.4")
+            .flatMap { repo.verse(it)!!.words }
+            .filter { it.divineName }
         assertTrue(tokens.isNotEmpty())
         tokens.forEach { t ->
             assertEquals("יהוה", t.he)
@@ -61,6 +76,11 @@ class PackSanityTest {
         val g24 = repo.verse("Gen.2.4")!!.words.first { it.divineName }
         assertEquals("יהוה", g24.he)
         assertEquals("YHWH", g24.phonetic)
+        // Prefixed surface still displays יהוה only
+        val g43 = repo.verse("Gen.4.3")!!.words.first { it.divineName }
+        assertEquals("יהוה", g43.he)
+        assertEquals("YHWH", g43.phonetic)
+        assertNotNull(g43.procliticNote)
     }
 
     @Test
@@ -84,12 +104,8 @@ class PackSanityTest {
     @Test
     fun ltr_order_invariant_displayTokensNeverReverses() {
         val verses = listOf(
-            repo.verse("Gen.1.1")!!,
-            repo.verse("Gen.1.2")!!,
-            repo.verse("Gen.2.4")!!,
-            repo.verse("Gen.3.1")!!,
-            repo.verse("Gen.3.15")!!
-        )
+            "Gen.1.1", "Gen.2.4", "Exod.3.14", "Lev.19.18", "Num.6.24", "Deut.6.4"
+        ).map { repo.verse(it)!! }
         verses.forEach { v ->
             val shown = GlossDisplay.displayTokens(v)
             assertEquals(v.words.size, shown.size)
@@ -183,5 +199,41 @@ class PackSanityTest {
             assertFalse(s.contains("Jehovah", ignoreCase = true))
         }
         assertNull(shown.definition)
+    }
+
+    @Test
+    fun ketivQere_flagAndPhoneticFromQere() {
+        val v = repo.verse("Gen.8.17")!!
+        val kq = v.words.filter { it.qereFlag || it.ketiv != null }
+        assertTrue("expected K/Q in Gen.8.17 sample", kq.isNotEmpty())
+        kq.forEach { t ->
+            assertTrue(t.qereFlag)
+            assertNotNull(t.ketiv)
+            assertTrue(t.phonetic.isNotBlank())
+            assertFalse(t.phonetic == t.ketiv)
+        }
+    }
+
+    @Test
+    fun jps_verseLevel_notWordAligned() {
+        listOf("Gen.1.1", "Exod.20.2", "Deut.6.5").forEach { id ->
+            val v = repo.verse(id)!!
+            assertTrue(v.english.text.isNotBlank())
+            assertEquals("JPS 1917", v.english.source)
+            v.words.forEach { w ->
+                // Token has no english field in model — verse-level only
+                assertTrue(w.he.isNotBlank())
+            }
+        }
+    }
+
+    @Test
+    fun catalog_jewishOrder_torahBooks() {
+        val osis = repo.bookSummaries.map { it.osis }
+        assertTrue(osis.contains("Gen"))
+        // samples fixture may only include books present in samples
+        val order = listOf("Gen", "Exod", "Lev", "Num", "Deut")
+        val present = order.filter { it in osis }
+        assertEquals(present, present.sortedBy { order.indexOf(it) })
     }
 }

@@ -44,6 +44,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.tanakhpoc.learner.data.BookTitles
 import com.tanakhpoc.learner.data.Gloss
 import com.tanakhpoc.learner.data.GlossDisplay
 import com.tanakhpoc.learner.data.Token
@@ -62,11 +63,7 @@ fun VerseScreen(
 ) {
     var selected by remember { mutableStateOf<Token?>(null) }
     val sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)
-    val title = if (verse.book == "Gen") {
-        "Genesis ${verse.chapter}:${verse.verse}"
-    } else {
-        "${verse.book} ${verse.chapter}:${verse.verse}"
-    }
+    val title = BookTitles.verseLabel(verse.book, verse.chapter, verse.verse)
     val tokens = GlossDisplay.displayTokens(verse)
 
     Scaffold(

@@ -1,0 +1,150 @@
+{
+  "ok": true,
+  "failures": [],
+  "samples": {
+    "gen11": {
+      "hes": [
+        "בְּרֵאשִׁית",
+        "בָּרָא",
+        "אֱלֹהִים",
+        "אֵת",
+        "הַשָּׁמַיִם",
+        "וְאֵת",
+        "הָאָרֶץ"
+      ],
+      "phonetics": [
+        "bĕrēʾshîth",
+        "bārāʾ",
+        "ʾĕlōhîm",
+        "ʾēth",
+        "hashshāmayīm",
+        "wĕʾēth",
+        "hāʾārets"
+      ]
+    },
+    "yhwhCount": 1815,
+    "h3068": {
+      "primary": "LORD",
+      "definitionHasJehovah": true,
+      "sanitized": "1) the proper name of the one true God",
+      "displayPrimary": "LORD"
+    },
+    "missingJps": 0,
+    "ketivQereCount": 67
+  },
+  "soferSamples": {
+    "Gen.1.1": {
+      "english": "IN THE beginning God created the heaven and the earth.",
+      "wordCount": 7,
+      "first": {
+        "he": "בְּרֵאשִׁית",
+        "phonetic": "bĕrēʾshîth"
+      },
+      "yhwh": []
+    },
+    "Gen.2.4": {
+      "english": "These are the generations of the heaven and of the earth when they were created, in the day that the LORD God made earth",
+      "wordCount": 11,
+      "first": {
+        "he": "אֵלֶּה",
+        "phonetic": "ʾēlleh"
+      },
+      "yhwh": [
+        {
+          "he": "יהוה",
+          "phonetic": "YHWH"
+        }
+      ]
+    },
+    "Exod.3.14": {
+      "english": "And God said unto Moses: 'I AM THAT I AM'; and He said: 'Thus shalt thou say unto the children of Israel: I AM hath sent",
+      "wordCount": 15,
+      "first": {
+        "he": "וַיֹּאמֶר",
+        "phonetic": "wayyōʾmer"
+      },
+      "yhwh": []
+    },
+    "Exod.3.15": {
+      "english": "And God said moreover unto Moses: 'Thus shalt thou say unto the children of Israel: The LORD, the God of your fathers, t",
+      "wordCount": 28,
+      "first": {
+        "he": "וַיֹּאמֶר",
+        "phonetic": "wayyōʾmer"
+      },
+      "yhwh": [
+        {
+          "he": "יהוה",
+          "phonetic": "YHWH"
+        }
+      ]
+    },
+    "Lev.19.18": {
+      "english": "Thou shalt not take vengeance, nor bear any grudge against the children of thy people, but thou shalt love thy neighbour",
+      "wordCount": 12,
+      "first": {
+        "he": "לֹא",
+        "phonetic": "lōʾ"
+      },
+      "yhwh": [
+        {
+          "he": "יהוה",
+          "phonetic": "YHWH"
+        }
+      ]
+    },
+    "Num.6.24": {
+      "english": "The LORD bless thee, and keep thee;",
+      "wordCount": 3,
+      "first": {
+        "he": "יְבָרֶכְךָ",
+        "phonetic": "yĕvārekhkhā"
+      },
+      "yhwh": [
+        {
+          "he": "יהוה",
+          "phonetic": "YHWH"
+        }
+      ]
+    },
+    "Deut.6.4": {
+      "english": "HEAR, O ISRAEL: THE LORD OUR GOD, THE LORD IS ONE.",
+      "wordCount": 4,
+      "first": {
+        "he": "יִשְׂרָאֵל",
+        "phonetic": "yisrāʾēl"
+      },
+      "yhwh": [
+        {
+          "he": "יהוה",
+          "phonetic": "YHWH"
+        },
+        {
+          "he": "יהוה",
+          "phonetic": "YHWH"
+        }
+      ]
+    },
+    "Deut.6.5": {
+      "english": "And thou shalt love the LORD thy God with all thy heart, and with all thy soul, and with all thy might.",
+      "wordCount": 10,
+      "first": {
+        "he": "וְאָהַבְתָּ",
+        "phonetic": "wĕʾāhavtā"
+      },
+      "yhwh": [
+        {
+          "he": "יהוה",
+          "phonetic": "YHWH"
+        }
+      ]
+    }
+  },
+  "checkedBooks": [
+    "Gen",
+    "Exod",
+    "Lev",
+    "Num",
+    "Deut"
+  ]
+}

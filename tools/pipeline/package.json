@@ -4,8 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "node build-pack.mjs"
+    "build": "node build-pack.mjs --scope torah",
+    "build:torah": "node build-pack.mjs --scope torah",
+    "build:book": "node build-pack.mjs --scope book=Gen"
   },
   "keywords": [],
   "author": "",

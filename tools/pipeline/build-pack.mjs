@@ -1,43 +1,68 @@
 #!/usr/bin/env node
 /**
- * Build offline pack for Gen 1–3:
- * OSHB v.2.2 tokens + Sofer SBL-Learner phonetics + JPS 1917 verse English
- * + TBESH primary glosses (HebrewStrong.xml fallback).
+ * Offline pack builder — Torah checkpoint (v0.2) with full-corpus hooks.
+ *
+ * - Ingests OSHB morphhb WLC book XML (pin v.2.2), not Gen-only
+ * - Jewish Tanakh nav order (see books.mjs)
+ * - JPS 1917 via engjps readaloud; Hebrew (WLC) verse IDs primary;
+ *   OSHB VerseMap.xml maps WLC→KJV/engjps file refs (mismatches are real)
+ * - Do NOT NFC-normalize Hebrew surfaces
+ * - Aramaic books (Dan/Ezra): flagged; Hebrew SBL-Learner must not be applied
+ *   silently (N/A for Torah body; pipeline supports the gate)
+ * - Per-book compact JSON (+ optional gzip) for lazy load
+ * - Hard-fail Sofer checks 1–8; auto K/Q report
  */
 import fs from "fs";
 import path from "path";
+import zlib from "zlib";
 import { fileURLToPath } from "url";
 import { createRequire } from "module";
+import { BOOKS, TORAH, ARAMAIC_FLAG_BOOKS, jewishSortKey } from "./books.mjs";
+import { createSoferSblLearnerSchema } from "./sofer-sbl-learner.mjs";
+import { runHardFailChecks } from "./hard-fail-checks.mjs";
 
 const require = createRequire(import.meta.url);
 const { transliterate } = require("hebrew-transliteration");
-const { createSoferSblLearnerSchema } = await import("./sofer-sbl-learner.mjs");
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.resolve(__dirname, "../..");
 const VENDOR = path.join(ROOT, "vendor");
 const OUT_DIR = path.join(ROOT, "app/src/main/assets/data");
-
-const CHAPTERS = [1, 2, 3];
+const REPORTS = path.join(ROOT, "reports");
+const PACK_VERSION = "0.2.0-poc";
 const schema = createSoferSblLearnerSchema();
 
 const CANTILLATION = /[\u0591-\u05AF\u05BD\u05BF\u05C0\u05C3\u05C6]/g;
-const NIQQUD_AND_MARKS = /[\u0591-\u05C7]/g;
 const HEBREW_LETTER = /[\u05D0-\u05EA]/;
+
+const args = process.argv.slice(2);
+function argVal(flag, fallback) {
+  const i = args.indexOf(flag);
+  return i >= 0 && args[i + 1] ? args[i + 1] : fallback;
+}
+const SCOPE = argVal("--scope", "torah"); // torah | book=Gen | all (future)
+const WRITE_GZIP = !args.includes("--no-gzip");
+const PRETTY = args.includes("--pretty");
+
+function booksForScope() {
+  if (SCOPE === "torah") return [...TORAH];
+  if (SCOPE.startsWith("book=")) return [SCOPE.slice(5)];
+  if (SCOPE === "all") {
+    throw new Error("Full Tanakh not in this run — use --scope torah");
+  }
+  return SCOPE.split(",").map((s) => s.trim()).filter(Boolean);
+}
 
 function stripCantillation(s) {
   return s.replace(CANTILLATION, "");
 }
-
 function consonantsOnly(s) {
   return [...s].filter((ch) => HEBREW_LETTER.test(ch)).join("");
 }
-
 function isYhwhLemma(lemmaId) {
-  return lemmaId === "H3068" || lemmaId.startsWith("H3068");
+  return lemmaId === "H3068" || (lemmaId && lemmaId.startsWith("H3068"));
 }
 
-/** Parse OSHB lemma attr → { baseId: "H07225", prefixes: ["b"], aug: "a"|null } */
 const PREFIX_ONLY_TO_TBESH = {
   b: "H9003",
   c: "H9002",
@@ -52,7 +77,6 @@ const PREFIX_ONLY_TO_TBESH = {
 function parseLemma(lemmaAttr) {
   if (!lemmaAttr) return { baseId: null, prefixes: [], aug: null, raw: null };
   const trimmed = lemmaAttr.trim();
-  // Standalone proclitic letter lemmas (e.g. lemma="b" on בּוֹ)
   if (/^[a-z]$/i.test(trimmed)) {
     const letter = trimmed.toLowerCase();
     return {
@@ -69,14 +93,9 @@ function parseLemma(lemmaAttr) {
   const parts = trimmed.split("/");
   const prefixes = [];
   let core = parts[parts.length - 1];
-  for (let i = 0; i < parts.length - 1; i++) {
-    prefixes.push(parts[i]);
-  }
-  // e.g. "1254 a" or "430" or "5921 a"
+  for (let i = 0; i < parts.length - 1; i++) prefixes.push(parts[i]);
   const m = core.match(/^(\d+)\s*([a-zA-Z])?$/);
-  if (!m) {
-    return { baseId: null, prefixes, aug: null, raw: lemmaAttr };
-  }
+  if (!m) return { baseId: null, prefixes, aug: null, raw: lemmaAttr };
   const num = m[1];
   const aug = m[2] ? m[2].toLowerCase() : null;
   const padded = num.padStart(4, "0");
@@ -92,7 +111,7 @@ function loadTbesh(filePath) {
     if (!line.startsWith("H")) continue;
     const cols = line.split("\t");
     if (cols.length < 7) continue;
-    const eStrong = cols[0].trim(); // H0001 or H1254a
+    const eStrong = cols[0].trim();
     const dStrongField = cols[1] || "";
     const gloss = (cols[6] || "").trim();
     const definition = (cols[7] || "")
@@ -121,7 +140,6 @@ function loadTbesh(filePath) {
 
 function pickTbesh(tbesh, baseId) {
   if (!baseId) return null;
-  // Prefer exact (incl. letter aug), then numeric; prefer *G general rows
   const exact = tbesh.byExact.get(baseId) || [];
   const numericKey = "H" + (baseId.match(/\d+/) || [""])[0].padStart(4, "0");
   const numeric = tbesh.byNumeric.get(numericKey) || [];
@@ -148,7 +166,11 @@ function loadHebrewStrong(filePath) {
       id,
       gloss: defs[0] || meaningClean.split(/[,;]/)[0] || usageClean.split(/[,;]/)[0] || "",
       definition: meaningClean || usageClean,
-      senses: defs.length ? defs : usageClean ? usageClean.split(/[,;]/).map((s) => s.trim()).filter(Boolean) : [],
+      senses: defs.length
+        ? defs
+        : usageClean
+          ? usageClean.split(/[,;]/).map((s) => s.trim()).filter(Boolean)
+          : [],
       source: "HebrewStrong",
     });
   }
@@ -165,11 +187,8 @@ function resolveGloss(tbesh, strong, lemmaInfo) {
       note: "OSHB lemma missing",
     };
   }
-  // Normalize: H7225 vs H07225 — TBESH uses 4-digit
   const candidates = [];
-  if (lemmaInfo.aug) {
-    candidates.push("H" + lemmaInfo.numeric + lemmaInfo.aug);
-  }
+  if (lemmaInfo.aug) candidates.push("H" + lemmaInfo.numeric + lemmaInfo.aug);
   candidates.push("H" + lemmaInfo.numeric);
 
   let picked = null;
@@ -180,7 +199,6 @@ function resolveGloss(tbesh, strong, lemmaInfo) {
   if (picked) {
     const senses = [];
     if (picked.gloss) senses.push(picked.gloss);
-    // pull numbered senses from definition lightly
     for (const line of picked.definition.split("\n")) {
       const mm = line.match(/^\d+[a-z]?\)\s*(.+)/);
       if (mm) {
@@ -197,12 +215,9 @@ function resolveGloss(tbesh, strong, lemmaInfo) {
     };
   }
 
-  const hsId = "H" + String(parseInt(lemmaInfo.numeric, 10)); // HebrewStrong uses H1, H430 not padded
-  const hsAlt = "H" + lemmaInfo.numeric.replace(/^0+/, "") || "H0";
   const hs =
     strong.get("H" + parseInt(lemmaInfo.numeric, 10)) ||
-    strong.get("H" + lemmaInfo.numeric) ||
-    strong.get(hsAlt);
+    strong.get("H" + lemmaInfo.numeric);
   if (hs) {
     return {
       id: hs.id,
@@ -235,276 +250,494 @@ function prefixNote(prefixes) {
 }
 
 function surfaceHebrew(raw) {
-  // Remove OSHB morph slash separators; keep niqqud; drop cantillation for UI
+  // Strip cantillation only; keep niqqud; DO NOT NFC-normalize
   return stripCantillation(raw.replace(/\//g, ""));
 }
 
-function phoneticForToken(heSurface, lemmaInfo) {
+function phoneticForToken(heSurface, lemmaInfo, opts = {}) {
+  if (opts.aramaic) {
+    return {
+      phonetic: "[aramaic-pending]",
+      ketivQere: null,
+      divineName: false,
+      aramaic: true,
+      error: "Biblical Aramaic — Sofer-approved handling required; Hebrew SBL-Learner not applied",
+    };
+  }
   if (lemmaInfo.numeric === "3068" || isYhwhLemma(lemmaInfo.baseId || "")) {
     return { phonetic: "YHWH", ketivQere: null, divineName: true };
   }
-  // Transliterate from pointed surface (niqqud intact; cantillation ok for lib)
   const input = heSurface.replace(/־/g, "");
   try {
     const phonetic = transliterate(input, schema);
     return { phonetic, ketivQere: null, divineName: false };
   } catch (e) {
-    return { phonetic: "[transliteration-error]", ketivQere: null, divineName: false, error: String(e) };
+    return {
+      phonetic: "[transliteration-error]",
+      ketivQere: null,
+      divineName: false,
+      error: String(e),
+    };
   }
 }
 
 function displayHebrew(heSurface, lemmaInfo) {
-  if (lemmaInfo.numeric === "3068") {
-    return consonantsOnly(heSurface); // יהוה only
-  }
+  // Sofer: יהוה / YHWH only — strip proclitic letters from divine-name surface
+  if (lemmaInfo.numeric === "3068") return "יהוה";
   return heSurface;
 }
 
-function parseOshbGenChapters(xmlPath, chapters) {
+/** Load WLC→KJV map from OSHB VerseMap.xml */
+function loadVerseMap(xmlPath) {
   const xml = fs.readFileSync(xmlPath, "utf8");
+  const wlcToKjv = new Map();
+  const verseRe = /<verse\s+wlc="([^"]+)"\s+kjv="([^"]+)"/g;
+  let m;
+  while ((m = verseRe.exec(xml))) {
+    wlcToKjv.set(m[1], m[2]);
+  }
+  return wlcToKjv;
+}
+
+function parseOsisRef(ref) {
+  // Gen.32.1 or Exod.8.1
+  const parts = ref.split(".");
+  return {
+    book: parts[0],
+    chapter: parseInt(parts[1], 10),
+    verse: parseInt(parts[2], 10),
+    raw: ref,
+  };
+}
+
+/**
+ * Load all JPS engjps chapter files for a book into Map "Book.CH.V" → text
+ * File organization follows KJV/Christian chapter numbers (engjps).
+ */
+function loadJpsBook(bookMeta) {
+  const { num, code, titleHints } = bookMeta.jps;
+  const dir = path.join(VENDOR, "jps1917");
+  const files = fs
+    .readdirSync(dir)
+    .filter((f) => f.startsWith(`engjps_${num}_${code}_`) && f.endsWith("_read.txt"))
+    .sort();
+  const byKjv = new Map(); // "Gen.31.55" style using OSHB osis book id
+  const osisBook = bookMeta.osis;
+
+  for (const f of files) {
+    const chm = f.match(/_(\d+)_read\.txt$/);
+    if (!chm) continue;
+    const chapter = parseInt(chm[1], 10);
+    const raw = fs.readFileSync(path.join(dir, f), "utf8").replace(/^\uFEFF/, "");
+    const lines = raw
+      .split(/\r?\n/)
+      .map((l) => l.trim())
+      .filter(Boolean);
+    let vNum = 0;
+    for (const line of lines) {
+      if (/^Chapter\s+\d+\.?$/i.test(line)) continue;
+      if (titleHints.some((re) => re.test(line))) continue;
+      vNum += 1;
+      // Strip leading Hebrew-ref annotation like "(32-1) " if present — keep body
+      const text = line.replace(/^\(\d+-\d+\)\s*/, "");
+      byKjv.set(`${osisBook}.${chapter}.${vNum}`, text);
+    }
+  }
+  return byKjv;
+}
+
+function jpsForWlc(wlcOsisId, verseMap, jpsByKjv) {
+  const kjvRef = verseMap.get(wlcOsisId) || wlcOsisId;
+  // VerseMap uses same osis book codes as WLC (Gen/Exod/…)
+  return {
+    text: jpsByKjv.get(kjvRef) || "",
+    kjvRef,
+    mapped: verseMap.has(wlcOsisId),
+  };
+}
+
+function parseOshbBook(xmlPath, bookOsis) {
+  const xml = fs.readFileSync(xmlPath, "utf8");
+  // Do not NFC-normalize the XML text
   const verses = [];
-  for (const ch of chapters) {
-    const chRe = new RegExp(
-      `<chapter osisID="Gen\\.${ch}">([\\s\\S]*?)</chapter>`
+  const chRe = new RegExp(
+    `<chapter osisID="${bookOsis}\\.(\\d+)">([\\s\\S]*?)</chapter>`,
+    "g"
+  );
+  let chm;
+  while ((chm = chRe.exec(xml))) {
+    const ch = parseInt(chm[1], 10);
+    const bodyCh = chm[2];
+    const verseRe = new RegExp(
+      `<verse osisID="(${bookOsis}\\.\\d+\\.\\d+)">([\\s\\S]*?)</verse>`,
+      "g"
     );
-    const chm = xml.match(chRe);
-    if (!chm) throw new Error("Missing chapter Gen." + ch);
-    const verseRe = /<verse osisID="(Gen\.\d+\.\d+)">([\s\S]*?)<\/verse>/g;
     let vm;
-    while ((vm = verseRe.exec(chm[1]))) {
+    while ((vm = verseRe.exec(bodyCh))) {
       const osisId = vm[1];
       const body = vm[2];
       const tokens = [];
-      // Walk tokens: prefer qere when ketiv present
-      // Pattern 1: ketiv + note/qere
       const ketivRe =
         /<w type="x-ketiv"[^>]*lemma="([^"]*)"[^>]*morph="([^"]*)"[^>]*id="([^"]*)"[^>]*>([^<]*)<\/w>\s*<note type="variant">[\s\S]*?<rdg type="x-qere"><w([^>]*)>([^<]*)<\/w>/g;
-      const consumed = new Set();
       let km;
       while ((km = ketivRe.exec(body))) {
         const qereAttrs = km[5];
         const qereLemma = (qereAttrs.match(/lemma="([^"]*)"/) || [])[1] || km[1];
         const qereMorph = (qereAttrs.match(/morph="([^"]*)"/) || [])[1] || km[2];
         const qereId = (qereAttrs.match(/id="([^"]*)"/) || [])[1] || km[3];
-        const qereText = km[6];
-        const ketivText = km[4];
         tokens.push({
           order: km.index,
-          heRaw: qereText,
+          heRaw: km[6],
           lemma: qereLemma,
           morph: qereMorph,
           id: qereId,
-          ketiv: stripCantillation(ketivText.replace(/\//g, "")),
+          ketiv: stripCantillation(km[4].replace(/\//g, "")),
           qere: true,
         });
-        consumed.add(km.index);
       }
-      // Regular <w> not ketiv
-      const wRe =
-        /<w(?![^>]*type="x-ketiv")([^>]*)>([^<]*)<\/w>/g;
+      const wRe = /<w(?![^>]*type="x-ketiv")([^>]*)>([^<]*)<\/w>/g;
       let wm;
       while ((wm = wRe.exec(body))) {
-        // skip if inside a qere we already handled — qere w tags are inside note
         if (/type="x-qere"/.test(wm[0]) || /type="x-ketiv"/.test(wm[0])) continue;
-        // skip w that are children of rdg (already captured)
         const before = body.slice(Math.max(0, wm.index - 80), wm.index);
         if (/x-qere[^>]*>\s*$/.test(before) || /<rdg type="x-qere">\s*$/.test(before)) {
           continue;
         }
         const attrs = wm[1];
-        const lemma = (attrs.match(/lemma="([^"]*)"/) || [])[1] || "";
-        const morph = (attrs.match(/morph="([^"]*)"/) || [])[1] || "";
-        const id = (attrs.match(/id="([^"]*)"/) || [])[1] || "";
         tokens.push({
           order: wm.index,
           heRaw: wm[2],
-          lemma,
-          morph,
-          id,
+          lemma: (attrs.match(/lemma="([^"]*)"/) || [])[1] || "",
+          morph: (attrs.match(/morph="([^"]*)"/) || [])[1] || "",
+          id: (attrs.match(/id="([^"]*)"/) || [])[1] || "",
           ketiv: null,
           qere: false,
         });
       }
       tokens.sort((a, b) => a.order - b.order);
-      // Deduplicate accidental overlaps by id
       const seen = new Set();
       const uniq = [];
       for (const t of tokens) {
-        const key = t.id || t.order;
+        const key = t.id || `${t.order}`;
         if (seen.has(key)) continue;
         seen.add(key);
         uniq.push(t);
       }
-      verses.push({ osisId, chapter: ch, verse: parseInt(osisId.split(".")[2], 10), tokens: uniq });
+      const verseNum = parseInt(osisId.split(".")[2], 10);
+      verses.push({ osisId, book: bookOsis, chapter: ch, verse: verseNum, tokens: uniq });
     }
   }
   return verses;
 }
 
-function loadJpsChapter(ch) {
-  const p = path.join(
-    VENDOR,
-    "jps1917",
-    `engjps_002_GEN_${String(ch).padStart(2, "0")}_read.txt`
-  );
-  const lines = fs
-    .readFileSync(p, "utf8")
-    .replace(/^\uFEFF/, "")
-    .split(/\r?\n/)
-    .map((l) => l.trim())
-    .filter(Boolean);
-  // drop title + "Chapter N."
-  const verses = [];
-  for (const line of lines) {
-    if (/^Chapter\s+\d+\.?$/i.test(line)) continue;
-    if (/^The First Book/i.test(line)) continue;
-    if (/^Genesis\.?$/i.test(line)) continue;
-    verses.push(line);
+function writeJson(filePath, obj, { gzipOnly = true } = {}) {
+  const text = PRETTY ? JSON.stringify(obj, null, 2) : JSON.stringify(obj);
+  const bytes = Buffer.byteLength(text, "utf8");
+  if (WRITE_GZIP) {
+    fs.writeFileSync(filePath + ".gz", zlib.gzipSync(Buffer.from(text, "utf8"), { level: 9 }));
   }
-  return verses;
+  if (!gzipOnly || !WRITE_GZIP || PRETTY) {
+    fs.writeFileSync(filePath, text);
+  } else if (fs.existsSync(filePath)) {
+    fs.unlinkSync(filePath);
+  }
+  return bytes;
 }
 
 function main() {
-  console.log("Loading lexicons…");
+  const bookList = booksForScope().sort((a, b) => jewishSortKey(a) - jewishSortKey(b));
+  console.log(`Building scope=${SCOPE} books=${bookList.join(",")} version=${PACK_VERSION}`);
+
+  for (const b of bookList) {
+    if (!BOOKS[b]) throw new Error(`Unknown book ${b} — add to books.mjs`);
+    if (ARAMAIC_FLAG_BOOKS.has(b)) {
+      console.warn(
+        `WARN: ${b} has Biblical Aramaic — Hebrew SBL-Learner must not be applied silently`
+      );
+    }
+  }
+
+  console.log("Loading lexicons + VerseMap…");
   const tbesh = loadTbesh(path.join(VENDOR, "TBESH.txt"));
   const strong = loadHebrewStrong(path.join(VENDOR, "HebrewStrong.xml"));
-  console.log("Parsing OSHB Gen.xml…");
-  const oshbVerses = parseOshbGenChapters(
-    path.join(VENDOR, "oshb", "Gen.xml"),
-    CHAPTERS
-  );
-  const jpsByChapter = Object.fromEntries(
-    CHAPTERS.map((ch) => [ch, loadJpsChapter(ch)])
-  );
+  const verseMap = loadVerseMap(path.join(VENDOR, "oshb", "VerseMap.xml"));
+
+  fs.mkdirSync(OUT_DIR, { recursive: true });
+  fs.mkdirSync(path.join(OUT_DIR, "books"), { recursive: true });
+  fs.mkdirSync(REPORTS, { recursive: true });
 
   const glossCatalog = {};
-  const packVerses = [];
-  const gaps = [];
+  const catalogBooks = [];
+  const allKetivQere = [];
+  const allGaps = [];
+  const packByBook = {};
+  let totalVerses = 0;
 
-  for (const v of oshbVerses) {
-    const jpsLines = jpsByChapter[v.chapter] || [];
-    const english = jpsLines[v.verse - 1] || "";
-    if (!english) {
-      gaps.push(`Missing JPS for ${v.osisId}`);
-    }
-    const words = [];
-    for (let i = 0; i < v.tokens.length; i++) {
-      const t = v.tokens[i];
-      const lemmaInfo = parseLemma(t.lemma);
-      const he = displayHebrew(surfaceHebrew(t.heRaw), lemmaInfo);
-      const ph = phoneticForToken(surfaceHebrew(t.heRaw), lemmaInfo);
-      const gloss = resolveGloss(tbesh, strong, lemmaInfo);
-      const glossId = gloss.id || `tok-${t.id}`;
-      if (!glossCatalog[glossId]) {
-        glossCatalog[glossId] = {
-          id: glossId,
-          primary: gloss.primary,
-          senses: gloss.senses.length ? gloss.senses : [gloss.primary],
-          source: gloss.source,
-          definition: gloss.definition || null,
-          note: gloss.note || null,
+  for (const bookOsis of bookList) {
+    const meta = BOOKS[bookOsis];
+    const aramaicBook = !!meta.aramaic || ARAMAIC_FLAG_BOOKS.has(bookOsis);
+    const xmlPath = path.join(VENDOR, "oshb", meta.oshbFile);
+    if (!fs.existsSync(xmlPath)) throw new Error(`Missing OSHB file ${xmlPath}`);
+
+    console.log(`Parsing OSHB ${meta.oshbFile}…`);
+    const oshbVerses = parseOshbBook(xmlPath, bookOsis);
+    console.log(`  ${oshbVerses.length} verses`);
+    console.log(`Loading JPS ${meta.jps.code}…`);
+    const jpsByKjv = loadJpsBook(meta);
+
+    const packVerses = [];
+    const chaptersMap = new Map();
+
+    for (const v of oshbVerses) {
+      const jps = jpsForWlc(v.osisId, verseMap, jpsByKjv);
+      if (!jps.text) {
+        allGaps.push(`Missing JPS for ${v.osisId} (kjvRef=${jps.kjvRef})`);
+      }
+      const words = [];
+      for (let i = 0; i < v.tokens.length; i++) {
+        const t = v.tokens[i];
+        const lemmaInfo = parseLemma(t.lemma);
+        const heSurf = surfaceHebrew(t.heRaw);
+        const he = displayHebrew(heSurf, lemmaInfo);
+        const ph = phoneticForToken(heSurf, lemmaInfo, { aramaic: aramaicBook });
+        const gloss = resolveGloss(tbesh, strong, lemmaInfo);
+        const glossId = gloss.id || `tok-${t.id}`;
+        if (!glossCatalog[glossId]) {
+          glossCatalog[glossId] = {
+            id: glossId,
+            primary: gloss.primary,
+            senses: gloss.senses.length ? gloss.senses : [gloss.primary],
+            source: gloss.source,
+            definition: gloss.definition || null,
+            note: gloss.note || null,
+          };
+        }
+        const pfx = prefixNote(lemmaInfo.prefixes);
+        const word = {
+          he,
+          lemmaId: lemmaInfo.baseId,
+          lemmaRaw: lemmaInfo.raw,
+          morph: t.morph,
+          phonetic: ph.phonetic,
+          glossId,
+          divineName: !!ph.divineName,
         };
+        if (t.ketiv) {
+          word.ketiv = t.ketiv;
+          word.qereFlag = true;
+          allKetivQere.push({
+            verseId: v.osisId,
+            book: bookOsis,
+            chapter: v.chapter,
+            verse: v.verse,
+            tokenIndex: i,
+            ketiv: t.ketiv,
+            qereHe: he,
+            qerePhonetic: ph.phonetic,
+            lemmaId: lemmaInfo.baseId,
+            morph: t.morph,
+            oshbId: t.id,
+          });
+        }
+        if (pfx) word.procliticNote = pfx;
+        if (ph.aramaic) word.aramaic = true;
+        if (ph.error) allGaps.push(`Phonetic note ${v.osisId}#${i}: ${ph.error}`);
+        if (gloss.source === "none") {
+          allGaps.push(`Gloss gap ${v.osisId} lemma=${lemmaInfo.raw}`);
+        }
+        words.push(word);
       }
-      const pfx = prefixNote(lemmaInfo.prefixes);
-      const word = {
-        he,
-        lemmaId: lemmaInfo.baseId,
-        lemmaRaw: lemmaInfo.raw,
-        morph: t.morph,
-        phonetic: ph.phonetic,
-        glossId,
-        divineName: !!ph.divineName,
+      const verseObj = {
+        id: v.osisId,
+        book: bookOsis,
+        chapter: v.chapter,
+        verse: v.verse,
+        english: {
+          text: jps.text,
+          source: "JPS 1917",
+          license: "Public Domain",
+          kjvRef: jps.mapped ? jps.kjvRef : undefined,
+        },
+        words,
       };
-      if (t.ketiv) {
-        word.ketiv = t.ketiv;
-        word.qereFlag = true;
-      }
-      if (pfx) {
-        word.procliticNote = pfx;
-      }
-      if (ph.error) {
-        gaps.push(`Phonetic error ${v.osisId}#${i}: ${ph.error}`);
-      }
-      if (gloss.source === "none") {
-        gaps.push(`Gloss gap ${v.osisId} lemma=${lemmaInfo.raw}`);
-      }
-      words.push(word);
+      if (jps.mapped) verseObj.english.versificationMapped = true;
+      packVerses.push(verseObj);
+      if (!chaptersMap.has(v.chapter)) chaptersMap.set(v.chapter, []);
+      chaptersMap.get(v.chapter).push(v.osisId);
     }
-    packVerses.push({
-      id: v.osisId,
-      book: "Gen",
-      chapter: v.chapter,
-      verse: v.verse,
-      english: {
-        text: english,
-        source: "JPS 1917",
-        license: "Public Domain",
+
+    const chapters = [...chaptersMap.keys()]
+      .sort((a, b) => a - b)
+      .map((ch) => ({
+        book: bookOsis,
+        chapter: ch,
+        verseIds: chaptersMap.get(ch),
+      }));
+
+    const bookPack = {
+      meta: {
+        name: `tanakh-learner-${bookOsis}`,
+        version: PACK_VERSION,
+        generatedAt: new Date().toISOString(),
+        scope: meta.title,
+        book: bookOsis,
+        title: meta.title,
+        division: meta.division,
+        aramaic: aramaicBook,
+        hebrew: {
+          source: "OSHB / morphhb WLC",
+          pin: "v.2.2",
+          file: `vendor/oshb/${meta.oshbFile}`,
+          license:
+            "WLC text Public Domain; lemma/morphology CC BY 4.0 (Open Scriptures Hebrew Bible)",
+          normalization: "none — do not NFC-normalize",
+        },
+        english: {
+          source: "JPS TaNaKH 1917",
+          license: "Public Domain",
+          note: "Verse-level only — not word-aligned. Hebrew WLC IDs primary; engjps via VerseMap where WLC≠KJV.",
+          provider: "ebible.org engjps",
+          verseMap: "vendor/oshb/VerseMap.xml",
+        },
+        phonetics: {
+          engine: "hebrew-transliteration@2.11.0",
+          schema: "Sofer SBL-Learner",
+          policy:
+            "Derived from OSHB/WLC niqqud. Biblical/Tiberian + digraphs sh/kh/ts/ʾ/ʿ; vocal shewa ĕ; NOT Modern Israeli. יהוה → YHWH only. Phonetics follow qere when ketiv/qere present. Biblical Aramaic must not silently use this schema.",
+          mappingDoc: "docs/SOFER_SBL_LEARNER.md",
+        },
+        glosses: {
+          primary: "TBESH (STEPBible) CC BY 4.0",
+          fallback: "OSHB HebrewStrong.xml CC BY 4.0",
+          uiPolicy: "Header: Possible sense(s). Footer: Gloss ≠ verse translation.",
+        },
+        display: {
+          tokenOrder:
+            "Single token array preserves OSHB order. UI may show LTR paired chips without reversing the array.",
+          navOrder: "Jewish Tanakh order",
+        },
       },
-      words,
+      chapters,
+      verses: packVerses,
+    };
+
+    const outName = `books/${bookOsis}.json`;
+    const bytes = writeJson(path.join(OUT_DIR, outName), bookPack);
+    console.log(
+      `  Wrote ${outName} (${(bytes / 1024 / 1024).toFixed(2)} MB, ${packVerses.length} verses)`
+    );
+
+    packByBook[bookOsis] = bookPack;
+    totalVerses += packVerses.length;
+    catalogBooks.push({
+      osis: bookOsis,
+      title: meta.title,
+      division: meta.division,
+      jewishOrder: jewishSortKey(bookOsis),
+      chapters: chapters.length,
+      verses: packVerses.length,
+      asset: `data/${outName}`,
+      assetGz: WRITE_GZIP ? `data/${outName}.gz` : null,
+      aramaic: aramaicBook,
     });
   }
 
-  const pack = {
-    meta: {
-      name: "tanakh-learner-poc-gen1-3",
-      version: "0.1.0-poc",
-      generatedAt: new Date().toISOString(),
-      scope: "Genesis 1–3",
-      hebrew: {
-        source: "OSHB / morphhb WLC",
-        pin: "v.2.2",
-        file: "vendor/oshb/Gen.xml",
-        license: "WLC text Public Domain; lemma/morphology CC BY 4.0 (Open Scriptures Hebrew Bible)",
-      },
-      english: {
-        source: "JPS TaNaKH 1917",
-        license: "Public Domain",
-        note: "Verse-level only — not word-aligned to Hebrew tokens",
-        provider: "ebible.org engjps",
-      },
-      phonetics: {
-        engine: "hebrew-transliteration@2.11.0",
-        schema: "Sofer SBL-Learner",
-        policy:
-          "Derived from OSHB/WLC niqqud. Biblical/Tiberian + digraphs sh/kh/ts/ʾ/ʿ; vocal shewa ĕ; NOT Modern Israeli. יהוה → YHWH only (no invented vocalization). Phonetics follow qere when ketiv/qere present.",
-        mappingDoc: "docs/SOFER_SBL_LEARNER.md",
-      },
-      glosses: {
-        primary: "TBESH (STEPBible) CC BY 4.0",
-        fallback: "OSHB HebrewStrong.xml CC BY 4.0",
-        uiPolicy: "Header: Possible sense(s). Footer: Gloss ≠ verse translation.",
-      },
-      display: {
-        tokenOrder:
-          "Single token array preserves OSHB order. UI may show LTR paired chips (RTL Hebrew glyph direction inside chip + LTR phonetic) without reversing the array.",
-      },
-      gaps,
-    },
-    chapters: CHAPTERS.map((ch) => ({
-      book: "Gen",
-      chapter: ch,
-      verseIds: packVerses.filter((x) => x.chapter === ch).map((x) => x.id),
-    })),
-    verses: packVerses,
-    glosses: glossCatalog,
-  };
-
-  fs.mkdirSync(OUT_DIR, { recursive: true });
-  const outFile = path.join(OUT_DIR, "pack_gen_1_3.json");
-  fs.writeFileSync(outFile, JSON.stringify(pack, null, 2));
-  const catalogLite = path.join(OUT_DIR, "gloss_catalog.json");
-  fs.writeFileSync(catalogLite, JSON.stringify(glossCatalog, null, 2));
-
+  // Shared gloss catalog
+  const glossBytes = writeJson(path.join(OUT_DIR, "glosses.json"), glossCatalog);
   console.log(
-    `Wrote ${outFile} — ${packVerses.length} verses, ${Object.keys(glossCatalog).length} glosses, ${gaps.length} gap notes`
+    `Wrote glosses.json (${(glossBytes / 1024 / 1024).toFixed(2)} MB, ${Object.keys(glossCatalog).length} entries)`
   );
-  if (gaps.length) {
-    console.log("Gaps (first 20):");
-    gaps.slice(0, 20).forEach((g) => console.log(" -", g));
+
+  const catalog = {
+    name: "tanakh-learner",
+    version: PACK_VERSION,
+    generatedAt: new Date().toISOString(),
+    scope: SCOPE === "torah" ? "Torah (Gen–Deut)" : SCOPE,
+    navOrder: "Jewish Tanakh",
+    hebrewPin: "OSHB morphhb v.2.2",
+    books: catalogBooks,
+    glossesAsset: "data/glosses.json",
+    glossesAssetGz: WRITE_GZIP ? "data/glosses.json.gz" : null,
+    totals: {
+      books: catalogBooks.length,
+      verses: totalVerses,
+      glosses: Object.keys(glossCatalog).length,
+      ketivQere: allKetivQere.length,
+      gaps: allGaps.length,
+    },
+  };
+  fs.writeFileSync(path.join(OUT_DIR, "catalog.json"), JSON.stringify(catalog, null, 2));
+
+  // K/Q report
+  const kqReport = {
+    version: PACK_VERSION,
+    division: SCOPE === "torah" ? "Torah" : SCOPE,
+    generatedAt: new Date().toISOString(),
+    count: allKetivQere.length,
+    byBook: Object.fromEntries(
+      bookList.map((b) => [b, allKetivQere.filter((x) => x.book === b).length])
+    ),
+    entries: allKetivQere,
+  };
+  fs.writeFileSync(
+    path.join(REPORTS, "torah-ketiv-qere.json"),
+    JSON.stringify(kqReport, null, 2)
+  );
+  const kqMd = [
+    `# Torah Ketiv/Qere report (auto)`,
+    ``,
+    `Pack version: **${PACK_VERSION}**`,
+    `Generated: ${kqReport.generatedAt}`,
+    `Total K/Q pairs: **${allKetivQere.length}**`,
+    ``,
+    `| Book | Count |`,
+    `|------|------:|`,
+    ...bookList.map((b) => `| ${BOOKS[b].title} | ${kqReport.byBook[b] || 0} |`),
+    ``,
+    `## Entries`,
+    ``,
+    ...allKetivQere.map(
+      (e, i) =>
+        `${i + 1}. **${e.verseId}** #${e.tokenIndex} — ketiv \`${e.ketiv}\` → qere \`${e.qereHe}\` / \`${e.qerePhonetic}\` (${e.lemmaId || "?"})`
+    ),
+    ``,
+  ].join("\n");
+  fs.writeFileSync(path.join(REPORTS, "torah-ketiv-qere.md"), kqMd);
+  console.log(`K/Q report: ${allKetivQere.length} entries → reports/torah-ketiv-qere.md`);
+
+  // Gaps report (non-fatal notes; hard-fail decides)
+  fs.writeFileSync(
+    path.join(REPORTS, "torah-gaps.json"),
+    JSON.stringify({ count: allGaps.length, gaps: allGaps }, null, 2)
+  );
+
+  // Remove obsolete Gen 1–3 single pack from assets (replaced by books/)
+  for (const stale of ["pack_gen_1_3.json", "gloss_catalog.json"]) {
+    const p = path.join(OUT_DIR, stale);
+    if (fs.existsSync(p)) fs.unlinkSync(p);
   }
-  // sanity Gen 1:1
-  const g11 = packVerses.find((v) => v.id === "Gen.1.1");
-  console.log("Gen.1.1 sample:", JSON.stringify(g11, null, 2).slice(0, 1200));
+
+  console.log("Running hard-fail checks 1–8…");
+  const checkResult = runHardFailChecks({
+    catalog,
+    packByBook,
+    glossCatalog,
+    ketivQere: allKetivQere,
+    gaps: allGaps,
+    verseMap,
+  });
+  fs.writeFileSync(
+    path.join(REPORTS, "torah-hard-fail.json"),
+    JSON.stringify(checkResult, null, 2)
+  );
+  if (!checkResult.ok) {
+    console.error("HARD FAIL:", checkResult.failures);
+    process.exit(1);
+  }
+  console.log("Hard-fail checks PASSED.");
+  console.log(
+    `Done. ${totalVerses} verses across ${bookList.length} books. Gloss sanitize + YHWH policy enforced.`
+  );
 }
 
 main();
