@@ -54,7 +54,7 @@ fun AboutScreen(
             Text("Tanakh Learner", style = MaterialTheme.typography.headlineSmall)
             Spacer(Modifier.height(8.dp))
             Text(
-                "Accuracy-first offline Hebrew Tanakh learner. Scope: ${scope.ifBlank { "Torah" }}. " +
+                "Accuracy-first offline Hebrew Tanakh learner. Scope: ${scope.ifBlank { "Full Tanakh" }}. " +
                     "${totals.books} books · ${totals.verses} verses · ${totals.glosses} glosses · " +
                     "${totals.ketivQere} ketiv/qere.",
                 style = MaterialTheme.typography.bodyLarge

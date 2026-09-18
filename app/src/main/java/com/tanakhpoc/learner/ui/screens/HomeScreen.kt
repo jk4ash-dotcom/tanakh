@@ -71,7 +71,7 @@ fun HomeScreen(
         ) {
             item {
                 Text(
-                    scope.ifBlank { "Torah + Nevi'im (offline)" },
+                    scope.ifBlank { "Full Tanakh (offline)" },
                     style = MaterialTheme.typography.titleMedium
                 )
                 Spacer(Modifier.height(4.dp))

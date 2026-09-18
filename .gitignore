@@ -15,3 +15,7 @@ local.properties
 vendor/_fetch/
 reports/gradle-build.log
 reports/build-pack.log
+
+reports/build-*.log
+reports/gradle-build*.log
+reports/build-b-poll.log

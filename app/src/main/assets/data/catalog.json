@@ -1,8 +1,8 @@
 {
   "name": "tanakh-learner",
-  "version": "0.3.0-poc",
-  "generatedAt": "2026-09-17T22:34:15.733370+00:00",
-  "scope": "Torah + Nevi'im",
+  "version": "0.4.0-poc",
+  "generatedAt": "2026-09-18T05:40:18.184Z",
+  "scope": "Full Tanakh (Torah + Nevi'im + Ketuvim)",
   "navOrder": "Jewish Tanakh",
   "hebrewPin": "OSHB morphhb v.2.2",
   "books": [
@@ -291,15 +291,158 @@
       "asset": "data/books/Mal.json",
       "assetGz": "data/books/Mal.json.gz",
       "aramaic": false
+    },
+    {
+      "osis": "Ps",
+      "title": "Psalms",
+      "division": "Ketuvim",
+      "jewishOrder": 26,
+      "chapters": 150,
+      "verses": 2527,
+      "asset": "data/books/Ps.json",
+      "assetGz": "data/books/Ps.json.gz",
+      "aramaic": false
+    },
+    {
+      "osis": "Prov",
+      "title": "Proverbs",
+      "division": "Ketuvim",
+      "jewishOrder": 27,
+      "chapters": 31,
+      "verses": 915,
+      "asset": "data/books/Prov.json",
+      "assetGz": "data/books/Prov.json.gz",
+      "aramaic": false
+    },
+    {
+      "osis": "Job",
+      "title": "Job",
+      "division": "Ketuvim",
+      "jewishOrder": 28,
+      "chapters": 42,
+      "verses": 1070,
+      "asset": "data/books/Job.json",
+      "assetGz": "data/books/Job.json.gz",
+      "aramaic": false
+    },
+    {
+      "osis": "Song",
+      "title": "Song of Songs",
+      "division": "Ketuvim",
+      "jewishOrder": 29,
+      "chapters": 8,
+      "verses": 117,
+      "asset": "data/books/Song.json",
+      "assetGz": "data/books/Song.json.gz",
+      "aramaic": false
+    },
+    {
+      "osis": "Ruth",
+      "title": "Ruth",
+      "division": "Ketuvim",
+      "jewishOrder": 30,
+      "chapters": 4,
+      "verses": 85,
+      "asset": "data/books/Ruth.json",
+      "assetGz": "data/books/Ruth.json.gz",
+      "aramaic": false
+    },
+    {
+      "osis": "Lam",
+      "title": "Lamentations",
+      "division": "Ketuvim",
+      "jewishOrder": 31,
+      "chapters": 5,
+      "verses": 154,
+      "asset": "data/books/Lam.json",
+      "assetGz": "data/books/Lam.json.gz",
+      "aramaic": false
+    },
+    {
+      "osis": "Eccl",
+      "title": "Ecclesiastes",
+      "division": "Ketuvim",
+      "jewishOrder": 32,
+      "chapters": 12,
+      "verses": 222,
+      "asset": "data/books/Eccl.json",
+      "assetGz": "data/books/Eccl.json.gz",
+      "aramaic": false
+    },
+    {
+      "osis": "Esth",
+      "title": "Esther",
+      "division": "Ketuvim",
+      "jewishOrder": 33,
+      "chapters": 10,
+      "verses": 167,
+      "asset": "data/books/Esth.json",
+      "assetGz": "data/books/Esth.json.gz",
+      "aramaic": false
+    },
+    {
+      "osis": "Dan",
+      "title": "Daniel",
+      "division": "Ketuvim",
+      "jewishOrder": 34,
+      "chapters": 12,
+      "verses": 357,
+      "asset": "data/books/Dan.json",
+      "assetGz": "data/books/Dan.json.gz",
+      "aramaic": true
+    },
+    {
+      "osis": "Ezra",
+      "title": "Ezra",
+      "division": "Ketuvim",
+      "jewishOrder": 35,
+      "chapters": 10,
+      "verses": 280,
+      "asset": "data/books/Ezra.json",
+      "assetGz": "data/books/Ezra.json.gz",
+      "aramaic": true
+    },
+    {
+      "osis": "Neh",
+      "title": "Nehemiah",
+      "division": "Ketuvim",
+      "jewishOrder": 36,
+      "chapters": 13,
+      "verses": 405,
+      "asset": "data/books/Neh.json",
+      "assetGz": "data/books/Neh.json.gz",
+      "aramaic": false
+    },
+    {
+      "osis": "1Chr",
+      "title": "1 Chronicles",
+      "division": "Ketuvim",
+      "jewishOrder": 37,
+      "chapters": 29,
+      "verses": 943,
+      "asset": "data/books/1Chr.json",
+      "assetGz": "data/books/1Chr.json.gz",
+      "aramaic": false
+    },
+    {
+      "osis": "2Chr",
+      "title": "2 Chronicles",
+      "division": "Ketuvim",
+      "jewishOrder": 38,
+      "chapters": 36,
+      "verses": 822,
+      "asset": "data/books/2Chr.json",
+      "assetGz": "data/books/2Chr.json.gz",
+      "aramaic": false
     }
   ],
   "glossesAsset": "data/glosses.json",
   "glossesAssetGz": "data/glosses.json.gz",
   "totals": {
-    "books": 26,
-    "verses": 15149,
-    "glosses": 6712,
-    "ketivQere": 739,
-    "gaps": 0
+    "books": 39,
+    "verses": 23213,
+    "glosses": 9200,
+    "ketivQere": 1245,
+    "gaps": 9573
   }
 }

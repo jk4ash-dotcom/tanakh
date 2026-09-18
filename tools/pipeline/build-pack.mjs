@@ -17,7 +17,7 @@ import path from "path";
 import zlib from "zlib";
 import { fileURLToPath } from "url";
 import { createRequire } from "module";
-import { BOOKS, TORAH, NEVIIM, ARAMAIC_FLAG_BOOKS, jewishSortKey } from "./books.mjs";
+import { BOOKS, TORAH, NEVIIM, KETUVIM, ARAMAIC_FLAG_BOOKS, jewishSortKey } from "./books.mjs";
 import { createSoferSblLearnerSchema } from "./sofer-sbl-learner.mjs";
 import { runHardFailChecks } from "./hard-fail-checks.mjs";
 import { extractWTokens } from "./oshb-w.mjs";
@@ -30,7 +30,7 @@ const ROOT = path.resolve(__dirname, "../..");
 const VENDOR = path.join(ROOT, "vendor");
 const OUT_DIR = path.join(ROOT, "app/src/main/assets/data");
 const REPORTS = path.join(ROOT, "reports");
-const PACK_VERSION = "0.2.2-poc";
+const PACK_VERSION = "0.4.0-poc";
 const schema = createSoferSblLearnerSchema();
 
 const CANTILLATION = /[\u0591-\u05AF\u05BD\u05BF\u05C0\u05C3\u05C6]/g;
@@ -41,31 +41,38 @@ function argVal(flag, fallback) {
   const i = args.indexOf(flag);
   return i >= 0 && args[i + 1] ? args[i + 1] : fallback;
 }
-const SCOPE = argVal("--scope", "torah+neviim"); // torah | neviim | torah+neviim | book=Gen | all (future)
+const SCOPE = argVal("--scope", "torah+neviim"); // torah | neviim | ketuvim | torah+neviim | all | book=Gen
 const WRITE_GZIP = !args.includes("--no-gzip");
 const PRETTY = args.includes("--pretty");
 
 function booksForScope() {
   if (SCOPE === "torah") return [...TORAH];
   if (SCOPE === "neviim") return [...NEVIIM];
+  if (SCOPE === "ketuvim") return [...KETUVIM];
   if (SCOPE === "torah+neviim" || SCOPE === "torah-neviim") return [...TORAH, ...NEVIIM];
-  if (SCOPE.startsWith("book=")) return [SCOPE.slice(5)];
-  if (SCOPE === "all") {
-    throw new Error("Full Tanakh (Ketuvim) not in this run — use --scope torah+neviim");
+  if (SCOPE === "all" || SCOPE === "tanakh" || SCOPE === "torah+neviim+ketuvim") {
+    return [...TORAH, ...NEVIIM, ...KETUVIM];
   }
+  if (SCOPE.startsWith("book=")) return [SCOPE.slice(5)];
   return SCOPE.split(",").map((s) => s.trim()).filter(Boolean);
 }
 
 function scopeLabel() {
   if (SCOPE === "torah") return "Torah (Gen–Deut)";
   if (SCOPE === "neviim") return "Nevi'im (Josh–Mal)";
+  if (SCOPE === "ketuvim") return "Ketuvim (Ps–2Chr)";
   if (SCOPE === "torah+neviim" || SCOPE === "torah-neviim") return "Torah + Nevi'im";
+  if (SCOPE === "all" || SCOPE === "tanakh" || SCOPE === "torah+neviim+ketuvim") {
+    return "Full Tanakh (Torah + Nevi'im + Ketuvim)";
+  }
   return SCOPE;
 }
 
 function reportPrefix() {
   if (SCOPE === "neviim") return "neviim";
+  if (SCOPE === "ketuvim") return "ketuvim";
   if (SCOPE === "torah+neviim" || SCOPE === "torah-neviim") return "tanakh-tn";
+  if (SCOPE === "all" || SCOPE === "tanakh" || SCOPE === "torah+neviim+ketuvim") return "tanakh";
   return "torah";
 }
 
@@ -109,12 +116,13 @@ function yhwhConsMatch(heSurface) {
   }
   if (cons.endsWith("יהוה") && cons.length > 4) {
     const proclitic = cons.slice(0, -4);
-    // Slice pointed proclitic from surface (niqqud kept) for laYHWH-style phonetics
+    // Slice pointed proclitic from surface (include niqqud after last prefix letter)
     let taken = 0;
     let i = 0;
     for (; i < chars.length && taken < proclitic.length; i++) {
       if (HEBREW_LETTER.test(chars[i])) taken++;
     }
+    while (i < chars.length && !HEBREW_LETTER.test(chars[i])) i++;
     return {
       proclitic,
       procliticSurf: chars.slice(0, i).join(""),
@@ -314,6 +322,14 @@ function prefixNote(prefixes) {
 function surfaceHebrew(raw) {
   // Strip cantillation only; keep niqqud; DO NOT NFC-normalize
   return stripCantillation(raw.replace(/\//g, ""));
+}
+
+/** OSHB morph language: segments starting with A = Biblical Aramaic. */
+function isAramaicMorph(morph) {
+  if (!morph) return false;
+  return String(morph)
+    .split("/")
+    .some((seg) => /^A/.test(seg));
 }
 
 function phoneticForToken(heSurface, lemmaInfo, opts = {}) {
@@ -543,7 +559,8 @@ function main() {
         const lemmaInfo = parseLemma(t.lemma);
         const heSurf = surfaceHebrew(t.heRaw);
         const he = displayHebrew(heSurf, lemmaInfo);
-        const ph = phoneticForToken(heSurf, lemmaInfo, { aramaic: aramaicBook });
+        const tokenAramaic = isAramaicMorph(t.morph);
+        const ph = phoneticForToken(heSurf, lemmaInfo, { aramaic: tokenAramaic });
         const gloss = resolveGloss(tbesh, strong, lemmaInfo);
         const glossId = gloss.id || `tok-${t.id}`;
         if (!glossCatalog[glossId]) {
@@ -754,6 +771,7 @@ function main() {
   }
 
   const neviimInBuild = bookList.filter((b) => NEVIIM.includes(b));
+  const ketuvimInBuild = bookList.filter((b) => KETUVIM.includes(b));
   const torahInBuild = bookList.filter((b) => TORAH.includes(b));
   if (torahInBuild.length) {
     writeKqReport(
@@ -769,6 +787,14 @@ function main() {
       "Nevi'im",
       neviimInBuild,
       allKetivQere.filter((e) => NEVIIM.includes(e.book))
+    );
+  }
+  if (ketuvimInBuild.length) {
+    writeKqReport(
+      "ketuvim",
+      "Ketuvim",
+      ketuvimInBuild,
+      allKetivQere.filter((e) => KETUVIM.includes(e.book))
     );
   }
   writeKqReport(reportPrefix(), scopeLabel(), bookList, allKetivQere);
@@ -835,6 +861,32 @@ function main() {
       process.exit(1);
     }
     console.log("Nevi'im hard-fail checks PASSED.");
+  }
+  if (ketuvimInBuild.length) {
+    const ketCatalog = {
+      ...catalog,
+      books: catalog.books.filter((x) => KETUVIM.includes(x.osis)),
+    };
+    const ketPack = Object.fromEntries(ketuvimInBuild.map((x) => [x, packByBook[x]]));
+    const ketKq = allKetivQere.filter((e) => KETUVIM.includes(e.book));
+    const ketCheck = runHardFailChecks({
+      catalog: ketCatalog,
+      packByBook: ketPack,
+      glossCatalog,
+      ketivQere: ketKq,
+      gaps: allGaps,
+      verseMap,
+      vendorRoot: VENDOR,
+    });
+    fs.writeFileSync(
+      path.join(REPORTS, "ketuvim-hard-fail.json"),
+      JSON.stringify(ketCheck, null, 2)
+    );
+    if (!ketCheck.ok) {
+      console.error("KETUVIM HARD FAIL:", ketCheck.failures);
+      process.exit(1);
+    }
+    console.log("Ketuvim hard-fail checks PASSED.");
   }
   if (!checkResult.ok) {
     console.error("HARD FAIL:", checkResult.failures);

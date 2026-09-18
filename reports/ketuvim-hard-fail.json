@@ -1,0 +1,31 @@
+{
+  "ok": true,
+  "failures": [],
+  "samples": {
+    "yhwhCount": 1485,
+    "h3068": {
+      "primary": "LORD",
+      "definitionHasJehovah": true,
+      "sanitized": "1) the proper name of the one true God",
+      "displayPrimary": "LORD"
+    },
+    "missingJps": 0,
+    "ketivQereCount": 505
+  },
+  "soferSamples": {},
+  "checkedBooks": [
+    "Ps",
+    "Prov",
+    "Job",
+    "Song",
+    "Ruth",
+    "Lam",
+    "Eccl",
+    "Esth",
+    "Dan",
+    "Ezra",
+    "Neh",
+    "1Chr",
+    "2Chr"
+  ]
+}

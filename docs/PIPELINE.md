@@ -9,12 +9,14 @@
 - `vendor/oshb/VerseMap.xml` (WLC ↔ KJV/engjps file refs)
 - `vendor/TBESH.txt`, `vendor/HebrewStrong.xml`
 
-## Torah + Nevi’im build (this checkpoint)
+## Full Tanakh / Ketuvim build (v0.4.0-poc)
 
 ```bash
 cd tools/pipeline
 npm install
-node build-pack.mjs --scope torah+neviim
+node build-pack.mjs --scope all
+# or: node build-pack.mjs --scope ketuvim
+# prior: node build-pack.mjs --scope torah+neviim
 # optional: keep pretty JSON for debugging
 # node build-pack.mjs --scope torah --pretty --no-gzip
 ```
@@ -72,11 +74,11 @@ Nested OSHB `<seg>` (e.g. `type="x-large"`) inside `<w>` must be **flattened** (
 
 ## Biblical Aramaic (Dan / Ezra)
 
-Sections in Daniel and Ezra are **Biblical Aramaic**. Pipeline flags `aramaic: true` on those books (`ARAMAIC_FLAG_BOOKS`).
+Sections in Daniel and Ezra are **Biblical Aramaic**. Pipeline flags `aramaic: true` on those books (`ARAMAIC_FLAG_BOOKS`) and **per-token** via OSHB morph segments starting with `A`.
 
-- **Do not** silently apply Hebrew-only Sofer SBL-Learner as if the text were Hebrew.  
-- Require Sofer-approved Aramaic handling before shipping phonetics for those spans.  
-- N/A for Torah body; the gate exists so Nevi’im/Ketuvim work does not regress.
+- **Do not** silently apply Hebrew-only Sofer SBL-Learner to Aramaic morph tokens.  
+- Sofer-approved handling for v0.4.0-poc: set `aramaic=true` and phonetic `[aramaic-pending]` (skip Hebrew SBL). Hebrew morph tokens in the same book still use SBL-Learner.  
+- Nav order remains Jewish Tanakh (Daniel in Ketuvim).
 
 ## Single book rebuild
 
@@ -91,3 +93,20 @@ export ANDROID_HOME=/workspace/android-sdk
 export JAVA_HOME=/workspace/.jdk/jdk-17.0.20.1+1
 ./gradlew :app:testDebugUnitTest :app:assembleDebug
 ```
+
+## Orphan qere / catchWord (Nevi’im Sofer HIGH)
+
+Some OSHB verses include `<rdg type="x-qere">` **without** a preceding `<w type="x-ketiv">`
+(“Adaptations to a Qere which L and BHS, by their design, do not indicate”).
+
+`extractWTokens` in `oshb-w.mjs` must:
+
+1. **Insert** orphan qere words into the token stream (Judg.20.13, 2Sam.8.3, 2Sam.16.23, 2Kgs.19.31, 2Kgs.19.37, Jer.31.38, Jer.50.29, Ruth.3.5, Ruth.3.17).
+2. **Replace** `catchWord` surfaces with the qere and store ketiv (Jer.48.44 הניס→הנס).
+
+Hard-fail asserts those verse IDs. See `reports/SOFER_PING_TANAKH_v0.4.md`.
+
+## Prov JPS titleHints
+
+`titleHints` for Proverbs must be anchored (`/^The Proverbs\.?$/i`) so verse 1
+“THE PROVERBS of Solomon…” is not treated as a title line (would drop Prov.1.33 / Prov.10.32).

@@ -63,7 +63,7 @@ class PackSanityTest {
 
     @Test
     fun yhwh_hardRule_consonantsAndPhonetic() {
-        fun cons(s: String) = s.filter { it in '\u05D0'..'\u05EA' }
+        fun cons(s: String) = s.filter { it in 'א'..'ת' }
         val tokens = listOf("Gen.2.4", "Gen.4.3", "Exod.3.15", "Deut.6.4")
             .flatMap { repo.verse(it)!!.words }
             .filter { it.divineName }

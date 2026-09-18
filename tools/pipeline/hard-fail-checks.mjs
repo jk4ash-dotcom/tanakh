@@ -4,7 +4,7 @@
  */
 import fs from "fs";
 import path from "path";
-import { BOOKS, TORAH, NEVIIM } from "./books.mjs";
+import { BOOKS, TORAH, NEVIIM, KETUVIM } from "./books.mjs";
 import { extractWTokens, verseBodyFromOshbXml } from "./oshb-w.mjs";
 
 const YHWH_CONS = "יהוה";
@@ -69,6 +69,8 @@ export function runHardFailChecks(ctx) {
       Isa: 66, Jer: 52, Ezek: 48,
       Hos: 14, Joel: 4, Amos: 9, Obad: 1, Jonah: 4, Mic: 7,
       Nah: 3, Hab: 3, Zeph: 3, Hag: 2, Zech: 14, Mal: 3,
+      Ps: 150, Prov: 31, Job: 42, Song: 8, Ruth: 4, Lam: 5, Eccl: 12, Esth: 10,
+      Dan: 12, Ezra: 10, Neh: 13, "1Chr": 29, "2Chr": 36,
     };
     if (EXPECTED_CH[b] && expectedCh !== EXPECTED_CH[b]) {
       failures.push(`1-coverage: ${b} chapters ${expectedCh} != ${EXPECTED_CH[b]}`);
@@ -180,6 +182,15 @@ export function runHardFailChecks(ctx) {
       // x-small inside וּנְבוּשַׁזְבָּן (proclitic vav + name)
       mustIncludeCons: ["ונבושזבן"],
     },
+    // Nevi'im orphan-qere / catchWord adaptations (Sofer HIGH — match OSHB)
+    "Judg.20.13": { mustIncludeCons: ["בני"], mustIncludeSeqCons: ["אבו", "בני", "בנימן"] },
+    "2Sam.8.3": { mustIncludeCons: ["פרת"] },
+    "2Sam.16.23": { mustIncludeCons: ["איש"] },
+    "2Kgs.19.31": { mustIncludeCons: ["צבאות"] },
+    "2Kgs.19.37": { mustIncludeCons: ["בניו"] },
+    "Jer.31.38": { mustIncludeCons: ["באים"] },
+    "Jer.48.44": { mustIncludeCons: ["הנס"] },
+    "Jer.50.29": { mustIncludeCons: ["לה"], mustIncludeSeqCons: ["יהי", "לה", "פלטה"] },
   };
   for (const [id, spec] of Object.entries(XLARGE)) {
     const book = id.split(".")[0];
@@ -193,9 +204,22 @@ export function runHardFailChecks(ctx) {
       failures.push(`2-x-large: ${id} expected ${spec.count} tokens got ${v.words.length}`);
     }
     const cons = v.words.map((w) => consonantsOnly(w.he));
-    for (const need of spec.mustIncludeCons) {
+    for (const need of spec.mustIncludeCons || []) {
       if (!cons.includes(need)) {
         failures.push(`2-x-large: ${id} missing surface consonants ${need} (got ${cons.join(",")})`);
+      }
+    }
+    if (spec.mustIncludeSeqCons) {
+      const seq = spec.mustIncludeSeqCons;
+      let si = 0;
+      for (const c of cons) {
+        if (c === seq[si]) si++;
+        if (si === seq.length) break;
+      }
+      if (si !== seq.length) {
+        failures.push(
+          `2-x-large: ${id} missing consonant sequence ${seq.join("→")} (got ${cons.join(",")})`
+        );
       }
     }
     samples[id.replace(/\./g, "_")] = {
@@ -229,16 +253,27 @@ export function runHardFailChecks(ctx) {
   // --- 3. Phonetics ---
   for (const b of books) {
     const pack = packByBook[b];
-    if (pack.meta.aramaic) {
-      // Aramaic: must NOT silently apply Hebrew schema successfully as if Hebrew
-      const bad = pack.verses.flatMap((v) => v.words).filter((w) => w.aramaic !== true && !w.divineName);
-      // For flagged aramaic books we require aramaic marker OR pending phonetic
-      // (Torah N/A)
-      continue;
-    }
     for (const v of pack.verses) {
       for (let i = 0; i < v.words.length; i++) {
         const w = v.words[i];
+        const morphAramaic =
+          w.aramaic === true ||
+          (w.morph &&
+            String(w.morph)
+              .split("/")
+              .some((seg) => /^A/.test(seg)));
+        if (morphAramaic) {
+          // Sofer: Biblical Aramaic must not silently use Hebrew SBL-Learner
+          if (w.aramaic !== true) {
+            failures.push(`3-phonetics: Aramaic morph missing aramaic=true at ${v.id}#${i}`);
+          }
+          if (w.phonetic !== "[aramaic-pending]") {
+            failures.push(
+              `3-phonetics: Aramaic token must be [aramaic-pending] (got ${w.phonetic}) at ${v.id}#${i}`
+            );
+          }
+          continue;
+        }
         if (!w.phonetic || !String(w.phonetic).trim()) {
           failures.push(`3-phonetics: blank ${v.id}#${i}`);
         }
@@ -289,6 +324,9 @@ export function runHardFailChecks(ctx) {
   }
   if (books.includes("Isa") && yhwhCount < 1) {
     failures.push("4-YHWH: expected at least one YHWH in Nevi'im sample");
+  }
+  if (books.includes("Ps") && yhwhCount < 1) {
+    failures.push("4-YHWH: expected at least one YHWH in Ketuvim sample");
   }
   samples.yhwhCount = yhwhCount;
 

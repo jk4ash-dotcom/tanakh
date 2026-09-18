@@ -1,7 +1,7 @@
 {
   "meta": {
     "name": "tanakh-learner-test-samples",
-    "version": "0.2.1-poc",
+    "version": "0.4.0-poc",
     "scope": "Torah sample verses for unit tests",
     "hebrew": {
       "pin": "v.2.2"
@@ -18,7 +18,8 @@
     "display": {
       "tokenOrder": "OSHB order"
     },
-    "gaps": []
+    "gaps": [],
+    "generatedAt": "2026-09-18T05:40:18.184Z"
   },
   "chapters": [
     {
@@ -921,11 +922,11 @@
           "divineName": false
         },
         {
-          "he": "יהוה",
+          "he": "ליהוה",
           "lemmaId": "H3068",
           "lemmaRaw": "l/3068",
           "morph": "HR/Np",
-          "phonetic": "YHWH",
+          "phonetic": "laYHWH",
           "glossId": "H3068",
           "divineName": true,
           "procliticNote": "לְ (lamed) proclitic — often 'to/for'"
@@ -2447,58 +2448,47 @@
     }
   ],
   "glosses": {
-    "H5971a": {
-      "id": "H5971a",
-      "primary": "Ammi",
+    "H7453": {
+      "id": "H7453",
+      "primary": "neighbor",
       "senses": [
-        "Ammi"
+        "neighbor",
+        "friend, companion, fellow, another person",
+        "friend, intimate",
+        "fellow, fellow-citizen, another person (weaker sense)",
+        "other, another (reciprocal phrase)"
       ],
       "source": "TBESH",
-      "definition": "A man living at the time of United Monarchy, only mentioned at Sng.6.12\n § kinsman, kindred",
+      "definition": "1) friend, companion, fellow, another person\n1a) friend, intimate\n1b) fellow, fellow-citizen, another person (weaker sense)\n1c) other, another (reciprocal phrase)",
       "note": null
     },
-    "H6440": {
-      "id": "H6440",
-      "primary": "face: before",
+    "H3318": {
+      "id": "H3318",
+      "primary": "to come out: come",
       "senses": [
-        "face: before",
-        "face",
-        "face, faces",
-        "presence, person",
-        "face (of seraphim or cherubim)",
-        "face (of animals)",
-        "face, surface (of ground)",
-        "as adv of loc/temp"
+        "to come out: come",
+        "to go out, come out, exit, go forth",
+        "(Qal)",
+        "(Hiphil)",
+        "(Hophal) to be brought out or forth"
       ],
       "source": "TBESH",
-      "definition": ": before/to/front\n1) face\n1a) face, faces\n1b) presence, person\n1c) face (of seraphim or cherubim)\n1d) face (of animals)\n1e) face, surface (of ground)\n1f) as adv of loc/temp\n1f1) before and behind, toward, in front of, forward, formerly, from beforetime, before\n1g) with prep\n1g1) in front of, before, to the front of, in the presence of, in the face of, at the face or front of, from the presence of, from before, from before the face of",
+      "definition": ": come/go_out/escape\n1) to go out, come out, exit, go forth\n1a) (Qal)\n1a1) to go or come out or forth, depart\n1a2) to go forth (to a place)\n1a3) to go forward, proceed to (to or toward something)\n1a4) to come or go forth (with purpose or for result)\n1a5) to come out of\n1b) (Hiphil)\n1b1) to cause to go or come out, bring out, lead out\n1b2) to bring out of\n1b3) to lead out\n1b4) to deliver\n1c) (Hophal) to be brought out or forth",
       "note": null
     },
-    "H0085": {
-      "id": "H0085",
-      "primary": "Abraham",
+    "H3966": {
+      "id": "H3966",
+      "primary": "much",
       "senses": [
-        "Abraham"
+        "much",
+        "exceedingly, much",
+        "might, force, abundance",
+        "muchness, force, abundance, exceedingly",
+        "force, might",
+        "exceedingly, greatly, very (idioms showing magnitude or degree)"
       ],
       "source": "TBESH",
-      "definition": "A man living at the time of the Patriarchs, first mentioned at Gen.11.26; \n son of: Terah (H8646); \n brother of: Nahor (H5152H), Haran (H2039) and Sarah (H8283); married to Sarah (H8283), Hagar (H1904) and Keturah (H6989); \n father of: Ishmael (H3458), Isaac (H3327), Zimran (H2175), Jokshan (H3370), Medan (H4091), Midian (H4080), Ishbak (H3435) and Shuah (H7744); also called Abram at Gen.11.26--17.5; 2x \n § Abraham = \"father of a multitude\" or \"chief of multitude\"\n friend of God and founder of H",
-      "note": null
-    },
-    "H5650": {
-      "id": "H5650",
-      "primary": "servant/slave",
-      "senses": [
-        "servant/slave",
-        "slave, servant",
-        "slave, servant, man-servant",
-        "subjects",
-        "servants, worshippers (of God)",
-        "servant (in special sense as prophets, Levites etc)",
-        "servant (of Israel)",
-        "servant (as form of address between equals)"
-      ],
-      "source": "TBESH",
-      "definition": "1) slave, servant\n1a) slave, servant, man-servant\n1b) subjects\n1c) servants, worshippers (of God)\n1d) servant (in special sense as prophets, Levites etc)\n1e) servant (of Israel)\n1f) servant (as form of address between equals)\nAramaic equivalent: a.vad (עֲבַד \"servant/slave\" H5649)",
+      "definition": "adv\n1) exceedingly, much\nsubst\n2) might, force, abundance\nn m\n3) muchness, force, abundance, exceedingly\n3a) force, might\n3b) exceedingly, greatly, very (idioms showing magnitude or degree)\n3b1) exceedingly\n3b2) up to abundance, to a great degree, exceedingly\n3b3) with muchness, muchness",
       "note": null
     },
     "H0854": {
@@ -2517,171 +2507,6 @@
       "definition": "1) with, near, together with\n1a) with, together with\n1b) with (of relationship)\n1c) near (of place)\n1d) with (poss.)\n1e) from...with, from (with other prep)",
       "note": null
     },
-    "H5358": {
-      "id": "H5358",
-      "primary": "to avenge",
-      "senses": [
-        "to avenge",
-        "to avenge, take vengeance, revenge, avenge oneself, be avenged, be punished",
-        "(Qal)",
-        "(Niphal)",
-        "(Piel) to avenge",
-        "(Hophal) to be avenged, vengeance be taken (for blood)",
-        "(Hithpael) to avenge oneself"
-      ],
-      "source": "TBESH",
-      "definition": "1) to avenge, take vengeance, revenge, avenge oneself, be avenged, be punished\n1a) (Qal)\n1a1) to avenge, take vengeance\n1a2) to entertain revengeful feelings\n1b) (Niphal)\n1b1) to avenge oneself\n1b2) to suffer vengeance\n1c) (Piel) to avenge\n1d) (Hophal) to be avenged, vengeance be taken (for blood)\n1e) (Hithpael) to avenge oneself",
-      "note": null
-    },
-    "H6119": {
-      "id": "H6119",
-      "primary": "heel",
-      "senses": [
-        "heel",
-        "heel, rear, footprint, hinder part, hoof, rear of a troop, footstep",
-        "mark of heel, footprint",
-        "hinder part, rear"
-      ],
-      "source": "TBESH",
-      "definition": "1) heel, rear, footprint, hinder part, hoof, rear of a troop, footstep\n1a) heel\n1b) mark of heel, footprint\n1c) hinder part, rear",
-      "note": null
-    },
-    "H0001": {
-      "id": "H0001",
-      "primary": "father",
-      "senses": [
-        "father",
-        "father of an individual",
-        "of God as father of his people",
-        "head or founder of a household, group, family, or clan",
-        "ancestor",
-        "grandfather, forefathers - of person",
-        "of people",
-        "originator or patron of a class, profession, or art"
-      ],
-      "source": "TBESH",
-      "definition": "1) father of an individual\n2) of God as father of his people\n3) head or founder of a household, group, family, or clan\n4) ancestor\n4a) grandfather, forefathers - of person\n4b) of people\n5) originator or patron of a class, profession, or art\n6) of producer, generator (fig.)\n7) of benevolence and protection (fig.)\n8) term of respect and honour\n9) ruler or chief (spec.)\nAlso means: av (אַב \"father\" H0002)",
-      "note": null
-    },
-    "H3824": {
-      "id": "H3824",
-      "primary": "heart",
-      "senses": [
-        "heart",
-        "inner man, mind, will, heart, soul, understanding",
-        "inner part, midst"
-      ],
-      "source": "TBESH",
-      "definition": "1) inner man, mind, will, heart, soul, understanding\n1a) inner part, midst\n1a1) midst (of things)\n1a2) heart (of man)\n1a3) soul, heart (of man)\n1a4) mind, knowledge, thinking, reflection, memory\n1a5) inclination, resolution, determination (of will)\n1a6) conscience\n1a7) heart (of moral character)\n1a8) as seat of appetites\n1a9) as seat of emotions and passions 1a10) as seat of courage\nAramaic equivalent: le.vav (לְבַב \"heart\" H3825)",
-      "note": null
-    },
-    "H0996": {
-      "id": "H0996",
-      "primary": "between",
-      "senses": [
-        "between"
-      ],
-      "source": "TBESH",
-      "definition": ": between\n between, among, in the midst of (with other preps), from between",
-      "note": null
-    },
-    "H1254a": {
-      "id": "H1254a",
-      "primary": "to create",
-      "senses": [
-        "to create",
-        "to create, shape, form",
-        "(Qal) to shape, fashion, create (always with God as subject)",
-        "(Niphal) to be created",
-        "(Piel)"
-      ],
-      "source": "TBESH",
-      "definition": "1) to create, shape, form\n1a) (Qal) to shape, fashion, create (always with God as subject)\n1a1) of heaven and earth\n1a2) of individual man\n1a3) of new conditions and circumstances\n1a4) of transformations\n1b) (Niphal) to be created\n1b1) of heaven and earth\n1b2) of birth\n1b3) of something new\n1b4) of miracles\n1c) (Piel)\n1c1) to cut down\n1c2) to cut out",
-      "note": null
-    },
-    "H7363b": {
-      "id": "H7363b",
-      "primary": "to hover",
-      "senses": [
-        "to hover"
-      ],
-      "source": "TBESH",
-      "definition": "(Piel) to hover",
-      "note": null
-    },
-    "H8064": {
-      "id": "H8064",
-      "primary": "heaven",
-      "senses": [
-        "heaven",
-        "heaven, heavens, sky",
-        "visible heavens, sky",
-        "Heaven (as the abode of God)"
-      ],
-      "source": "TBESH",
-      "definition": "1) heaven, heavens, sky\n1a) visible heavens, sky\n1a1) as abode of the stars\n1a2) as the visible universe, the sky, atmosphere, etc\n1b) Heaven (as the abode of God)\nAramaic equivalent: sha.ma.yin (שָׁמַ֫יִן \"heaven\" H8065)",
-      "note": null
-    },
-    "H0637": {
-      "id": "H0637",
-      "primary": "also",
-      "senses": [
-        "also",
-        "also, yea, though, so much the more",
-        "furthermore, indeed"
-      ],
-      "source": "TBESH",
-      "definition": "conj (denoting addition, esp of something greater)\n1) also, yea, though, so much the more\nadv\n2) furthermore, indeed\nAramaic equivalent: aph (אַף \"also\" H0638)",
-      "note": null
-    },
-    "H6175": {
-      "id": "H6175",
-      "primary": "prudent",
-      "senses": [
-        "prudent",
-        "subtle, shrewd, crafty, sly, sensible",
-        "crafty",
-        "shrewd, sensible, prudent"
-      ],
-      "source": "TBESH",
-      "definition": "1) subtle, shrewd, crafty, sly, sensible\n1a) crafty\n1b) shrewd, sensible, prudent",
-      "note": null
-    },
-    "H0342": {
-      "id": "H0342",
-      "primary": "enmity",
-      "senses": [
-        "enmity"
-      ],
-      "source": "TBESH",
-      "definition": "enmity, hatred",
-      "note": null
-    },
-    "H1588": {
-      "id": "H1588",
-      "primary": "Garden (of Uzza)",
-      "senses": [
-        "Garden (of Uzza)"
-      ],
-      "source": "TBESH",
-      "definition": "This name means  garden, enclosure",
-      "note": null
-    },
-    "H0559": {
-      "id": "H0559",
-      "primary": "to say",
-      "senses": [
-        "to say",
-        "to say, speak, utter",
-        "(Qal) to say, to answer, to say in one's heart, to think, to command, to promise, to intend",
-        "(Niphal) to be told, to be said, to be called",
-        "(Hithpael) to boast, to act proudly",
-        "(Hiphil) to avow, to avouch"
-      ],
-      "source": "TBESH",
-      "definition": "1) to say, speak, utter\n1a) (Qal) to say, to answer, to say in one's heart, to think, to command, to promise, to intend\n1b) (Niphal) to be told, to be said, to be called\n1c) (Hithpael) to boast, to act proudly\n1d) (Hiphil) to avow, to avouch\nAramaic equivalent: a.mar (אֲמַר \"to say\" H0560)",
-      "note": null
-    },
     "H4872": {
       "id": "H4872",
       "primary": "Moses",
@@ -2690,619 +2515,6 @@
       ],
       "source": "TBESH",
       "definition": "A man of the tribe of Levi living at the time of Egypt and Wilderness, first mentioned at Exo.2.10; \n son of: Amram (H6019) and Jochebed (H3115); \n brother of: Aaron (H0175) and Miriam (H4813); married to Zipporah (H6855); \n father of: Gershom (H1647) and Eliezer (H0461H); also called Manasseh at Jdg.18.30(?) \n § Moses = \"drawn\"\n the prophet and lawgiver, leader of the exodus",
-      "note": null
-    },
-    "H5775": {
-      "id": "H5775",
-      "primary": "bird",
-      "senses": [
-        "bird",
-        "flying creatures, fowl, insects, birds",
-        "fowl, birds",
-        "winged insects"
-      ],
-      "source": "TBESH",
-      "definition": "1) flying creatures, fowl, insects, birds\n1a) fowl, birds\n1b) winged insects\nAramaic equivalent: oph (עוֹף \"bird\" H5776)",
-      "note": null
-    },
-    "H0413": {
-      "id": "H0413",
-      "primary": "to(wards)",
-      "senses": [
-        "to(wards)",
-        "to, toward, unto (of motion)",
-        "into (limit is actually entered)",
-        "in among",
-        "toward (of direction, not necessarily physical motion)",
-        "against (motion or direction of a hostile character)",
-        "in addition to, to",
-        "concerning, in regard to, in reference to, on account of"
-      ],
-      "source": "TBESH",
-      "definition": "1) to, toward, unto (of motion)\n2) into (limit is actually entered)\n2a) in among\n3) toward (of direction, not necessarily physical motion)\n4) against (motion or direction of a hostile character)\n5) in addition to, to\n6) concerning, in regard to, in reference to, on account of\n7) according to (rule or standard)\n8) at, by, against (of one's presence)\n9) in between, in within, to within, unto (idea of motion to)",
-      "note": null
-    },
-    "H5175": {
-      "id": "H5175",
-      "primary": "serpent",
-      "senses": [
-        "serpent",
-        "serpent, snake",
-        "image (of serpent)",
-        "fleeing serpent (mythological)"
-      ],
-      "source": "TBESH",
-      "definition": "1) serpent, snake\n1a) serpent\n1b) image (of serpent)\n1c) fleeing serpent (mythological)",
-      "note": null
-    },
-    "H0215": {
-      "id": "H0215",
-      "primary": "to light",
-      "senses": [
-        "to light",
-        "to be or become light, shine",
-        "(Qal)",
-        "(Niphal)",
-        "(Hiphil)"
-      ],
-      "source": "TBESH",
-      "definition": "1) to be or become light, shine\n1a) (Qal)\n1a1) to become light (day)\n1a2) to shine (of the sun)\n1a3) to become bright\n1b) (Niphal)\n1b1) to be illuminated\n1b2) to become lighted up\n1c) (Hiphil)\n1c1) to give light, shine (of sun, moon, and stars)\n1c2) to illumine, light up, cause to shine, shine\n1c3) to kindle, light (candle, wood)\n1c4) lighten (of the eyes, his law, etc)\n1c5) to make shine (of the face)",
-      "note": null
-    },
-    "H3541": {
-      "id": "H3541",
-      "primary": "thus",
-      "senses": [
-        "thus",
-        "thus, here, in this manner",
-        "thus, so",
-        "here, here and there",
-        "until now, until now...until then, meanwhile"
-      ],
-      "source": "TBESH",
-      "definition": "1) thus, here, in this manner\n1a) thus, so\n1b) here, here and there\n1c) until now, until now...until then, meanwhile\nAramaic equivalent: kah (כָּה \"thus\" H3542)",
-      "note": null
-    },
-    "H2088": {
-      "id": "H2088",
-      "primary": "this",
-      "senses": [
-        "this",
-        "this, this one, here, which, this...that, the one...the other, another, such",
-        "(alone)",
-        "(appos to subst)",
-        "(as predicate)",
-        "(enclitically)",
-        "(poetry)",
-        "(with prefixes)"
-      ],
-      "source": "TBESH",
-      "definition": "1) this, this one, here, which, this...that, the one...the other, another, such\n1a) (alone)\n1a1) this one\n1a2) this...that, the one...the other, another\n1b) (appos to subst)\n1b1) this\n1c) (as predicate)\n1c1) this, such\n1d) (enclitically)\n1d1) then\n1d2) who, whom\n1d3) how now, what now\n1d4) what now\n1d5) wherefore now\n1d6) behold here\n1d7) just now\n1d8) now, now already\n1e) (poetry)\n1e1) wherein, which, those who\n1f) (with prefixes)\n1f1) in this (place) here, then\n1f2) on these conditions, herewi",
-      "note": null
-    },
-    "H1121a": {
-      "id": "H1121a",
-      "primary": "son: descendant/people",
-      "senses": [
-        "son: descendant/people"
-      ],
-      "source": "TBESH",
-      "definition": ": descendant, people, tribe, nation\nA sub-meaning of ben (בֵּן \": child\" H1121) \n § : child/son",
-      "note": null
-    },
-    "H0127": {
-      "id": "H0127",
-      "primary": "land: soil",
-      "senses": [
-        "land: soil",
-        "ground, land",
-        "ground (as general, tilled, yielding sustenance)",
-        "piece of ground, a specific plot of land",
-        "earth substance (for building or constructing)",
-        "ground as earth's visible surface",
-        "land, territory, country",
-        "whole inhabited earth"
-      ],
-      "source": "TBESH",
-      "definition": ": soil\n1) ground, land\n1a) ground (as general, tilled, yielding sustenance)\n1b) piece of ground, a specific plot of land\n1c) earth substance (for building or constructing)\n1d) ground as earth's visible surface\n1e) land, territory, country\n1f) whole inhabited earth\n1g) city in Naphtali",
-      "note": null
-    },
-    "H0776": {
-      "id": "H0776",
-      "primary": "land: country/planet",
-      "senses": [
-        "land: country/planet",
-        "land, earth",
-        "earth",
-        "land",
-        "ground, surface of the earth",
-        "(in phrases)",
-        "(almost wholly late in usage)"
-      ],
-      "source": "TBESH",
-      "definition": ": country/field\n1) land, earth\n1a) earth\n1a1) whole earth (as opposed to a part)\n1a2) earth (as opposed to heaven)\n1a3) earth (inhabitants)\n1b) land\n1b1) country, territory\n1b2) district, region\n1b3) tribal territory\n1b4) piece of ground\n1b5) land of Canaan, Israel\n1b6) inhabitants of land\n1b7) Sheol, land without return, (under) world\n1b8) city (-state)\n1c) ground, surface of the earth\n1c1) ground\n1c2) soil\n1d) (in phrases)\n1d1) people of the land\n1d2) space or distance of country (in measureme",
-      "note": null
-    },
-    "H0853": {
-      "id": "H0853",
-      "primary": "[Obj.]",
-      "senses": [
-        "[Obj.]"
-      ],
-      "source": "TBESH",
-      "definition": "sign of the definite direct object, not translated in English but generally preceding and indicating the accusative\nAramaic equivalent: yat (יָת \"whom\" H3487)",
-      "note": null
-    },
-    "H0157": {
-      "id": "H0157",
-      "primary": "to love: lover",
-      "senses": [
-        "to love: lover",
-        "to love",
-        "(Qal)",
-        "(Niphal)",
-        "(Piel)",
-        "to like"
-      ],
-      "source": "TBESH",
-      "definition": ": lover\n1) to love\n1a) (Qal)\n1a1) human love for another, includes family, and sexual\n1a2) human appetite for objects such as food, drink, sleep, wisdom\n1a3) human love for or to God\n1a4) act of being a friend\n1a4a) lover (participle)\n1a4b) friend (participle)\n1a5) God's love toward man\n1a5a) to individual men\n1a5b) to people Israel\n1a5c) to righteousness\n1b) (Niphal)\n1b1) lovely (participle)\n1b2) loveable (participle)\n1c) (Piel)\n1c1) friends\n1c2) lovers (fig. of adulterers)\n2) to like\nAlso mean",
-      "note": null
-    },
-    "H8317": {
-      "id": "H8317",
-      "primary": "to swarm",
-      "senses": [
-        "to swarm",
-        "(Qal) to teem, swarm, multiply",
-        "to swarm, teem"
-      ],
-      "source": "TBESH",
-      "definition": "1) (Qal) to teem, swarm, multiply\n1a) to swarm, teem\n1b2) to swarm",
-      "note": null
-    },
-    "H7453": {
-      "id": "H7453",
-      "primary": "neighbor",
-      "senses": [
-        "neighbor",
-        "friend, companion, fellow, another person",
-        "friend, intimate",
-        "fellow, fellow-citizen, another person (weaker sense)",
-        "other, another (reciprocal phrase)"
-      ],
-      "source": "TBESH",
-      "definition": "1) friend, companion, fellow, another person\n1a) friend, intimate\n1b) fellow, fellow-citizen, another person (weaker sense)\n1c) other, another (reciprocal phrase)",
-      "note": null
-    },
-    "H7430": {
-      "id": "H7430",
-      "primary": "to creep",
-      "senses": [
-        "to creep",
-        "to creep, move lightly, move about, walk on all fours",
-        "(Qal)"
-      ],
-      "source": "TBESH",
-      "definition": "1) to creep, move lightly, move about, walk on all fours\n1a) (Qal)\n1a1) to creep, teem (of all creeping things)\n1a2) to creep (of animals)\n1a3) to move lightly, glide about (of water animals)\n1a4) to move about (of all land animals generally)",
-      "note": null
-    },
-    "H0834a": {
-      "id": "H0834a",
-      "primary": "which",
-      "senses": [
-        "which",
-        "which, who",
-        "that which",
-        "(conj)",
-        "that (in obj clause)",
-        "when",
-        "since",
-        "as"
-      ],
-      "source": "TBESH",
-      "definition": "A: 1) (relative part.)\n1a) which, who\n1b) that which\n2) (conj)\n2a) that (in obj clause)\n2b) when\n2c) since\n2d) as\n2e) conditional if\n B:  Beth+  1) in (that) which\n2) (adv)\n2a) where\n3) (conj)\n3a) in that, inasmuch as\n3b) on account of\nC:  Mem+ 1) from (or than) that which\n2) from (the place) where\n3) from (the fact) that, since\n D: Kaph+  \n1) (conj.), according as, as, when\n1a) according to that which, according as, as\n1b) with a causal force: in so far as, since\n1c) with a temporal force: when",
-      "note": null
-    },
-    "H0929": {
-      "id": "H0929",
-      "primary": "animal",
-      "senses": [
-        "animal",
-        "beast, cattle, animal",
-        "beasts (coll of all animals)",
-        "cattle, livestock (of domestic animals)",
-        "wild beasts"
-      ],
-      "source": "TBESH",
-      "definition": "1) beast, cattle, animal\n1a) beasts (coll of all animals)\n1b) cattle, livestock (of domestic animals)\n1c) wild beasts",
-      "note": null
-    },
-    "H8415": {
-      "id": "H8415",
-      "primary": "abyss",
-      "senses": [
-        "abyss",
-        "deep, depths, deep places, abyss, the deep, sea",
-        "deep (of subterranean waters)",
-        "deep, sea, abysses (of sea)",
-        "primeval ocean, deep",
-        "deep, depth (of river)",
-        "abyss, the grave"
-      ],
-      "source": "TBESH",
-      "definition": "1) deep, depths, deep places, abyss, the deep, sea\n1a) deep (of subterranean waters)\n1b) deep, sea, abysses (of sea)\n1c) primeval ocean, deep\n1d) deep, depth (of river)\n1e) abyss, the grave",
-      "note": null
-    },
-    "H7896": {
-      "id": "H7896",
-      "primary": "to set: make",
-      "senses": [
-        "to set: make",
-        "to put, set",
-        "(Qal)",
-        "(Hophal) to be imposed, be set upon"
-      ],
-      "source": "TBESH",
-      "definition": ": make/establish\n1) to put, set\n1a) (Qal)\n1a1) to put, lay (hand upon)\n1a2) to set, station, appoint, fix, set mind to\n1a3) to constitute, make (one something), make like, perform\n1a4) to take one's stand\n1a5) to lay waste\n1b) (Hophal) to be imposed, be set upon",
-      "note": null
-    },
-    "H6529": {
-      "id": "H6529",
-      "primary": "fruit",
-      "senses": [
-        "fruit",
-        "fruit, produce (of the ground)",
-        "fruit, offspring, children, progeny (of the womb)",
-        "fruit (of actions) (fig.)"
-      ],
-      "source": "TBESH",
-      "definition": "1) fruit\n1a) fruit, produce (of the ground)\n1b) fruit, offspring, children, progeny (of the womb)\n1c) fruit (of actions) (fig.)",
-      "note": null
-    },
-    "H1004b": {
-      "id": "H1004b",
-      "primary": "Beth-(ashbea)",
-      "senses": [
-        "Beth-(ashbea)"
-      ],
-      "source": "TBESH",
-      "definition": "nm\n This name is used for a house, habitation\nCombined with ash.be.a (אַשְׁבֵּעַ \"Ashbea\" H0791)",
-      "note": null
-    },
-    "H3478": {
-      "id": "H3478",
-      "primary": "Israel",
-      "senses": [
-        "Israel",
-        "the second name for Jacob given to him by God after his wrestling with the angel at Peniel",
-        "the name of the descendants and the nation of the descendants of Jacob",
-        "the name of the nation until the death of Solomon and the split",
-        "the name used and given to the northern kingdom consisting of the 10 tribes under Jeroboam; the southern kingdom was known as Judah",
-        "the name of the nation after the return from exile"
-      ],
-      "source": "TBESH",
-      "definition": "A man living at the time of the Patriarchs, first mentioned at Gen.25.26; \n son of: Isaac (H3327) and Rebekah (H7259); \n brother of: Esau (H6215); married to Rachel (H7354), Leah (H3812), Zilpah (H2153) and Bilhah (H1090A); \n father of: Reuben (H7205), Simeon (H8095), Levi (H3878), Judah (H3063), Dan (H1835H), Naphtali (H5321), Gad (H1410), Asher (H0836), Issachar (H3485), Zebulun (H2074), Dinah (H1783), Joseph (H3130) and Benjamin (H1144); also called Jacob frequently \n § Israel = \"God prevails",
-      "note": null
-    },
-    "H8435": {
-      "id": "H8435",
-      "primary": "generation",
-      "senses": [
-        "generation",
-        "descendants, results, proceedings, generations, genealogies",
-        "account of men and their descendants",
-        "begetting or account of heaven (metaph)"
-      ],
-      "source": "TBESH",
-      "definition": "1) descendants, results, proceedings, generations, genealogies\n1a) account of men and their descendants\n1a1) genealogical list of one's descendants\n1a2) one's contemporaries\n1a3) course of history (of creation etc)\n1b) begetting or account of heaven (metaph)",
-      "note": null
-    },
-    "H6509": {
-      "id": "H6509",
-      "primary": "be fruitful",
-      "senses": [
-        "be fruitful",
-        "to bear fruit, be fruitful, branch off",
-        "(Qal) to bear fruit, be fruitful",
-        "(Hiphil)"
-      ],
-      "source": "TBESH",
-      "definition": "1) to bear fruit, be fruitful, branch off\n1a) (Qal) to bear fruit, be fruitful\n1b) (Hiphil)\n1b1) to cause to bear fruit\n1b2) to make fruitful\n1b3) to show fruitfulness, bear fruit\nAlso means: pa.ra (פָּרָא \"be fruitful\" H6500)",
-      "note": null
-    },
-    "H5315": {
-      "id": "H5315",
-      "primary": "soul",
-      "senses": [
-        "soul",
-        "soul, self, life, creature, person, appetite, mind, living being, desire, emotion, passion",
-        "that which breathes, the breathing substance or being, soul, the inner being of man",
-        "living being",
-        "living being (with life in the blood)",
-        "the man himself, self, person or individual",
-        "seat of the appetites",
-        "seat of emotions and passions"
-      ],
-      "source": "TBESH",
-      "definition": "1) soul, self, life, creature, person, appetite, mind, living being, desire, emotion, passion\n1a) that which breathes, the breathing substance or being, soul, the inner being of man\n1b) living being\n1c) living being (with life in the blood)\n1d) the man himself, self, person or individual\n1e) seat of the appetites\n1f) seat of emotions and passions\n1g) activity of mind\n1g1) uncertain\n1h) activity of the will\n1h1) uncertain\n1i) activity of the character\n1i1) uncertain",
-      "note": null
-    },
-    "H5921a": {
-      "id": "H5921a",
-      "primary": "upon",
-      "senses": [
-        "upon",
-        "upon, on the ground of, according to, on account of, on behalf of, concerning, beside, in addition to, together with, beyond, above, over, by, on to, towards, to, against",
-        "upon, on the ground of, on the basis of, on account of, because of, therefore, on behalf of, for the sake of, for, with, in spite of, notwithstanding, concerning, in the matter of, as regards",
-        "above, beyond, over (of excess)",
-        "above, over (of elevation or pre-eminence)",
-        "upon, to, over to, unto, in addition to, together with, with (of addition)",
-        "over (of suspension or extension)",
-        "by, adjoining, next, at, over, around (of contiguity or proximity)"
-      ],
-      "source": "TBESH",
-      "definition": "prep\n1) upon, on the ground of, according to, on account of, on behalf of, concerning, beside, in addition to, together with, beyond, above, over, by, on to, towards, to, against\n1a) upon, on the ground of, on the basis of, on account of, because of, therefore, on behalf of, for the sake of, for, with, in spite of, notwithstanding, concerning, in the matter of, as regards\n1b) above, beyond, over (of excess)\n1c) above, over (of elevation or pre-eminence)\n1d) upon, to, over to, unto, in addition t",
-      "note": null
-    },
-    "H3588a": {
-      "id": "H3588a",
-      "primary": "for",
-      "senses": [
-        "for",
-        "that, for, because, when, as though, as, because that, but, then, certainly, except, surely, since",
-        "that",
-        "when (of time)",
-        "because, since (causal connection)",
-        "but (after negative)",
-        "that if, for if, indeed if, for though, but if",
-        "but rather, but"
-      ],
-      "source": "TBESH",
-      "definition": "1) that, for, because, when, as though, as, because that, but, then, certainly, except, surely, since\n1a) that\n1a1) yea, indeed\n1b) when (of time)\n1b1) when, if, though (with a concessive force)\n1c) because, since (causal connection)\n1d) but (after negative)\n1e) that if, for if, indeed if, for though, but if\n1f) but rather, but\n1g) except that\n1h) only, nevertheless\n1i) surely\n1j) that is\n1k) but if\n1l) for though\n1m) forasmuch as, for therefore",
-      "note": null
-    },
-    "H0398": {
-      "id": "H0398",
-      "primary": "to eat",
-      "senses": [
-        "to eat",
-        "to eat, devour, burn up, feed",
-        "(Qal)",
-        "(Niphal)",
-        "(Pual)",
-        "(Hiphil)",
-        "(Piel)"
-      ],
-      "source": "TBESH",
-      "definition": "1) to eat, devour, burn up, feed\n1a) (Qal)\n1a1) to eat (human subject)\n1a2) to eat, devour (of beasts and birds)\n1a3) to devour, consume (of fire)\n1a4) to devour, slay (of sword)\n1a5) to devour, consume, destroy (inanimate subjects - ie, pestilence, drought)\n1a6) to devour (of oppression)\n1b) (Niphal)\n1b1) to be eaten (by men)\n1b2) to be devoured, consumed (of fire)\n1b3) to be wasted, destroyed (of flesh)\n1c) (Pual)\n1c1) to cause to eat, feed with\n1c2) to cause to devour\n1d) (Hiphil)\n1d1) to fee",
-      "note": null
-    },
-    "H0430": {
-      "id": "H0430",
-      "primary": "God",
-      "senses": [
-        "God"
-      ],
-      "source": "TBESH",
-      "definition": "This name means  \"gods\" (plural intensive-singular meaning), \"God\"\nAnother name of ye.ho.vah (יהוה \"LORD\" H3068G)",
-      "note": null
-    },
-    "H7014b": {
-      "id": "H7014b",
-      "primary": "Cain",
-      "senses": [
-        "Cain"
-      ],
-      "source": "TBESH",
-      "definition": "A man living at the time before the Flood, first mentioned at Gen.4.1; \n son of: Adam (H0121) and Eve (H2332); \n brother of: Abel (H1893) and Seth (H8352); \n father of: Enoch (H2585)\nAlso named: Kain (Κάϊν \"Cain\" G2535)\n § Cain = \"possession\"\n eldest son of Adam and Eve and the first murderer having murdered his brother",
-      "note": null
-    },
-    "H2822": {
-      "id": "H2822",
-      "primary": "darkness",
-      "senses": [
-        "darkness",
-        "darkness, obscurity",
-        "secret place"
-      ],
-      "source": "TBESH",
-      "definition": "1) darkness, obscurity\n1a) darkness\n1b) secret place",
-      "note": null
-    },
-    "H7704b": {
-      "id": "H7704b",
-      "primary": "land: country",
-      "senses": [
-        "land: country",
-        "field, land",
-        "open field, country",
-        "definite portion of ground, field, land",
-        "land (opposed to sea)"
-      ],
-      "source": "TBESH",
-      "definition": ": country/field\n1) field, land\n1a) open field, country\n1b) definite portion of ground, field, land\n1c) land (opposed to sea)",
-      "note": null
-    },
-    "H3966": {
-      "id": "H3966",
-      "primary": "much",
-      "senses": [
-        "much",
-        "exceedingly, much",
-        "might, force, abundance",
-        "muchness, force, abundance, exceedingly",
-        "force, might",
-        "exceedingly, greatly, very (idioms showing magnitude or degree)"
-      ],
-      "source": "TBESH",
-      "definition": "adv\n1) exceedingly, much\nsubst\n2) might, force, abundance\nn m\n3) muchness, force, abundance, exceedingly\n3a) force, might\n3b) exceedingly, greatly, very (idioms showing magnitude or degree)\n3b1) exceedingly\n3b2) up to abundance, to a great degree, exceedingly\n3b3) with muchness, muchness",
-      "note": null
-    },
-    "H4714": {
-      "id": "H4714",
-      "primary": "Egypt",
-      "senses": [
-        "Egypt"
-      ],
-      "source": "TBESH",
-      "definition": "§ Egypt = \"land of the Copts\"\n a country at the northeastern section of Africa, adjacent to Palestine, and through which the Nile flows\nEgyptians = \"double straits\"",
-      "note": null
-    },
-    "H0802": {
-      "id": "H0802",
-      "primary": "woman",
-      "senses": [
-        "woman",
-        "woman, wife, female",
-        "woman (opposite of man)",
-        "wife (woman married to a man)",
-        "female (of animals)",
-        "each, every (pronoun)"
-      ],
-      "source": "TBESH",
-      "definition": ": woman\n1) woman, wife, female\n1a) woman (opposite of man)\n1b) wife (woman married to a man)\n1c) female (of animals)\n1d) each, every (pronoun)",
-      "note": null
-    },
-    "H6086": {
-      "id": "H6086",
-      "primary": "tree: wood",
-      "senses": [
-        "tree: wood",
-        "tree, wood, timber, stock, plank, stalk, stick, gallows",
-        "tree, trees",
-        "wood, pieces of wood, gallows, firewood, cedar-wood, woody flax"
-      ],
-      "source": "TBESH",
-      "definition": ": wood\n1) tree, wood, timber, stock, plank, stalk, stick, gallows\n1a) tree, trees\n1b) wood, pieces of wood, gallows, firewood, cedar-wood, woody flax",
-      "note": null
-    },
-    "H5201": {
-      "id": "H5201",
-      "primary": "to keep",
-      "senses": [
-        "to keep",
-        "to keep, keep guard, reserve, maintain",
-        "(Qal)"
-      ],
-      "source": "TBESH",
-      "definition": "1) to keep, keep guard, reserve, maintain\n1a) (Qal)\n1a1) to keep, maintain\n1a2) to keep, guard\nAramaic equivalent: ne.tar (נְטַר \"to keep\" H5202)",
-      "note": null
-    },
-    "H2416c": {
-      "id": "H2416c",
-      "primary": "living thing",
-      "senses": [
-        "living thing",
-        "living thing, animal",
-        "animal",
-        "life",
-        "appetite",
-        "revival, renewal"
-      ],
-      "source": "TBESH",
-      "definition": "1) living thing, animal\n1a) animal\n1b) life\n1c) appetite\n1d) revival, renewal\nAramaic equivalent: che.va (חֵיוָא \"beast\" H2423)",
-      "note": null
-    },
-    "H7307": {
-      "id": "H7307",
-      "primary": "spirit",
-      "senses": [
-        "spirit",
-        "wind, breath, mind, spirit",
-        "breath",
-        "wind",
-        "spirit (as that which breathes quickly in animation or agitation)",
-        "spirit (of the living, breathing being in man and animals)",
-        "spirit (as seat of emotion)",
-        "Spirit of God, the third person of the triune God, the Holy Spirit, coequal, coeternal with the Father and the Son"
-      ],
-      "source": "TBESH",
-      "definition": ": spirit\n1) wind, breath, mind, spirit\n1a) breath\n1b) wind\n1b1) of heaven\n1b2) quarter (of wind), side\n1b3) breath of air\n1b4) air, gas\n1b5) vain, empty thing\n1c) spirit (as that which breathes quickly in animation or agitation)\n1c1) spirit, animation, vivacity, vigour\n1c2) courage\n1c3) temper, anger\n1c4) impatience, patience\n1c5) spirit, disposition (as troubled, bitter, discontented)\n1c6) disposition (of various kinds), unaccountable or uncontrollable impulse\n1c7) prophetic spirit\n1d) spirit (",
-      "note": null
-    },
-    "H8034": {
-      "id": "H8034",
-      "primary": "name",
-      "senses": [
-        "name",
-        "reputation, fame, glory",
-        "the Name (as designation of God)",
-        "memorial, monument"
-      ],
-      "source": "TBESH",
-      "definition": "1) name\n1a) name\n1b) reputation, fame, glory\n1c) the Name (as designation of God)\n1d) memorial, monument\nAramaic equivalent: shum (שֻׁם \"name\" H8036)",
-      "note": null
-    },
-    "H8104": {
-      "id": "H8104",
-      "primary": "to keep: obey",
-      "senses": [
-        "to keep: obey",
-        "to keep, guard, observe, give heed",
-        "(Qal)",
-        "(Niphal)",
-        "(Piel) to keep, pay heed",
-        "(Hithpael) to keep oneself from"
-      ],
-      "source": "TBESH",
-      "definition": ": obey/observe\n1) to keep, guard, observe, give heed\n1a) (Qal)\n1a1) to keep, have charge of\n1a2) to keep, guard, keep watch and ward, protect, save life\n1a2a) watch, watchman (participle)\n1a3) to watch for, wait for\n1a4) to watch, observe\n1a5) to keep, retain, treasure up (in memory)\n1a6) to keep (within bounds), restrain\n1a7) to observe, celebrate, keep (sabbath or covenant or commands), perform (vow)\n1a8) to keep, preserve, protect\n1a9) to keep, reserve\n1b) (Niphal)\n1b1) to be on one's guard, ",
-      "note": null
-    },
-    "H7971": {
-      "id": "H7971",
-      "primary": "to send: depart",
-      "senses": [
-        "to send: depart",
-        "to send, send away, let go, stretch out",
-        "(Qal)",
-        "(Niphal) to be sent",
-        "(Piel)",
-        "(Pual) to be sent off, be put away, be divorced, be impelled",
-        "(Hiphil) to send"
-      ],
-      "source": "TBESH",
-      "definition": ": depart/send\n1) to send, send away, let go, stretch out\n1a) (Qal)\n1a1) to send\n1a2) to stretch out, extend, direct\n1a3) to send away\n1a4) to let loose\n1b) (Niphal) to be sent\n1c) (Piel)\n1c1) to send off or away or out or forth, dismiss, give over, cast out\n1c2) to let go, set free\n1c3) to shoot forth (of branches)\n1c4) to let down\n1c5) to shoot\n1d) (Pual) to be sent off, be put away, be divorced, be impelled\n1e) (Hiphil) to send",
-      "note": null
-    },
-    "H0922": {
-      "id": "H0922",
-      "primary": "void",
-      "senses": [
-        "void"
-      ],
-      "source": "TBESH",
-      "definition": "emptiness, void, waste",
-      "note": null
-    },
-    "H7218a": {
-      "id": "H7218a",
-      "primary": "head",
-      "senses": [
-        "head",
-        "head, top, summit, upper part, chief, total, sum, height, front, beginning",
-        "head (of man, animals)",
-        "top, tip (of mountain)",
-        "height (of stars)",
-        "chief, head (of man, city, nation, place, family, priest)",
-        "head, front, beginning",
-        "chief, choicest, best"
-      ],
-      "source": "TBESH",
-      "definition": ": head\n1) head, top, summit, upper part, chief, total, sum, height, front, beginning\n1a) head (of man, animals)\n1b) top, tip (of mountain)\n1c) height (of stars)\n1d) chief, head (of man, city, nation, place, family, priest)\n1e) head, front, beginning\n1f) chief, choicest, best\n1g) head, division, company, band\n1h) sum",
-      "note": null
-    },
-    "H7235a": {
-      "id": "H7235a",
-      "primary": "to multiply",
-      "senses": [
-        "to multiply",
-        "be or become great, be or become many, be or become much, be or become numerous",
-        "(Qal)",
-        "(Piel) to make large, enlarge, increase, become many",
-        "(Hiphil)"
-      ],
-      "source": "TBESH",
-      "definition": "1) be or become great, be or become many, be or become much, be or become numerous\n1a) (Qal)\n1a1) to become many, become numerous, multiply (of people, animals, things)\n1a2) to be or grow great\n1b) (Piel) to make large, enlarge, increase, become many\n1c) (Hiphil)\n1c1) to make much, make many, have many\n1c1a) to multiply, increase\n1c1b) to make much to do, do much in respect of, transgress greatly\n1c1c) to increase greatly or exceedingly\n1c2) to make great, enlarge, do much\nAramaic equivalent: re",
       "note": null
     },
     "H5750": {
@@ -3321,109 +2533,56 @@
       "definition": "subst\n1) a going round, continuance\nadv\n2) still, yet, again, besides\n2a) still, yet (of continuance or persistence)\n2b) still, yet, more (of addition or repetition)\n2c) again\n2d) still, moreover, besides\nAramaic equivalent: od (עוֹד \"still\" H5751)",
       "note": null
     },
-    "H1755": {
-      "id": "H1755",
+    "H0342": {
+      "id": "H0342",
+      "primary": "enmity",
+      "senses": [
+        "enmity"
+      ],
+      "source": "TBESH",
+      "definition": "enmity, hatred",
+      "note": null
+    },
+    "H0157": {
+      "id": "H0157",
+      "primary": "to love: lover",
+      "senses": [
+        "to love: lover",
+        "to love",
+        "(Qal)",
+        "(Niphal)",
+        "(Piel)",
+        "to like"
+      ],
+      "source": "TBESH",
+      "definition": ": lover\n1) to love\n1a) (Qal)\n1a1) human love for another, includes family, and sexual\n1a2) human appetite for objects such as food, drink, sleep, wisdom\n1a3) human love for or to God\n1a4) act of being a friend\n1a4a) lover (participle)\n1a4b) friend (participle)\n1a5) God's love toward man\n1a5a) to individual men\n1a5b) to people Israel\n1a5c) to righteousness\n1b) (Niphal)\n1b1) lovely (participle)\n1b2) loveable (participle)\n1c) (Piel)\n1c1) friends\n1c2) lovers (fig. of adulterers)\n2) to like\nAlso mean",
+      "note": null
+    },
+    "H6213a": {
+      "id": "H6213a",
+      "primary": "to make: do",
+      "senses": [
+        "to make: do",
+        "to do, fashion, accomplish, make",
+        "(Qal)",
+        "(Niphal)",
+        "(Pual) to be made"
+      ],
+      "source": "TBESH",
+      "definition": ": do/perform\n1) to do, fashion, accomplish, make\n1a) (Qal)\n1a1) to do, work, make, produce\n1a1a) to do\n1a1b) to work\n1a1c) to deal (with)\n1a1d) to act, act with effect, effect\n1a2) to make\n1a2a) to make\n1a2b) to produce\n1a2c) to prepare\n1a2d) to make (an offering)\n1a2e) to attend to, put in order\n1a2f) to observe, celebrate\n1a2g) to acquire (property)\n1a2h) to appoint, ordain, institute\n1a2i) to bring about\n1a2j) to use\n1a2k) to spend, pass\n1b) (Niphal)\n1b1) to be done\n1b2) to be made\n1b3) to be",
+      "note": null
+    },
+    "H8435": {
+      "id": "H8435",
       "primary": "generation",
       "senses": [
         "generation",
-        "period, generation, habitation, dwelling",
-        "period, age, generation (period of time)",
-        "generation (those living during a period)",
-        "generation (characterised by quality, condition, class of men)",
-        "dwelling-place, habitation"
+        "descendants, results, proceedings, generations, genealogies",
+        "account of men and their descendants",
+        "begetting or account of heaven (metaph)"
       ],
       "source": "TBESH",
-      "definition": "1) period, generation, habitation, dwelling\n1a) period, age, generation (period of time)\n1b) generation (those living during a period)\n1c) generation (characterised by quality, condition, class of men)\n1d) dwelling-place, habitation\nAramaic equivalent: dar (דָּר \"generation\" H1859)",
-      "note": null
-    },
-    "H7093": {
-      "id": "H7093",
-      "primary": "end",
-      "senses": [
-        "end",
-        "end, at the end of (of time)",
-        "end (of space)"
-      ],
-      "source": "TBESH",
-      "definition": "1) end\n1a) end, at the end of (of time)\n1b) end (of space)",
-      "note": null
-    },
-    "H2603a": {
-      "id": "H2603a",
-      "primary": "be gracious",
-      "senses": [
-        "be gracious",
-        "to be gracious, show favour, pity",
-        "(Qal) to show favour, be gracious",
-        "(Niphal) to be pitied",
-        "(Piel) to make gracious, make favourable, be gracious",
-        "(Poel) to direct favour to, have mercy on",
-        "(Hophal) to be shown favour, be shown consideration",
-        "(Hithpael) to seek favour, implore favour"
-      ],
-      "source": "TBESH",
-      "definition": "1) to be gracious, show favour, pity\n1a) (Qal) to show favour, be gracious\n1b) (Niphal) to be pitied\n1c) (Piel) to make gracious, make favourable, be gracious\n1d) (Poel) to direct favour to, have mercy on\n1e) (Hophal) to be shown favour, be shown consideration\n1f) (Hithpael) to seek favour, implore favour",
-      "note": null
-    },
-    "H3290": {
-      "id": "H3290",
-      "primary": "Jacob",
-      "senses": [
-        "Jacob"
-      ],
-      "source": "TBESH",
-      "definition": "A man living at the time of the Patriarchs, first mentioned at Gen.25.26; \n son of: Isaac (H3327) and Rebekah (H7259); \n brother of: Esau (H6215); married to Rachel (H7354), Leah (H3812), Zilpah (H2153) and Bilhah (H1090A); \n father of: Reuben (H7205), Simeon (H8095), Levi (H3878), Judah (H3063), Dan (H1835H), Naphtali (H5321), Gad (H1410), Asher (H0836), Issachar (H3485), Zebulun (H2074), Dinah (H1783), Joseph (H3130) and Benjamin (H1144); also called Jacob frequently\nAnother name of yis.ra.el ",
-      "note": null
-    },
-    "H2143": {
-      "id": "H2143",
-      "primary": "memorial",
-      "senses": [
-        "memorial",
-        "memorial, remembrance",
-        "remembrance, memory"
-      ],
-      "source": "TBESH",
-      "definition": "1) memorial, remembrance\n1a) remembrance, memory\n1b) memorial",
-      "note": null
-    },
-    "H0595": {
-      "id": "H0595",
-      "primary": "I",
-      "senses": [
-        "I"
-      ],
-      "source": "TBESH",
-      "definition": "I (first pers. sing.)\nAnother spelling of a.ni (אֲנִי, אָֽנֹכִ֫י \"I\" H0589)",
-      "note": null
-    },
-    "H3318": {
-      "id": "H3318",
-      "primary": "to come out: come",
-      "senses": [
-        "to come out: come",
-        "to go out, come out, exit, go forth",
-        "(Qal)",
-        "(Hiphil)",
-        "(Hophal) to be brought out or forth"
-      ],
-      "source": "TBESH",
-      "definition": ": come/go_out/escape\n1) to go out, come out, exit, go forth\n1a) (Qal)\n1a1) to go or come out or forth, depart\n1a2) to go forth (to a place)\n1a3) to go forward, proceed to (to or toward something)\n1a4) to come or go forth (with purpose or for result)\n1a5) to come out of\n1b) (Hiphil)\n1b1) to cause to go or come out, bring out, lead out\n1b2) to bring out of\n1b3) to lead out\n1b4) to deliver\n1c) (Hophal) to be brought out or forth",
-      "note": null
-    },
-    "H7225": {
-      "id": "H7225",
-      "primary": "first: beginning",
-      "senses": [
-        "first: beginning",
-        "first, beginning, best, chief",
-        "beginning",
-        "first",
-        "chief",
-        "choice part"
-      ],
-      "source": "TBESH",
-      "definition": ": beginning\n1) first, beginning, best, chief\n1a) beginning\n1b) first\n1c) chief\n1d) choice part\nAlso means: re.shit (רֵאשִׁית \": best\" H7225H)",
+      "definition": "1) descendants, results, proceedings, generations, genealogies\n1a) account of men and their descendants\n1a1) genealogical list of one's descendants\n1a2) one's contemporaries\n1a3) course of history (of creation etc)\n1b) begetting or account of heaven (metaph)",
       "note": null
     },
     "H7779": {
@@ -3438,89 +2597,19 @@
       "definition": "1) to bruise, crush, gape upon, desire?, seize?, strike out?\n1a) (Qal) to fall upon, bruise",
       "note": null
     },
-    "H8414": {
-      "id": "H8414",
-      "primary": "formlessness",
+    "H0559": {
+      "id": "H0559",
+      "primary": "to say",
       "senses": [
-        "formlessness",
-        "formlessness, confusion, unreality, emptiness",
-        "formlessness (of primeval earth)",
-        "that which is empty or unreal (of idols) (fig)",
-        "wasteland, wilderness (of solitary places)",
-        "place of chaos",
-        "vanity"
+        "to say",
+        "to say, speak, utter",
+        "(Qal) to say, to answer, to say in one's heart, to think, to command, to promise, to intend",
+        "(Niphal) to be told, to be said, to be called",
+        "(Hithpael) to boast, to act proudly",
+        "(Hiphil) to avow, to avouch"
       ],
       "source": "TBESH",
-      "definition": "1) formlessness, confusion, unreality, emptiness\n1a) formlessness (of primeval earth)\n1a1) nothingness, empty space\n1b) that which is empty or unreal (of idols) (fig)\n1c) wasteland, wilderness (of solitary places)\n1d) place of chaos\n1e) vanity",
-      "note": null
-    },
-    "H3068": {
-      "id": "H3068",
-      "primary": "LORD",
-      "senses": [
-        "LORD",
-        "the proper name of the one true God",
-        "unpronounced except with the vowel pointings of a.do.na (אֲדֹנָי \"Lord\" H0136)"
-      ],
-      "source": "TBESH",
-      "definition": "Jehovah = \"the existing One\"\n1) the proper name of the one true God\n1a) unpronounced except with the vowel pointings of a.do.na (אֲדֹנָי \"Lord\" H0136)",
-      "note": null
-    },
-    "H0589": {
-      "id": "H0589",
-      "primary": "I",
-      "senses": [
-        "I"
-      ],
-      "source": "TBESH",
-      "definition": "I (first pers. sing. -usually used for emphasis)",
-      "note": null
-    },
-    "H1931": {
-      "id": "H1931",
-      "primary": "he/she/it",
-      "senses": [
-        "he/she/it",
-        "he, she, it",
-        "himself (with emphasis)",
-        "resuming subj with emphasis",
-        "(with minimum emphasis following predicate)",
-        "(anticipating subj)",
-        "(emphasising predicate)",
-        "that, it (neuter) demons pron"
-      ],
-      "source": "TBESH",
-      "definition": "pron 3p s\n1) he, she, it\n1a) himself (with emphasis)\n1b) resuming subj with emphasis\n1c) (with minimum emphasis following predicate)\n1d) (anticipating subj)\n1e) (emphasising predicate)\n1f) that, it (neuter) demons pron\n2) that (with article)",
-      "note": null
-    },
-    "H3808": {
-      "id": "H3808",
-      "primary": "not",
-      "senses": [
-        "not",
-        "not, no",
-        "not (with verb-absolute prohibition)",
-        "not (with modifier-negation)",
-        "nothing (subst)",
-        "without (with particle)",
-        "before (of time)"
-      ],
-      "source": "TBESH",
-      "definition": "1) not, no\n1a) not (with verb-absolute prohibition)\n1b) not (with modifier-negation)\n1c) nothing (subst)\n1d) without (with particle)\n1e) before (of time)\nAramaic equivalent: la (לָא \"not\" H3809)",
-      "note": null
-    },
-    "H7431": {
-      "id": "H7431",
-      "primary": "creeping",
-      "senses": [
-        "creeping",
-        "creeping things, moving things, creeping organism",
-        "creeping things",
-        "gliding things (of sea animals)",
-        "moving things (of all animals)"
-      ],
-      "source": "TBESH",
-      "definition": "1) creeping things, moving things, creeping organism\n1a) creeping things\n1b) gliding things (of sea animals)\n1c) moving things (of all animals)",
+      "definition": "1) to say, speak, utter\n1a) (Qal) to say, to answer, to say in one's heart, to think, to command, to promise, to intend\n1b) (Niphal) to be told, to be said, to be called\n1c) (Hithpael) to boast, to act proudly\n1d) (Hiphil) to avow, to avouch\nAramaic equivalent: a.mar (אֲמַר \"to say\" H0560)",
       "note": null
     },
     "H3605": {
@@ -3537,63 +2626,26 @@
       "definition": "1) all, the whole\n1a) all, the whole of\n1b) any, each, every, anything\n1c) totality, everything\nAramaic equivalent: kol (כֹּל \"all\" H3606)",
       "note": null
     },
-    "H4503": {
-      "id": "H4503",
-      "primary": "offering",
+    "H5971a": {
+      "id": "H5971a",
+      "primary": "Ammi",
       "senses": [
-        "offering",
-        "gift, tribute, offering, present, oblation, sacrifice, meat offering",
-        "gift, present",
-        "tribute",
-        "offering (to God)",
-        "grain offering"
+        "Ammi"
       ],
       "source": "TBESH",
-      "definition": ": offering/sacrifice\n1) gift, tribute, offering, present, oblation, sacrifice, meat offering\n1a) gift, present\n1b) tribute\n1c) offering (to God)\n1d) grain offering",
+      "definition": "A man living at the time of United Monarchy, only mentioned at Sng.6.12\n § kinsman, kindred",
       "note": null
     },
-    "H0859a": {
-      "id": "H0859a",
-      "primary": "you(m.s.)",
+    "H2143": {
+      "id": "H2143",
+      "primary": "memorial",
       "senses": [
-        "you(m.s.)"
+        "memorial",
+        "memorial, remembrance",
+        "remembrance, memory"
       ],
       "source": "TBESH",
-      "definition": "you (second pers. sing. masc.)",
-      "note": null
-    },
-    "H3117": {
-      "id": "H3117",
-      "primary": "day",
-      "senses": [
-        "day",
-        "day, time, year",
-        "day (as opposed to night)",
-        "day (24 hour period)",
-        "days, lifetime (pl.)",
-        "time, period (general)",
-        "year",
-        "temporal references"
-      ],
-      "source": "TBESH",
-      "definition": ": day/when/time/period\n1) day, time, year\n1a) day (as opposed to night)\n1b) day (24 hour period)\n1b1) as defined by evening and morning in Genesis 1\n1b2) as a division of time\n1b2a) a working day, a day's journey\n1c) days, lifetime (pl.)\n1d) time, period (general)\n1e) year\n1f) temporal references\n1f1) today\n1f2) yesterday\n1f3) tomorrow",
-      "note": null
-    },
-    "H1288": {
-      "id": "H1288",
-      "primary": "to bless",
-      "senses": [
-        "to bless",
-        "to bless, kneel",
-        "(Qal)",
-        "(Niphal) to be blessed, bless oneself",
-        "(Piel) to bless",
-        "(Pual) to be blessed, be adored",
-        "(Hiphil) to cause to kneel",
-        "(Hithpael) to bless oneself"
-      ],
-      "source": "TBESH",
-      "definition": "1) to bless, kneel\n1a) (Qal)\n1a1) to kneel\n1a2) to bless\n1b) (Niphal) to be blessed, bless oneself\n1c) (Piel) to bless\n1d) (Pual) to be blessed, be adored\n1e) (Hiphil) to cause to kneel\n1f) (Hithpael) to bless oneself\n2) (TWOT) to praise, salute, curse\nAramaic equivalent: be.rakh (בְּרַךְ \"to bless\" H1289)",
+      "definition": "1) memorial, remembrance\n1a) remembrance, memory\n1b) memorial",
       "note": null
     },
     "H1961": {
@@ -3619,167 +2671,21 @@
       "definition": "A man living at the time of the Patriarchs, first mentioned at Gen.17.19; \n son of: Abraham (H0085) and Sarah (H8283); \n half-brother of: Ishmael (H3458), Zimran (H2175), Jokshan (H3370), Medan (H4091), Midian (H4080), Ishbak (H3435) and Shuah (H7744); married to Rebekah (H7259); \n father of: Esau (H6215) and Israel (H3478) \n § Isaac = \"he laughs\"\n son of Abraham by Sarah his wife and father of Jacob and Esau",
       "note": null
     },
-    "H3644": {
-      "id": "H3644",
-      "primary": "like",
+    "H5315": {
+      "id": "H5315",
+      "primary": "soul",
       "senses": [
-        "like",
-        "like, as, the like of which",
-        "when, according as, as it were"
+        "soul",
+        "soul, self, life, creature, person, appetite, mind, living being, desire, emotion, passion",
+        "that which breathes, the breathing substance or being, soul, the inner being of man",
+        "living being",
+        "living being (with life in the blood)",
+        "the man himself, self, person or individual",
+        "seat of the appetites",
+        "seat of emotions and passions"
       ],
       "source": "TBESH",
-      "definition": "adv\n1) like, as, the like of which\nconj\n2) when, according as, as it were",
-      "note": null
-    },
-    "H0935": {
-      "id": "H0935",
-      "primary": "to come (in): come",
-      "senses": [
-        "to come (in): come",
-        "to go in, enter, come, go, come in",
-        "(Qal)",
-        "(Hiphil)",
-        "(Hophal)"
-      ],
-      "source": "TBESH",
-      "definition": ": come/go_in\n1) to go in, enter, come, go, come in\n1a) (Qal)\n1a1) to enter, come in\n1a2) to come\n1a2a) to come with\n1a2b) to come upon, fall or light upon, attack (enemy)\n1a2c) to come to pass\n1a3) to attain to\n1a4) to be enumerated\n1a5) to go\n1b) (Hiphil)\n1b1) to lead in\n1b2) to carry in\n1b3) to bring in, cause to come in, gather, cause to come, bring near, bring against, bring upon\n1b4) to bring to pass\n1c) (Hophal)\n1c1) to be brought, brought in\n1c2) to be introduced, be put",
-      "note": null
-    },
-    "H2233": {
-      "id": "H2233",
-      "primary": "seed",
-      "senses": [
-        "seed",
-        "seed, sowing, offspring",
-        "a sowing",
-        "semen virile",
-        "offspring, descendants, posterity, children",
-        "of moral quality",
-        "sowing time (by meton)"
-      ],
-      "source": "TBESH",
-      "definition": ": seed/sowing\n1) seed, sowing, offspring\n1a) a sowing\n1b) seed\n1c) semen virile\n1d) offspring, descendants, posterity, children\n1e) of moral quality\n1e1) a practitioner of righteousness (fig.)\n1f) sowing time (by meton)",
-      "note": null
-    },
-    "H0428": {
-      "id": "H0428",
-      "primary": "these",
-      "senses": [
-        "these",
-        "used before antecedent",
-        "used following antecedent"
-      ],
-      "source": "TBESH",
-      "definition": "1) these\n1a) used before antecedent\n1b) used following antecedent\nAramaic equivalent: el.leh (אֵלֶּה \"these\" H0429)",
-      "note": null
-    },
-    "H5769": {
-      "id": "H5769",
-      "primary": "forever: enduring",
-      "senses": [
-        "forever: enduring",
-        "long duration, antiquity, futurity, for ever, ever, everlasting, evermore, perpetual, old, ancient, world",
-        "ancient time, long time (of past)",
-        "(of future)"
-      ],
-      "source": "TBESH",
-      "definition": ": enduring/eternal\n1) long duration, antiquity, futurity, for ever, ever, everlasting, evermore, perpetual, old, ancient, world\n1a) ancient time, long time (of past)\n1b) (of future)\n1b1) for ever, always\n1b2) continuous existence, perpetual\n1b3) everlasting, indefinite or unending future, eternity",
-      "note": null
-    },
-    "H6213a": {
-      "id": "H6213a",
-      "primary": "to make: do",
-      "senses": [
-        "to make: do",
-        "to do, fashion, accomplish, make",
-        "(Qal)",
-        "(Niphal)",
-        "(Pual) to be made"
-      ],
-      "source": "TBESH",
-      "definition": ": do/perform\n1) to do, fashion, accomplish, make\n1a) (Qal)\n1a1) to do, work, make, produce\n1a1a) to do\n1a1b) to work\n1a1c) to deal (with)\n1a1d) to act, act with effect, effect\n1a2) to make\n1a2a) to make\n1a2b) to produce\n1a2c) to prepare\n1a2d) to make (an offering)\n1a2e) to attend to, put in order\n1a2f) to observe, celebrate\n1a2g) to acquire (property)\n1a2h) to appoint, ordain, institute\n1a2i) to bring about\n1a2j) to use\n1a2k) to spend, pass\n1b) (Niphal)\n1b1) to be done\n1b2) to be made\n1b3) to be",
-      "note": null
-    },
-    "H4325": {
-      "id": "H4325",
-      "primary": "water",
-      "senses": [
-        "water",
-        "water, waters",
-        "water of the feet, urine",
-        "of danger, violence, transitory things, refreshment (fig.)"
-      ],
-      "source": "TBESH",
-      "definition": "1) water, waters\n1a) water\n1b) water of the feet, urine\n1c) of danger, violence, transitory things, refreshment (fig.)",
-      "note": null
-    },
-    "H1320": {
-      "id": "H1320",
-      "primary": "flesh",
-      "senses": [
-        "flesh",
-        "of the body",
-        "the body itself",
-        "male organ of generation (euphemism)",
-        "kindred, blood-relations",
-        "flesh as frail or erring (man against God)",
-        "all living things",
-        "animals"
-      ],
-      "source": "TBESH",
-      "definition": "1) flesh\n1a) of the body\n1a1) of humans\n1a2) of animals\n1b) the body itself\n1c) male organ of generation (euphemism)\n1d) kindred, blood-relations\n1e) flesh as frail or erring (man against God)\n1f) all living things\n1g) animals\n1h) mankind\nAramaic equivalent: be.shar (בְּשַׁר \"flesh\" H1321)",
-      "note": null
-    },
-    "H0259": {
-      "id": "H0259",
-      "primary": "one",
-      "senses": [
-        "one",
-        "one (number)",
-        "each, every",
-        "a certain",
-        "an (indefinite article)",
-        "only, once, once for all",
-        "one...another, the one...the other, one after another, one by one",
-        "first"
-      ],
-      "source": "TBESH",
-      "definition": "1) one (number)\n1a) one (number)\n1b) each, every\n1c) a certain\n1d) an (indefinite article)\n1e) only, once, once for all\n1f) one...another, the one...the other, one after another, one by one\n1g) first\n1h) eleven (in combination), eleventh (ordinal)",
-      "note": null
-    },
-    "H0702": {
-      "id": "H0702",
-      "primary": "four",
-      "senses": [
-        "four"
-      ],
-      "source": "TBESH",
-      "definition": "four",
-      "note": null
-    },
-    "H1512": {
-      "id": "H1512",
-      "primary": "belly",
-      "senses": [
-        "belly"
-      ],
-      "source": "TBESH",
-      "definition": "belly (of reptiles)",
-      "note": null
-    },
-    "H1980": {
-      "id": "H1980",
-      "primary": "to go: went",
-      "senses": [
-        "to go: went",
-        "to go, walk, come",
-        "(Qal)",
-        "(Piel)",
-        "(Hithpael)",
-        "(Niphal) to lead, bring, lead away, carry, cause to walk"
-      ],
-      "source": "TBESH",
-      "definition": ": went/go[away]\n1) to go, walk, come\n1a) (Qal)\n1a1) to go, walk, come, depart, proceed, move, go away\n1a2) to die, live, manner of life (fig.)\n1b) (Piel)\n1b1) to walk\n1b2) to walk (fig.)\n1c) (Hithpael)\n1c1) to traverse\n1c2) to walk about\n1d) (Niphal) to lead, bring, lead away, carry, cause to walk",
+      "definition": "1) soul, self, life, creature, person, appetite, mind, living being, desire, emotion, passion\n1a) that which breathes, the breathing substance or being, soul, the inner being of man\n1b) living being\n1c) living being (with life in the blood)\n1d) the man himself, self, person or individual\n1e) seat of the appetites\n1f) seat of emotions and passions\n1g) activity of mind\n1g1) uncertain\n1h) activity of the will\n1h1) uncertain\n1i) activity of the character\n1i1) uncertain",
       "note": null
     },
     "H1992": {
@@ -3809,50 +2715,244 @@
       "definition": ": judgement/punishment\n1) judgment, justice, ordinance\n1a) judgment\n1a1) act of deciding a case\n1a2) place, court, seat of judgment\n1a3) process, procedure, litigation (before judges)\n1a4) case, cause (presented for judgment)\n1a5) sentence, decision (of judgment)\n1a6) execution (of judgment)\n1a7) time (of judgment)\n1b) justice, right, rectitude (attributes of God or man)\n1c) ordinance\n1d) decision (in law)\n1e) right, privilege, due (legal)\n1f) proper, fitting, measure, fitness, custom, manner, p",
       "note": null
     },
-    "H5704": {
-      "id": "H5704",
-      "primary": "till",
+    "H7093": {
+      "id": "H7093",
+      "primary": "end",
       "senses": [
-        "till",
-        "as far as, even to, until, up to, while, as far as",
-        "of space",
-        "in combination",
-        "of time",
-        "of degree",
-        "until, while, to the point that, so that even"
+        "end",
+        "end, at the end of (of time)",
+        "end (of space)"
       ],
       "source": "TBESH",
-      "definition": "prep\n1) as far as, even to, until, up to, while, as far as\n1a) of space\n1a1) as far as, up to, even to\n1b) in combination\n1b1) from...as far as, both...and (with 'min' -from)\n1c) of time\n1c1) even to, until, unto, till, during, end\n1d) of degree\n1d1) even to, to the degree of, even like\nconj\n2) until, while, to the point that, so that even\nAramaic equivalent: ad (עַד \"till\" H5705)",
+      "definition": "1) end\n1a) end, at the end of (of time)\n1b) end (of space)",
       "note": null
     },
-    "H7126": {
-      "id": "H7126",
-      "primary": "to present: come",
+    "H0935": {
+      "id": "H0935",
+      "primary": "to come (in): come",
       "senses": [
-        "to present: come",
-        "to come near, approach, enter into, draw near",
-        "(Qal) to approach, draw near",
-        "(Niphal) to be brought near",
-        "(Piel) to cause to approach, bring near, cause to draw near",
-        "(Hiphil) to bring near, bring, present"
+        "to come (in): come",
+        "to go in, enter, come, go, come in",
+        "(Qal)",
+        "(Hiphil)",
+        "(Hophal)"
       ],
       "source": "TBESH",
-      "definition": ": come/approach\n1) to come near, approach, enter into, draw near\n1a) (Qal) to approach, draw near\n1b) (Niphal) to be brought near\n1c) (Piel) to cause to approach, bring near, cause to draw near\n1d) (Hiphil) to bring near, bring, present",
+      "definition": ": come/go_in\n1) to go in, enter, come, go, come in\n1a) (Qal)\n1a1) to enter, come in\n1a2) to come\n1a2a) to come with\n1a2b) to come upon, fall or light upon, attack (enemy)\n1a2c) to come to pass\n1a3) to attain to\n1a4) to be enumerated\n1a5) to go\n1b) (Hiphil)\n1b1) to lead in\n1b2) to carry in\n1b3) to bring in, cause to come in, gather, cause to come, bring near, bring against, bring upon\n1b4) to bring to pass\n1c) (Hophal)\n1c1) to be brought, brought in\n1c2) to be introduced, be put",
       "note": null
     },
-    "H7272": {
-      "id": "H7272",
-      "primary": "foot",
+    "H1320": {
+      "id": "H1320",
+      "primary": "flesh",
       "senses": [
-        "foot",
-        "foot, leg",
-        "of God (anthropomorphic)",
-        "of seraphim, cherubim, idols, animals, table",
-        "according to the pace of (with prep)",
-        "three times (feet, paces)"
+        "flesh",
+        "of the body",
+        "the body itself",
+        "male organ of generation (euphemism)",
+        "kindred, blood-relations",
+        "flesh as frail or erring (man against God)",
+        "all living things",
+        "animals"
       ],
       "source": "TBESH",
-      "definition": "1) foot\n1a) foot, leg\n1b) of God (anthropomorphic)\n1c) of seraphim, cherubim, idols, animals, table\n1d) according to the pace of (with prep)\n1e) three times (feet, paces)\nAramaic equivalent: re.gal (רְגַל \"foot\" H7271)",
+      "definition": "1) flesh\n1a) of the body\n1a1) of humans\n1a2) of animals\n1b) the body itself\n1c) male organ of generation (euphemism)\n1d) kindred, blood-relations\n1e) flesh as frail or erring (man against God)\n1f) all living things\n1g) animals\n1h) mankind\nAramaic equivalent: be.shar (בְּשַׁר \"flesh\" H1321)",
+      "note": null
+    },
+    "H7218a": {
+      "id": "H7218a",
+      "primary": "head",
+      "senses": [
+        "head",
+        "head, top, summit, upper part, chief, total, sum, height, front, beginning",
+        "head (of man, animals)",
+        "top, tip (of mountain)",
+        "height (of stars)",
+        "chief, head (of man, city, nation, place, family, priest)",
+        "head, front, beginning",
+        "chief, choicest, best"
+      ],
+      "source": "TBESH",
+      "definition": ": head\n1) head, top, summit, upper part, chief, total, sum, height, front, beginning\n1a) head (of man, animals)\n1b) top, tip (of mountain)\n1c) height (of stars)\n1d) chief, head (of man, city, nation, place, family, priest)\n1e) head, front, beginning\n1f) chief, choicest, best\n1g) head, division, company, band\n1h) sum",
+      "note": null
+    },
+    "H0834a": {
+      "id": "H0834a",
+      "primary": "which",
+      "senses": [
+        "which",
+        "which, who",
+        "that which",
+        "(conj)",
+        "that (in obj clause)",
+        "when",
+        "since",
+        "as"
+      ],
+      "source": "TBESH",
+      "definition": "A: 1) (relative part.)\n1a) which, who\n1b) that which\n2) (conj)\n2a) that (in obj clause)\n2b) when\n2c) since\n2d) as\n2e) conditional if\n B:  Beth+  1) in (that) which\n2) (adv)\n2a) where\n3) (conj)\n3a) in that, inasmuch as\n3b) on account of\nC:  Mem+ 1) from (or than) that which\n2) from (the place) where\n3) from (the fact) that, since\n D: Kaph+  \n1) (conj.), according as, as, when\n1a) according to that which, according as, as\n1b) with a causal force: in so far as, since\n1c) with a temporal force: when",
+      "note": null
+    },
+    "H2416c": {
+      "id": "H2416c",
+      "primary": "living thing",
+      "senses": [
+        "living thing",
+        "living thing, animal",
+        "animal",
+        "life",
+        "appetite",
+        "revival, renewal"
+      ],
+      "source": "TBESH",
+      "definition": "1) living thing, animal\n1a) animal\n1b) life\n1c) appetite\n1d) revival, renewal\nAramaic equivalent: che.va (חֵיוָא \"beast\" H2423)",
+      "note": null
+    },
+    "H7704b": {
+      "id": "H7704b",
+      "primary": "land: country",
+      "senses": [
+        "land: country",
+        "field, land",
+        "open field, country",
+        "definite portion of ground, field, land",
+        "land (opposed to sea)"
+      ],
+      "source": "TBESH",
+      "definition": ": country/field\n1) field, land\n1a) open field, country\n1b) definite portion of ground, field, land\n1c) land (opposed to sea)",
+      "note": null
+    },
+    "H4503": {
+      "id": "H4503",
+      "primary": "offering",
+      "senses": [
+        "offering",
+        "gift, tribute, offering, present, oblation, sacrifice, meat offering",
+        "gift, present",
+        "tribute",
+        "offering (to God)",
+        "grain offering"
+      ],
+      "source": "TBESH",
+      "definition": ": offering/sacrifice\n1) gift, tribute, offering, present, oblation, sacrifice, meat offering\n1a) gift, present\n1b) tribute\n1c) offering (to God)\n1d) grain offering",
+      "note": null
+    },
+    "H7431": {
+      "id": "H7431",
+      "primary": "creeping",
+      "senses": [
+        "creeping",
+        "creeping things, moving things, creeping organism",
+        "creeping things",
+        "gliding things (of sea animals)",
+        "moving things (of all animals)"
+      ],
+      "source": "TBESH",
+      "definition": "1) creeping things, moving things, creeping organism\n1a) creeping things\n1b) gliding things (of sea animals)\n1c) moving things (of all animals)",
+      "note": null
+    },
+    "H0702": {
+      "id": "H0702",
+      "primary": "four",
+      "senses": [
+        "four"
+      ],
+      "source": "TBESH",
+      "definition": "four",
+      "note": null
+    },
+    "H1004b": {
+      "id": "H1004b",
+      "primary": "Beth-(ashbea)",
+      "senses": [
+        "Beth-(ashbea)"
+      ],
+      "source": "TBESH",
+      "definition": "nm\n This name is used for a house, habitation\nCombined with ash.be.a (אַשְׁבֵּעַ \"Ashbea\" H0791)",
+      "note": null
+    },
+    "H6119": {
+      "id": "H6119",
+      "primary": "heel",
+      "senses": [
+        "heel",
+        "heel, rear, footprint, hinder part, hoof, rear of a troop, footstep",
+        "mark of heel, footprint",
+        "hinder part, rear"
+      ],
+      "source": "TBESH",
+      "definition": "1) heel, rear, footprint, hinder part, hoof, rear of a troop, footstep\n1a) heel\n1b) mark of heel, footprint\n1c) hinder part, rear",
+      "note": null
+    },
+    "H1512": {
+      "id": "H1512",
+      "primary": "belly",
+      "senses": [
+        "belly"
+      ],
+      "source": "TBESH",
+      "definition": "belly (of reptiles)",
+      "note": null
+    },
+    "H6509": {
+      "id": "H6509",
+      "primary": "be fruitful",
+      "senses": [
+        "be fruitful",
+        "to bear fruit, be fruitful, branch off",
+        "(Qal) to bear fruit, be fruitful",
+        "(Hiphil)"
+      ],
+      "source": "TBESH",
+      "definition": "1) to bear fruit, be fruitful, branch off\n1a) (Qal) to bear fruit, be fruitful\n1b) (Hiphil)\n1b1) to cause to bear fruit\n1b2) to make fruitful\n1b3) to show fruitfulness, bear fruit\nAlso means: pa.ra (פָּרָא \"be fruitful\" H6500)",
+      "note": null
+    },
+    "H6440": {
+      "id": "H6440",
+      "primary": "face: before",
+      "senses": [
+        "face: before",
+        "face",
+        "face, faces",
+        "presence, person",
+        "face (of seraphim or cherubim)",
+        "face (of animals)",
+        "face, surface (of ground)",
+        "as adv of loc/temp"
+      ],
+      "source": "TBESH",
+      "definition": ": before/to/front\n1) face\n1a) face, faces\n1b) presence, person\n1c) face (of seraphim or cherubim)\n1d) face (of animals)\n1e) face, surface (of ground)\n1f) as adv of loc/temp\n1f1) before and behind, toward, in front of, forward, formerly, from beforetime, before\n1g) with prep\n1g1) in front of, before, to the front of, in the presence of, in the face of, at the face or front of, from the presence of, from before, from before the face of",
+      "note": null
+    },
+    "H8104": {
+      "id": "H8104",
+      "primary": "to keep: obey",
+      "senses": [
+        "to keep: obey",
+        "to keep, guard, observe, give heed",
+        "(Qal)",
+        "(Niphal)",
+        "(Piel) to keep, pay heed",
+        "(Hithpael) to keep oneself from"
+      ],
+      "source": "TBESH",
+      "definition": ": obey/observe\n1) to keep, guard, observe, give heed\n1a) (Qal)\n1a1) to keep, have charge of\n1a2) to keep, guard, keep watch and ward, protect, save life\n1a2a) watch, watchman (participle)\n1a3) to watch for, wait for\n1a4) to watch, observe\n1a5) to keep, retain, treasure up (in memory)\n1a6) to keep (within bounds), restrain\n1a7) to observe, celebrate, keep (sabbath or covenant or commands), perform (vow)\n1a8) to keep, preserve, protect\n1a9) to keep, reserve\n1b) (Niphal)\n1b1) to be on one's guard, ",
+      "note": null
+    },
+    "H0259": {
+      "id": "H0259",
+      "primary": "one",
+      "senses": [
+        "one",
+        "one (number)",
+        "each, every",
+        "a certain",
+        "an (indefinite article)",
+        "only, once, once for all",
+        "one...another, the one...the other, one after another, one by one",
+        "first"
+      ],
+      "source": "TBESH",
+      "definition": "1) one (number)\n1a) one (number)\n1b) each, every\n1c) a certain\n1d) an (indefinite article)\n1e) only, once, once for all\n1f) one...another, the one...the other, one after another, one by one\n1g) first\n1h) eleven (in combination), eleventh (ordinal)",
       "note": null
     },
     "H8085": {
@@ -3871,6 +2971,307 @@
       "definition": ": hear\nv\n1) to hear, listen to, obey\n1a) (Qal)\n1a1) to hear (perceive by ear)\n1a2) to hear of or concerning\n1a3) to hear (have power to hear)\n1a4) to hear with attention or interest, listen to\n1a5) to understand (language)\n1a6) to hear (of judicial cases)\n1a7) to listen, give heed\n1a7a) to consent, agree\n1a7b) to grant request\n1a8) to listen to, yield to\n1a9) to obey, be obedient\n1b) (Niphal)\n1b1) to be heard (of voice or sound)\n1b2) to be heard of\n1b3) to be regarded, be obeyed\n1c) (Piel) to ca",
       "note": null
     },
+    "H3644": {
+      "id": "H3644",
+      "primary": "like",
+      "senses": [
+        "like",
+        "like, as, the like of which",
+        "when, according as, as it were"
+      ],
+      "source": "TBESH",
+      "definition": "adv\n1) like, as, the like of which\nconj\n2) when, according as, as it were",
+      "note": null
+    },
+    "H0853": {
+      "id": "H0853",
+      "primary": "[Obj.]",
+      "senses": [
+        "[Obj.]"
+      ],
+      "source": "TBESH",
+      "definition": "sign of the definite direct object, not translated in English but generally preceding and indicating the accusative\nAramaic equivalent: yat (יָת \"whom\" H3487)",
+      "note": null
+    },
+    "H5175": {
+      "id": "H5175",
+      "primary": "serpent",
+      "senses": [
+        "serpent",
+        "serpent, snake",
+        "image (of serpent)",
+        "fleeing serpent (mythological)"
+      ],
+      "source": "TBESH",
+      "definition": "1) serpent, snake\n1a) serpent\n1b) image (of serpent)\n1c) fleeing serpent (mythological)",
+      "note": null
+    },
+    "H0428": {
+      "id": "H0428",
+      "primary": "these",
+      "senses": [
+        "these",
+        "used before antecedent",
+        "used following antecedent"
+      ],
+      "source": "TBESH",
+      "definition": "1) these\n1a) used before antecedent\n1b) used following antecedent\nAramaic equivalent: el.leh (אֵלֶּה \"these\" H0429)",
+      "note": null
+    },
+    "H0776": {
+      "id": "H0776",
+      "primary": "land: country/planet",
+      "senses": [
+        "land: country/planet",
+        "land, earth",
+        "earth",
+        "land",
+        "ground, surface of the earth",
+        "(in phrases)",
+        "(almost wholly late in usage)"
+      ],
+      "source": "TBESH",
+      "definition": ": country/field\n1) land, earth\n1a) earth\n1a1) whole earth (as opposed to a part)\n1a2) earth (as opposed to heaven)\n1a3) earth (inhabitants)\n1b) land\n1b1) country, territory\n1b2) district, region\n1b3) tribal territory\n1b4) piece of ground\n1b5) land of Canaan, Israel\n1b6) inhabitants of land\n1b7) Sheol, land without return, (under) world\n1b8) city (-state)\n1c) ground, surface of the earth\n1c1) ground\n1c2) soil\n1d) (in phrases)\n1d1) people of the land\n1d2) space or distance of country (in measureme",
+      "note": null
+    },
+    "H0637": {
+      "id": "H0637",
+      "primary": "also",
+      "senses": [
+        "also",
+        "also, yea, though, so much the more",
+        "furthermore, indeed"
+      ],
+      "source": "TBESH",
+      "definition": "conj (denoting addition, esp of something greater)\n1) also, yea, though, so much the more\nadv\n2) furthermore, indeed\nAramaic equivalent: aph (אַף \"also\" H0638)",
+      "note": null
+    },
+    "H5650": {
+      "id": "H5650",
+      "primary": "servant/slave",
+      "senses": [
+        "servant/slave",
+        "slave, servant",
+        "slave, servant, man-servant",
+        "subjects",
+        "servants, worshippers (of God)",
+        "servant (in special sense as prophets, Levites etc)",
+        "servant (of Israel)",
+        "servant (as form of address between equals)"
+      ],
+      "source": "TBESH",
+      "definition": "1) slave, servant\n1a) slave, servant, man-servant\n1b) subjects\n1c) servants, worshippers (of God)\n1d) servant (in special sense as prophets, Levites etc)\n1e) servant (of Israel)\n1f) servant (as form of address between equals)\nAramaic equivalent: a.vad (עֲבַד \"servant/slave\" H5649)",
+      "note": null
+    },
+    "H1980": {
+      "id": "H1980",
+      "primary": "to go: went",
+      "senses": [
+        "to go: went",
+        "to go, walk, come",
+        "(Qal)",
+        "(Piel)",
+        "(Hithpael)",
+        "(Niphal) to lead, bring, lead away, carry, cause to walk"
+      ],
+      "source": "TBESH",
+      "definition": ": went/go[away]\n1) to go, walk, come\n1a) (Qal)\n1a1) to go, walk, come, depart, proceed, move, go away\n1a2) to die, live, manner of life (fig.)\n1b) (Piel)\n1b1) to walk\n1b2) to walk (fig.)\n1c) (Hithpael)\n1c1) to traverse\n1c2) to walk about\n1d) (Niphal) to lead, bring, lead away, carry, cause to walk",
+      "note": null
+    },
+    "H7307": {
+      "id": "H7307",
+      "primary": "spirit",
+      "senses": [
+        "spirit",
+        "wind, breath, mind, spirit",
+        "breath",
+        "wind",
+        "spirit (as that which breathes quickly in animation or agitation)",
+        "spirit (of the living, breathing being in man and animals)",
+        "spirit (as seat of emotion)",
+        "Spirit of God, the third person of the triune God, the Holy Spirit, coequal, coeternal with the Father and the Son"
+      ],
+      "source": "TBESH",
+      "definition": ": spirit\n1) wind, breath, mind, spirit\n1a) breath\n1b) wind\n1b1) of heaven\n1b2) quarter (of wind), side\n1b3) breath of air\n1b4) air, gas\n1b5) vain, empty thing\n1c) spirit (as that which breathes quickly in animation or agitation)\n1c1) spirit, animation, vivacity, vigour\n1c2) courage\n1c3) temper, anger\n1c4) impatience, patience\n1c5) spirit, disposition (as troubled, bitter, discontented)\n1c6) disposition (of various kinds), unaccountable or uncontrollable impulse\n1c7) prophetic spirit\n1d) spirit (",
+      "note": null
+    },
+    "H1588": {
+      "id": "H1588",
+      "primary": "Garden (of Uzza)",
+      "senses": [
+        "Garden (of Uzza)"
+      ],
+      "source": "TBESH",
+      "definition": "This name means  garden, enclosure",
+      "note": null
+    },
+    "H7235a": {
+      "id": "H7235a",
+      "primary": "to multiply",
+      "senses": [
+        "to multiply",
+        "be or become great, be or become many, be or become much, be or become numerous",
+        "(Qal)",
+        "(Piel) to make large, enlarge, increase, become many",
+        "(Hiphil)"
+      ],
+      "source": "TBESH",
+      "definition": "1) be or become great, be or become many, be or become much, be or become numerous\n1a) (Qal)\n1a1) to become many, become numerous, multiply (of people, animals, things)\n1a2) to be or grow great\n1b) (Piel) to make large, enlarge, increase, become many\n1c) (Hiphil)\n1c1) to make much, make many, have many\n1c1a) to multiply, increase\n1c1b) to make much to do, do much in respect of, transgress greatly\n1c1c) to increase greatly or exceedingly\n1c2) to make great, enlarge, do much\nAramaic equivalent: re",
+      "note": null
+    },
+    "H5921a": {
+      "id": "H5921a",
+      "primary": "upon",
+      "senses": [
+        "upon",
+        "upon, on the ground of, according to, on account of, on behalf of, concerning, beside, in addition to, together with, beyond, above, over, by, on to, towards, to, against",
+        "upon, on the ground of, on the basis of, on account of, because of, therefore, on behalf of, for the sake of, for, with, in spite of, notwithstanding, concerning, in the matter of, as regards",
+        "above, beyond, over (of excess)",
+        "above, over (of elevation or pre-eminence)",
+        "upon, to, over to, unto, in addition to, together with, with (of addition)",
+        "over (of suspension or extension)",
+        "by, adjoining, next, at, over, around (of contiguity or proximity)"
+      ],
+      "source": "TBESH",
+      "definition": "prep\n1) upon, on the ground of, according to, on account of, on behalf of, concerning, beside, in addition to, together with, beyond, above, over, by, on to, towards, to, against\n1a) upon, on the ground of, on the basis of, on account of, because of, therefore, on behalf of, for the sake of, for, with, in spite of, notwithstanding, concerning, in the matter of, as regards\n1b) above, beyond, over (of excess)\n1c) above, over (of elevation or pre-eminence)\n1d) upon, to, over to, unto, in addition t",
+      "note": null
+    },
+    "H7363b": {
+      "id": "H7363b",
+      "primary": "to hover",
+      "senses": [
+        "to hover"
+      ],
+      "source": "TBESH",
+      "definition": "(Piel) to hover",
+      "note": null
+    },
+    "H0085": {
+      "id": "H0085",
+      "primary": "Abraham",
+      "senses": [
+        "Abraham"
+      ],
+      "source": "TBESH",
+      "definition": "A man living at the time of the Patriarchs, first mentioned at Gen.11.26; \n son of: Terah (H8646); \n brother of: Nahor (H5152H), Haran (H2039) and Sarah (H8283); married to Sarah (H8283), Hagar (H1904) and Keturah (H6989); \n father of: Ishmael (H3458), Isaac (H3327), Zimran (H2175), Jokshan (H3370), Medan (H4091), Midian (H4080), Ishbak (H3435) and Shuah (H7744); also called Abram at Gen.11.26--17.5; 2x \n § Abraham = \"father of a multitude\" or \"chief of multitude\"\n friend of God and founder of H",
+      "note": null
+    },
+    "H1254a": {
+      "id": "H1254a",
+      "primary": "to create",
+      "senses": [
+        "to create",
+        "to create, shape, form",
+        "(Qal) to shape, fashion, create (always with God as subject)",
+        "(Niphal) to be created",
+        "(Piel)"
+      ],
+      "source": "TBESH",
+      "definition": "1) to create, shape, form\n1a) (Qal) to shape, fashion, create (always with God as subject)\n1a1) of heaven and earth\n1a2) of individual man\n1a3) of new conditions and circumstances\n1a4) of transformations\n1b) (Niphal) to be created\n1b1) of heaven and earth\n1b2) of birth\n1b3) of something new\n1b4) of miracles\n1c) (Piel)\n1c1) to cut down\n1c2) to cut out",
+      "note": null
+    },
+    "H3824": {
+      "id": "H3824",
+      "primary": "heart",
+      "senses": [
+        "heart",
+        "inner man, mind, will, heart, soul, understanding",
+        "inner part, midst"
+      ],
+      "source": "TBESH",
+      "definition": "1) inner man, mind, will, heart, soul, understanding\n1a) inner part, midst\n1a1) midst (of things)\n1a2) heart (of man)\n1a3) soul, heart (of man)\n1a4) mind, knowledge, thinking, reflection, memory\n1a5) inclination, resolution, determination (of will)\n1a6) conscience\n1a7) heart (of moral character)\n1a8) as seat of appetites\n1a9) as seat of emotions and passions 1a10) as seat of courage\nAramaic equivalent: le.vav (לְבַב \"heart\" H3825)",
+      "note": null
+    },
+    "H0001": {
+      "id": "H0001",
+      "primary": "father",
+      "senses": [
+        "father",
+        "father of an individual",
+        "of God as father of his people",
+        "head or founder of a household, group, family, or clan",
+        "ancestor",
+        "grandfather, forefathers - of person",
+        "of people",
+        "originator or patron of a class, profession, or art"
+      ],
+      "source": "TBESH",
+      "definition": "1) father of an individual\n2) of God as father of his people\n3) head or founder of a household, group, family, or clan\n4) ancestor\n4a) grandfather, forefathers - of person\n4b) of people\n5) originator or patron of a class, profession, or art\n6) of producer, generator (fig.)\n7) of benevolence and protection (fig.)\n8) term of respect and honour\n9) ruler or chief (spec.)\nAlso means: av (אַב \"father\" H0002)",
+      "note": null
+    },
+    "H7971": {
+      "id": "H7971",
+      "primary": "to send: depart",
+      "senses": [
+        "to send: depart",
+        "to send, send away, let go, stretch out",
+        "(Qal)",
+        "(Niphal) to be sent",
+        "(Piel)",
+        "(Pual) to be sent off, be put away, be divorced, be impelled",
+        "(Hiphil) to send"
+      ],
+      "source": "TBESH",
+      "definition": ": depart/send\n1) to send, send away, let go, stretch out\n1a) (Qal)\n1a1) to send\n1a2) to stretch out, extend, direct\n1a3) to send away\n1a4) to let loose\n1b) (Niphal) to be sent\n1c) (Piel)\n1c1) to send off or away or out or forth, dismiss, give over, cast out\n1c2) to let go, set free\n1c3) to shoot forth (of branches)\n1c4) to let down\n1c5) to shoot\n1d) (Pual) to be sent off, be put away, be divorced, be impelled\n1e) (Hiphil) to send",
+      "note": null
+    },
+    "H6175": {
+      "id": "H6175",
+      "primary": "prudent",
+      "senses": [
+        "prudent",
+        "subtle, shrewd, crafty, sly, sensible",
+        "crafty",
+        "shrewd, sensible, prudent"
+      ],
+      "source": "TBESH",
+      "definition": "1) subtle, shrewd, crafty, sly, sensible\n1a) crafty\n1b) shrewd, sensible, prudent",
+      "note": null
+    },
+    "H1288": {
+      "id": "H1288",
+      "primary": "to bless",
+      "senses": [
+        "to bless",
+        "to bless, kneel",
+        "(Qal)",
+        "(Niphal) to be blessed, bless oneself",
+        "(Piel) to bless",
+        "(Pual) to be blessed, be adored",
+        "(Hiphil) to cause to kneel",
+        "(Hithpael) to bless oneself"
+      ],
+      "source": "TBESH",
+      "definition": "1) to bless, kneel\n1a) (Qal)\n1a1) to kneel\n1a2) to bless\n1b) (Niphal) to be blessed, bless oneself\n1c) (Piel) to bless\n1d) (Pual) to be blessed, be adored\n1e) (Hiphil) to cause to kneel\n1f) (Hithpael) to bless oneself\n2) (TWOT) to praise, salute, curse\nAramaic equivalent: be.rakh (בְּרַךְ \"to bless\" H1289)",
+      "note": null
+    },
+    "H0215": {
+      "id": "H0215",
+      "primary": "to light",
+      "senses": [
+        "to light",
+        "to be or become light, shine",
+        "(Qal)",
+        "(Niphal)",
+        "(Hiphil)"
+      ],
+      "source": "TBESH",
+      "definition": "1) to be or become light, shine\n1a) (Qal)\n1a1) to become light (day)\n1a2) to shine (of the sun)\n1a3) to become bright\n1b) (Niphal)\n1b1) to be illuminated\n1b2) to become lighted up\n1c) (Hiphil)\n1c1) to give light, shine (of sun, moon, and stars)\n1c2) to illumine, light up, cause to shine, shine\n1c3) to kindle, light (candle, wood)\n1c4) lighten (of the eyes, his law, etc)\n1c5) to make shine (of the face)",
+      "note": null
+    },
+    "H6086": {
+      "id": "H6086",
+      "primary": "tree: wood",
+      "senses": [
+        "tree: wood",
+        "tree, wood, timber, stock, plank, stalk, stick, gallows",
+        "tree, trees",
+        "wood, pieces of wood, gallows, firewood, cedar-wood, woody flax"
+      ],
+      "source": "TBESH",
+      "definition": ": wood\n1) tree, wood, timber, stock, plank, stalk, stick, gallows\n1a) tree, trees\n1b) wood, pieces of wood, gallows, firewood, cedar-wood, woody flax",
+      "note": null
+    },
     "H8263": {
       "id": "H8263",
       "primary": "detestation",
@@ -3879,6 +3280,253 @@
       ],
       "source": "TBESH",
       "definition": "detestable thing or idol, an unclean thing, an abomination, detestation",
+      "note": null
+    },
+    "H8064": {
+      "id": "H8064",
+      "primary": "heaven",
+      "senses": [
+        "heaven",
+        "heaven, heavens, sky",
+        "visible heavens, sky",
+        "Heaven (as the abode of God)"
+      ],
+      "source": "TBESH",
+      "definition": "1) heaven, heavens, sky\n1a) visible heavens, sky\n1a1) as abode of the stars\n1a2) as the visible universe, the sky, atmosphere, etc\n1b) Heaven (as the abode of God)\nAramaic equivalent: sha.ma.yin (שָׁמַ֫יִן \"heaven\" H8065)",
+      "note": null
+    },
+    "H3068": {
+      "id": "H3068",
+      "primary": "LORD",
+      "senses": [
+        "LORD",
+        "the proper name of the one true God",
+        "—"
+      ],
+      "source": "TBESH",
+      "definition": "Jehovah = \"the existing One\"\n1) the proper name of the one true God\n1a) unpronounced except with the vowel pointings of a.do.na (אֲדֹנָי \"Lord\" H0136)",
+      "note": null
+    },
+    "H5775": {
+      "id": "H5775",
+      "primary": "bird",
+      "senses": [
+        "bird",
+        "flying creatures, fowl, insects, birds",
+        "fowl, birds",
+        "winged insects"
+      ],
+      "source": "TBESH",
+      "definition": "1) flying creatures, fowl, insects, birds\n1a) fowl, birds\n1b) winged insects\nAramaic equivalent: oph (עוֹף \"bird\" H5776)",
+      "note": null
+    },
+    "H6529": {
+      "id": "H6529",
+      "primary": "fruit",
+      "senses": [
+        "fruit",
+        "fruit, produce (of the ground)",
+        "fruit, offspring, children, progeny (of the womb)",
+        "fruit (of actions) (fig.)"
+      ],
+      "source": "TBESH",
+      "definition": "1) fruit\n1a) fruit, produce (of the ground)\n1b) fruit, offspring, children, progeny (of the womb)\n1c) fruit (of actions) (fig.)",
+      "note": null
+    },
+    "H5704": {
+      "id": "H5704",
+      "primary": "till",
+      "senses": [
+        "till",
+        "as far as, even to, until, up to, while, as far as",
+        "of space",
+        "in combination",
+        "of time",
+        "of degree",
+        "until, while, to the point that, so that even"
+      ],
+      "source": "TBESH",
+      "definition": "prep\n1) as far as, even to, until, up to, while, as far as\n1a) of space\n1a1) as far as, up to, even to\n1b) in combination\n1b1) from...as far as, both...and (with 'min' -from)\n1c) of time\n1c1) even to, until, unto, till, during, end\n1d) of degree\n1d1) even to, to the degree of, even like\nconj\n2) until, while, to the point that, so that even\nAramaic equivalent: ad (עַד \"till\" H5705)",
+      "note": null
+    },
+    "H4714": {
+      "id": "H4714",
+      "primary": "Egypt",
+      "senses": [
+        "Egypt"
+      ],
+      "source": "TBESH",
+      "definition": "§ Egypt = \"land of the Copts\"\n a country at the northeastern section of Africa, adjacent to Palestine, and through which the Nile flows\nEgyptians = \"double straits\"",
+      "note": null
+    },
+    "H3588a": {
+      "id": "H3588a",
+      "primary": "for",
+      "senses": [
+        "for",
+        "that, for, because, when, as though, as, because that, but, then, certainly, except, surely, since",
+        "that",
+        "when (of time)",
+        "because, since (causal connection)",
+        "but (after negative)",
+        "that if, for if, indeed if, for though, but if",
+        "but rather, but"
+      ],
+      "source": "TBESH",
+      "definition": "1) that, for, because, when, as though, as, because that, but, then, certainly, except, surely, since\n1a) that\n1a1) yea, indeed\n1b) when (of time)\n1b1) when, if, though (with a concessive force)\n1c) because, since (causal connection)\n1d) but (after negative)\n1e) that if, for if, indeed if, for though, but if\n1f) but rather, but\n1g) except that\n1h) only, nevertheless\n1i) surely\n1j) that is\n1k) but if\n1l) for though\n1m) forasmuch as, for therefore",
+      "note": null
+    },
+    "H2088": {
+      "id": "H2088",
+      "primary": "this",
+      "senses": [
+        "this",
+        "this, this one, here, which, this...that, the one...the other, another, such",
+        "(alone)",
+        "(appos to subst)",
+        "(as predicate)",
+        "(enclitically)",
+        "(poetry)",
+        "(with prefixes)"
+      ],
+      "source": "TBESH",
+      "definition": "1) this, this one, here, which, this...that, the one...the other, another, such\n1a) (alone)\n1a1) this one\n1a2) this...that, the one...the other, another\n1b) (appos to subst)\n1b1) this\n1c) (as predicate)\n1c1) this, such\n1d) (enclitically)\n1d1) then\n1d2) who, whom\n1d3) how now, what now\n1d4) what now\n1d5) wherefore now\n1d6) behold here\n1d7) just now\n1d8) now, now already\n1e) (poetry)\n1e1) wherein, which, those who\n1f) (with prefixes)\n1f1) in this (place) here, then\n1f2) on these conditions, herewi",
+      "note": null
+    },
+    "H2603a": {
+      "id": "H2603a",
+      "primary": "be gracious",
+      "senses": [
+        "be gracious",
+        "to be gracious, show favour, pity",
+        "(Qal) to show favour, be gracious",
+        "(Niphal) to be pitied",
+        "(Piel) to make gracious, make favourable, be gracious",
+        "(Poel) to direct favour to, have mercy on",
+        "(Hophal) to be shown favour, be shown consideration",
+        "(Hithpael) to seek favour, implore favour"
+      ],
+      "source": "TBESH",
+      "definition": "1) to be gracious, show favour, pity\n1a) (Qal) to show favour, be gracious\n1b) (Niphal) to be pitied\n1c) (Piel) to make gracious, make favourable, be gracious\n1d) (Poel) to direct favour to, have mercy on\n1e) (Hophal) to be shown favour, be shown consideration\n1f) (Hithpael) to seek favour, implore favour",
+      "note": null
+    },
+    "H0589": {
+      "id": "H0589",
+      "primary": "I",
+      "senses": [
+        "I"
+      ],
+      "source": "TBESH",
+      "definition": "I (first pers. sing. -usually used for emphasis)",
+      "note": null
+    },
+    "H4325": {
+      "id": "H4325",
+      "primary": "water",
+      "senses": [
+        "water",
+        "water, waters",
+        "water of the feet, urine",
+        "of danger, violence, transitory things, refreshment (fig.)"
+      ],
+      "source": "TBESH",
+      "definition": "1) water, waters\n1a) water\n1b) water of the feet, urine\n1c) of danger, violence, transitory things, refreshment (fig.)",
+      "note": null
+    },
+    "H3478": {
+      "id": "H3478",
+      "primary": "Israel",
+      "senses": [
+        "Israel",
+        "the second name for Jacob given to him by God after his wrestling with the angel at Peniel",
+        "the name of the descendants and the nation of the descendants of Jacob",
+        "the name of the nation until the death of Solomon and the split",
+        "the name used and given to the northern kingdom consisting of the 10 tribes under Jeroboam; the southern kingdom was known as Judah",
+        "the name of the nation after the return from exile"
+      ],
+      "source": "TBESH",
+      "definition": "A man living at the time of the Patriarchs, first mentioned at Gen.25.26; \n son of: Isaac (H3327) and Rebekah (H7259); \n brother of: Esau (H6215); married to Rachel (H7354), Leah (H3812), Zilpah (H2153) and Bilhah (H1090A); \n father of: Reuben (H7205), Simeon (H8095), Levi (H3878), Judah (H3063), Dan (H1835H), Naphtali (H5321), Gad (H1410), Asher (H0836), Issachar (H3485), Zebulun (H2074), Dinah (H1783), Joseph (H3130) and Benjamin (H1144); also called Jacob frequently \n § Israel = \"God prevails",
+      "note": null
+    },
+    "H5358": {
+      "id": "H5358",
+      "primary": "to avenge",
+      "senses": [
+        "to avenge",
+        "to avenge, take vengeance, revenge, avenge oneself, be avenged, be punished",
+        "(Qal)",
+        "(Niphal)",
+        "(Piel) to avenge",
+        "(Hophal) to be avenged, vengeance be taken (for blood)",
+        "(Hithpael) to avenge oneself"
+      ],
+      "source": "TBESH",
+      "definition": "1) to avenge, take vengeance, revenge, avenge oneself, be avenged, be punished\n1a) (Qal)\n1a1) to avenge, take vengeance\n1a2) to entertain revengeful feelings\n1b) (Niphal)\n1b1) to avenge oneself\n1b2) to suffer vengeance\n1c) (Piel) to avenge\n1d) (Hophal) to be avenged, vengeance be taken (for blood)\n1e) (Hithpael) to avenge oneself",
+      "note": null
+    },
+    "H3808": {
+      "id": "H3808",
+      "primary": "not",
+      "senses": [
+        "not",
+        "not, no",
+        "not (with verb-absolute prohibition)",
+        "not (with modifier-negation)",
+        "nothing (subst)",
+        "without (with particle)",
+        "before (of time)"
+      ],
+      "source": "TBESH",
+      "definition": "1) not, no\n1a) not (with verb-absolute prohibition)\n1b) not (with modifier-negation)\n1c) nothing (subst)\n1d) without (with particle)\n1e) before (of time)\nAramaic equivalent: la (לָא \"not\" H3809)",
+      "note": null
+    },
+    "H0595": {
+      "id": "H0595",
+      "primary": "I",
+      "senses": [
+        "I"
+      ],
+      "source": "TBESH",
+      "definition": "I (first pers. sing.)\nAnother spelling of a.ni (אֲנִי, אָֽנֹכִ֫י \"I\" H0589)",
+      "note": null
+    },
+    "H7430": {
+      "id": "H7430",
+      "primary": "to creep",
+      "senses": [
+        "to creep",
+        "to creep, move lightly, move about, walk on all fours",
+        "(Qal)"
+      ],
+      "source": "TBESH",
+      "definition": "1) to creep, move lightly, move about, walk on all fours\n1a) (Qal)\n1a1) to creep, teem (of all creeping things)\n1a2) to creep (of animals)\n1a3) to move lightly, glide about (of water animals)\n1a4) to move about (of all land animals generally)",
+      "note": null
+    },
+    "H1755": {
+      "id": "H1755",
+      "primary": "generation",
+      "senses": [
+        "generation",
+        "period, generation, habitation, dwelling",
+        "period, age, generation (period of time)",
+        "generation (those living during a period)",
+        "generation (characterised by quality, condition, class of men)",
+        "dwelling-place, habitation"
+      ],
+      "source": "TBESH",
+      "definition": "1) period, generation, habitation, dwelling\n1a) period, age, generation (period of time)\n1b) generation (those living during a period)\n1c) generation (characterised by quality, condition, class of men)\n1d) dwelling-place, habitation\nAramaic equivalent: dar (דָּר \"generation\" H1859)",
+      "note": null
+    },
+    "H5201": {
+      "id": "H5201",
+      "primary": "to keep",
+      "senses": [
+        "to keep",
+        "to keep, keep guard, reserve, maintain",
+        "(Qal)"
+      ],
+      "source": "TBESH",
+      "definition": "1) to keep, keep guard, reserve, maintain\n1a) (Qal)\n1a1) to keep, maintain\n1a2) to keep, guard\nAramaic equivalent: ne.tar (נְטַר \"to keep\" H5202)",
       "note": null
     },
     "H8318": {
@@ -3891,6 +3539,359 @@
       ],
       "source": "TBESH",
       "definition": "1) teeming or swarming things, creepers, swarmers\n1a) of insects, animals, small reptiles, quadrupeds",
+      "note": null
+    },
+    "H8414": {
+      "id": "H8414",
+      "primary": "formlessness",
+      "senses": [
+        "formlessness",
+        "formlessness, confusion, unreality, emptiness",
+        "formlessness (of primeval earth)",
+        "that which is empty or unreal (of idols) (fig)",
+        "wasteland, wilderness (of solitary places)",
+        "place of chaos",
+        "vanity"
+      ],
+      "source": "TBESH",
+      "definition": "1) formlessness, confusion, unreality, emptiness\n1a) formlessness (of primeval earth)\n1a1) nothingness, empty space\n1b) that which is empty or unreal (of idols) (fig)\n1c) wasteland, wilderness (of solitary places)\n1d) place of chaos\n1e) vanity",
+      "note": null
+    },
+    "H7126": {
+      "id": "H7126",
+      "primary": "to present: come",
+      "senses": [
+        "to present: come",
+        "to come near, approach, enter into, draw near",
+        "(Qal) to approach, draw near",
+        "(Niphal) to be brought near",
+        "(Piel) to cause to approach, bring near, cause to draw near",
+        "(Hiphil) to bring near, bring, present"
+      ],
+      "source": "TBESH",
+      "definition": ": come/approach\n1) to come near, approach, enter into, draw near\n1a) (Qal) to approach, draw near\n1b) (Niphal) to be brought near\n1c) (Piel) to cause to approach, bring near, cause to draw near\n1d) (Hiphil) to bring near, bring, present",
+      "note": null
+    },
+    "H2233": {
+      "id": "H2233",
+      "primary": "seed",
+      "senses": [
+        "seed",
+        "seed, sowing, offspring",
+        "a sowing",
+        "semen virile",
+        "offspring, descendants, posterity, children",
+        "of moral quality",
+        "sowing time (by meton)"
+      ],
+      "source": "TBESH",
+      "definition": ": seed/sowing\n1) seed, sowing, offspring\n1a) a sowing\n1b) seed\n1c) semen virile\n1d) offspring, descendants, posterity, children\n1e) of moral quality\n1e1) a practitioner of righteousness (fig.)\n1f) sowing time (by meton)",
+      "note": null
+    },
+    "H8317": {
+      "id": "H8317",
+      "primary": "to swarm",
+      "senses": [
+        "to swarm",
+        "(Qal) to teem, swarm, multiply",
+        "to swarm, teem"
+      ],
+      "source": "TBESH",
+      "definition": "1) (Qal) to teem, swarm, multiply\n1a) to swarm, teem\n1b2) to swarm",
+      "note": null
+    },
+    "H0430": {
+      "id": "H0430",
+      "primary": "God",
+      "senses": [
+        "God"
+      ],
+      "source": "TBESH",
+      "definition": "This name means  \"gods\" (plural intensive-singular meaning), \"God\"\nAnother name of ye.ho.vah (יהוה \"LORD\" H3068G)",
+      "note": null
+    },
+    "H1121a": {
+      "id": "H1121a",
+      "primary": "son: descendant/people",
+      "senses": [
+        "son: descendant/people"
+      ],
+      "source": "TBESH",
+      "definition": ": descendant, people, tribe, nation\nA sub-meaning of ben (בֵּן \": child\" H1121) \n § : child/son",
+      "note": null
+    },
+    "H5769": {
+      "id": "H5769",
+      "primary": "forever: enduring",
+      "senses": [
+        "forever: enduring",
+        "long duration, antiquity, futurity, for ever, ever, everlasting, evermore, perpetual, old, ancient, world",
+        "ancient time, long time (of past)",
+        "(of future)"
+      ],
+      "source": "TBESH",
+      "definition": ": enduring/eternal\n1) long duration, antiquity, futurity, for ever, ever, everlasting, evermore, perpetual, old, ancient, world\n1a) ancient time, long time (of past)\n1b) (of future)\n1b1) for ever, always\n1b2) continuous existence, perpetual\n1b3) everlasting, indefinite or unending future, eternity",
+      "note": null
+    },
+    "H3290": {
+      "id": "H3290",
+      "primary": "Jacob",
+      "senses": [
+        "Jacob"
+      ],
+      "source": "TBESH",
+      "definition": "A man living at the time of the Patriarchs, first mentioned at Gen.25.26; \n son of: Isaac (H3327) and Rebekah (H7259); \n brother of: Esau (H6215); married to Rachel (H7354), Leah (H3812), Zilpah (H2153) and Bilhah (H1090A); \n father of: Reuben (H7205), Simeon (H8095), Levi (H3878), Judah (H3063), Dan (H1835H), Naphtali (H5321), Gad (H1410), Asher (H0836), Issachar (H3485), Zebulun (H2074), Dinah (H1783), Joseph (H3130) and Benjamin (H1144); also called Jacob frequently\nAnother name of yis.ra.el ",
+      "note": null
+    },
+    "H0398": {
+      "id": "H0398",
+      "primary": "to eat",
+      "senses": [
+        "to eat",
+        "to eat, devour, burn up, feed",
+        "(Qal)",
+        "(Niphal)",
+        "(Pual)",
+        "(Hiphil)",
+        "(Piel)"
+      ],
+      "source": "TBESH",
+      "definition": "1) to eat, devour, burn up, feed\n1a) (Qal)\n1a1) to eat (human subject)\n1a2) to eat, devour (of beasts and birds)\n1a3) to devour, consume (of fire)\n1a4) to devour, slay (of sword)\n1a5) to devour, consume, destroy (inanimate subjects - ie, pestilence, drought)\n1a6) to devour (of oppression)\n1b) (Niphal)\n1b1) to be eaten (by men)\n1b2) to be devoured, consumed (of fire)\n1b3) to be wasted, destroyed (of flesh)\n1c) (Pual)\n1c1) to cause to eat, feed with\n1c2) to cause to devour\n1d) (Hiphil)\n1d1) to fee",
+      "note": null
+    },
+    "H7896": {
+      "id": "H7896",
+      "primary": "to set: make",
+      "senses": [
+        "to set: make",
+        "to put, set",
+        "(Qal)",
+        "(Hophal) to be imposed, be set upon"
+      ],
+      "source": "TBESH",
+      "definition": ": make/establish\n1) to put, set\n1a) (Qal)\n1a1) to put, lay (hand upon)\n1a2) to set, station, appoint, fix, set mind to\n1a3) to constitute, make (one something), make like, perform\n1a4) to take one's stand\n1a5) to lay waste\n1b) (Hophal) to be imposed, be set upon",
+      "note": null
+    },
+    "H0859a": {
+      "id": "H0859a",
+      "primary": "you(m.s.)",
+      "senses": [
+        "you(m.s.)"
+      ],
+      "source": "TBESH",
+      "definition": "you (second pers. sing. masc.)",
+      "note": null
+    },
+    "H0802": {
+      "id": "H0802",
+      "primary": "woman",
+      "senses": [
+        "woman",
+        "woman, wife, female",
+        "woman (opposite of man)",
+        "wife (woman married to a man)",
+        "female (of animals)",
+        "each, every (pronoun)"
+      ],
+      "source": "TBESH",
+      "definition": ": woman\n1) woman, wife, female\n1a) woman (opposite of man)\n1b) wife (woman married to a man)\n1c) female (of animals)\n1d) each, every (pronoun)",
+      "note": null
+    },
+    "H1931": {
+      "id": "H1931",
+      "primary": "he/she/it",
+      "senses": [
+        "he/she/it",
+        "he, she, it",
+        "himself (with emphasis)",
+        "resuming subj with emphasis",
+        "(with minimum emphasis following predicate)",
+        "(anticipating subj)",
+        "(emphasising predicate)",
+        "that, it (neuter) demons pron"
+      ],
+      "source": "TBESH",
+      "definition": "pron 3p s\n1) he, she, it\n1a) himself (with emphasis)\n1b) resuming subj with emphasis\n1c) (with minimum emphasis following predicate)\n1d) (anticipating subj)\n1e) (emphasising predicate)\n1f) that, it (neuter) demons pron\n2) that (with article)",
+      "note": null
+    },
+    "H0929": {
+      "id": "H0929",
+      "primary": "animal",
+      "senses": [
+        "animal",
+        "beast, cattle, animal",
+        "beasts (coll of all animals)",
+        "cattle, livestock (of domestic animals)",
+        "wild beasts"
+      ],
+      "source": "TBESH",
+      "definition": "1) beast, cattle, animal\n1a) beasts (coll of all animals)\n1b) cattle, livestock (of domestic animals)\n1c) wild beasts",
+      "note": null
+    },
+    "H7225": {
+      "id": "H7225",
+      "primary": "first: beginning",
+      "senses": [
+        "first: beginning",
+        "first, beginning, best, chief",
+        "beginning",
+        "first",
+        "chief",
+        "choice part"
+      ],
+      "source": "TBESH",
+      "definition": ": beginning\n1) first, beginning, best, chief\n1a) beginning\n1b) first\n1c) chief\n1d) choice part\nAlso means: re.shit (רֵאשִׁית \": best\" H7225H)",
+      "note": null
+    },
+    "H0922": {
+      "id": "H0922",
+      "primary": "void",
+      "senses": [
+        "void"
+      ],
+      "source": "TBESH",
+      "definition": "emptiness, void, waste",
+      "note": null
+    },
+    "H3541": {
+      "id": "H3541",
+      "primary": "thus",
+      "senses": [
+        "thus",
+        "thus, here, in this manner",
+        "thus, so",
+        "here, here and there",
+        "until now, until now...until then, meanwhile"
+      ],
+      "source": "TBESH",
+      "definition": "1) thus, here, in this manner\n1a) thus, so\n1b) here, here and there\n1c) until now, until now...until then, meanwhile\nAramaic equivalent: kah (כָּה \"thus\" H3542)",
+      "note": null
+    },
+    "H7014b": {
+      "id": "H7014b",
+      "primary": "Cain",
+      "senses": [
+        "Cain"
+      ],
+      "source": "TBESH",
+      "definition": "A man living at the time before the Flood, first mentioned at Gen.4.1; \n son of: Adam (H0121) and Eve (H2332); \n brother of: Abel (H1893) and Seth (H8352); \n father of: Enoch (H2585)\nAlso named: Kain (Κάϊν \"Cain\" G2535)\n § Cain = \"possession\"\n eldest son of Adam and Eve and the first murderer having murdered his brother",
+      "note": null
+    },
+    "H0413": {
+      "id": "H0413",
+      "primary": "to(wards)",
+      "senses": [
+        "to(wards)",
+        "to, toward, unto (of motion)",
+        "into (limit is actually entered)",
+        "in among",
+        "toward (of direction, not necessarily physical motion)",
+        "against (motion or direction of a hostile character)",
+        "in addition to, to",
+        "concerning, in regard to, in reference to, on account of"
+      ],
+      "source": "TBESH",
+      "definition": "1) to, toward, unto (of motion)\n2) into (limit is actually entered)\n2a) in among\n3) toward (of direction, not necessarily physical motion)\n4) against (motion or direction of a hostile character)\n5) in addition to, to\n6) concerning, in regard to, in reference to, on account of\n7) according to (rule or standard)\n8) at, by, against (of one's presence)\n9) in between, in within, to within, unto (idea of motion to)",
+      "note": null
+    },
+    "H2822": {
+      "id": "H2822",
+      "primary": "darkness",
+      "senses": [
+        "darkness",
+        "darkness, obscurity",
+        "secret place"
+      ],
+      "source": "TBESH",
+      "definition": "1) darkness, obscurity\n1a) darkness\n1b) secret place",
+      "note": null
+    },
+    "H0996": {
+      "id": "H0996",
+      "primary": "between",
+      "senses": [
+        "between"
+      ],
+      "source": "TBESH",
+      "definition": ": between\n between, among, in the midst of (with other preps), from between",
+      "note": null
+    },
+    "H8415": {
+      "id": "H8415",
+      "primary": "abyss",
+      "senses": [
+        "abyss",
+        "deep, depths, deep places, abyss, the deep, sea",
+        "deep (of subterranean waters)",
+        "deep, sea, abysses (of sea)",
+        "primeval ocean, deep",
+        "deep, depth (of river)",
+        "abyss, the grave"
+      ],
+      "source": "TBESH",
+      "definition": "1) deep, depths, deep places, abyss, the deep, sea\n1a) deep (of subterranean waters)\n1b) deep, sea, abysses (of sea)\n1c) primeval ocean, deep\n1d) deep, depth (of river)\n1e) abyss, the grave",
+      "note": null
+    },
+    "H3117": {
+      "id": "H3117",
+      "primary": "day",
+      "senses": [
+        "day",
+        "day, time, year",
+        "day (as opposed to night)",
+        "day (24 hour period)",
+        "days, lifetime (pl.)",
+        "time, period (general)",
+        "year",
+        "temporal references"
+      ],
+      "source": "TBESH",
+      "definition": ": day/when/time/period\n1) day, time, year\n1a) day (as opposed to night)\n1b) day (24 hour period)\n1b1) as defined by evening and morning in Genesis 1\n1b2) as a division of time\n1b2a) a working day, a day's journey\n1c) days, lifetime (pl.)\n1d) time, period (general)\n1e) year\n1f) temporal references\n1f1) today\n1f2) yesterday\n1f3) tomorrow",
+      "note": null
+    },
+    "H0127": {
+      "id": "H0127",
+      "primary": "land: soil",
+      "senses": [
+        "land: soil",
+        "ground, land",
+        "ground (as general, tilled, yielding sustenance)",
+        "piece of ground, a specific plot of land",
+        "earth substance (for building or constructing)",
+        "ground as earth's visible surface",
+        "land, territory, country",
+        "whole inhabited earth"
+      ],
+      "source": "TBESH",
+      "definition": ": soil\n1) ground, land\n1a) ground (as general, tilled, yielding sustenance)\n1b) piece of ground, a specific plot of land\n1c) earth substance (for building or constructing)\n1d) ground as earth's visible surface\n1e) land, territory, country\n1f) whole inhabited earth\n1g) city in Naphtali",
+      "note": null
+    },
+    "H7272": {
+      "id": "H7272",
+      "primary": "foot",
+      "senses": [
+        "foot",
+        "foot, leg",
+        "of God (anthropomorphic)",
+        "of seraphim, cherubim, idols, animals, table",
+        "according to the pace of (with prep)",
+        "three times (feet, paces)"
+      ],
+      "source": "TBESH",
+      "definition": "1) foot\n1a) foot, leg\n1b) of God (anthropomorphic)\n1c) of seraphim, cherubim, idols, animals, table\n1d) according to the pace of (with prep)\n1e) three times (feet, paces)\nAramaic equivalent: re.gal (רְגַל \"foot\" H7271)",
+      "note": null
+    },
+    "H8034": {
+      "id": "H8034",
+      "primary": "name",
+      "senses": [
+        "name",
+        "reputation, fame, glory",
+        "the Name (as designation of God)",
+        "memorial, monument"
+      ],
+      "source": "TBESH",
+      "definition": "1) name\n1a) name\n1b) reputation, fame, glory\n1c) the Name (as designation of God)\n1d) memorial, monument\nAramaic equivalent: shum (שֻׁם \"name\" H8036)",
       "note": null
     }
   }

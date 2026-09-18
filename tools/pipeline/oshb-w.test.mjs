@@ -84,3 +84,44 @@ test("Lev.11.42 includes גחון; Num.27.5 includes משפטן", () => {
   );
   assert.equal(numToks.length, 6);
 });
+
+test("orphan qere insertions appear (Nevi'im Sofer HIGH ×8 + Ruth)", () => {
+  const cases = [
+    ["Judg", "Judg.20.13", "בני"],
+    ["2Sam", "2Sam.8.3", "פרת"],
+    ["2Sam", "2Sam.16.23", "איש"],
+    ["2Kgs", "2Kgs.19.31", "צבאות"],
+    ["2Kgs", "2Kgs.19.37", "בניו"],
+    ["Jer", "Jer.31.38", "באים"],
+    ["Jer", "Jer.50.29", "לה"],
+    ["Ruth", "Ruth.3.5", "אלי"],
+    ["Ruth", "Ruth.3.17", "אלי"],
+  ];
+  for (const [book, id, need] of cases) {
+    const xml = fs.readFileSync(path.join(VENDOR, "oshb", `${book}.xml`), "utf8");
+    const toks = extractWTokens(verseBodyFromOshbXml(xml, id));
+    const cons = toks.map((t) => consonants(surface(t.heRaw)));
+    assert.ok(cons.includes(need), `${id} missing ${need}; got ${cons.join(",")}`);
+  }
+});
+
+test("Jer.48.44 catchWord qere replaces הניס with הנס + ketiv", () => {
+  const xml = fs.readFileSync(path.join(VENDOR, "oshb", "Jer.xml"), "utf8");
+  const toks = extractWTokens(verseBodyFromOshbXml(xml, "Jer.48.44"));
+  const cons = toks.map((t) => consonants(surface(t.heRaw)));
+  assert.ok(cons.includes("הנס"), `missing הנס; got ${cons.join(",")}`);
+  assert.ok(!cons.includes("הניס"), "ketiv הניס must not remain as surface");
+  const q = toks.find((t) => consonants(surface(t.heRaw)) === "הנס");
+  assert.ok(q.qere);
+  assert.equal(consonants(q.ketiv), "הניס");
+});
+
+test("Judg.20.13 has אבו→בני→בנימן sequence from orphan qere", () => {
+  const xml = fs.readFileSync(path.join(VENDOR, "oshb", "Judg.xml"), "utf8");
+  const toks = extractWTokens(verseBodyFromOshbXml(xml, "Judg.20.13"));
+  const cons = toks.map((t) => consonants(surface(t.heRaw)));
+  const i = cons.indexOf("אבו");
+  assert.ok(i >= 0);
+  assert.equal(cons[i + 1], "בני");
+  assert.equal(cons[i + 2], "בנימן");
+});

@@ -1,71 +1,8 @@
 {
-  "ok": false,
-  "failures": [
-    "3-phonetics: divineName phonetic wYHWH at Ezek.13.6#7",
-    "3-phonetics: divineName phonetic wYHWH at Ezek.22.28#14",
-    "3-phonetics: divineName phonetic lYHWH at Ezek.30.3#5",
-    "3-phonetics: divineName phonetic wYHWH at Ezek.35.10#11",
-    "3-phonetics: divineName phonetic lYHWH at Ezek.42.13#19",
-    "3-phonetics: divineName phonetic lYHWH at Ezek.43.24#10",
-    "3-phonetics: divineName phonetic lYHWH at Ezek.45.1#6",
-    "3-phonetics: divineName phonetic lYHWH at Ezek.45.23#5",
-    "3-phonetics: divineName phonetic lYHWH at Ezek.46.4#4",
-    "3-phonetics: divineName phonetic lYHWH at Ezek.46.12#8",
-    "3-phonetics: divineName phonetic lYHWH at Ezek.46.13#7",
-    "3-phonetics: divineName phonetic lYHWH at Ezek.46.14#14",
-    "3-phonetics: divineName phonetic lYHWH at Ezek.48.9#3",
-    "3-phonetics: divineName phonetic lYHWH at Ezek.48.14#11",
-    "3-phonetics: divineName phonetic vYHWH at Hos.1.7#5",
-    "3-phonetics: divineName phonetic lYHWH at Hos.4.1#7",
-    "3-phonetics: divineName phonetic vYHWH at Hos.5.7#0",
-    "3-phonetics: divineName phonetic lYHWH at Hos.9.4#2",
-    "3-phonetics: divineName phonetic lYHWH at Hos.12.3#1",
-    "3-phonetics: divineName phonetic wYHWH at Hos.12.6#0",
-    "3-phonetics: divineName phonetic wYHWH at Joel.2.11#0",
-    "3-phonetics: divineName phonetic lYHWH at Joel.2.14#9",
-    "3-phonetics: divineName phonetic vYHWH at Joel.2.23#4",
-    "3-phonetics: divineName phonetic wYHWH at Joel.4.16#0",
-    "3-phonetics: divineName phonetic wYHWH at Joel.4.16#9",
-    "3-phonetics: divineName phonetic wYHWH at Joel.4.21#4",
-    "3-phonetics: divineName phonetic wYHWH at Amos.3.6#11",
-    "3-phonetics: divineName phonetic lYHWH at Obad.1.21#9",
-    "3-phonetics: divineName phonetic wYHWH at Jonah.1.4#0",
-    "3-phonetics: divineName phonetic lYHWH at Jonah.1.16#8",
-    "3-phonetics: divineName phonetic lYHWH at Jonah.2.10#9",
-    "3-phonetics: divineName phonetic wYHWH at Mic.2.13#11",
-    "3-phonetics: divineName phonetic lYHWH at Mic.4.13#15",
-    "3-phonetics: divineName phonetic lYHWH at Mic.6.2#10",
-    "3-phonetics: divineName phonetic vYHWH at Mic.7.7#1",
-    "3-phonetics: divineName phonetic wYHWH at Hab.2.20#0",
-    "3-phonetics: divineName phonetic vYHWH at Hab.3.18#1",
-    "3-phonetics: divineName phonetic lYHWH at Zeph.1.5#9",
-    "3-phonetics: divineName phonetic lYHWH at Zeph.1.17#5",
-    "3-phonetics: divineName phonetic vYHWH at Zeph.3.2#6",
-    "3-phonetics: divineName phonetic lYHWH at Zech.9.1#8",
-    "3-phonetics: divineName phonetic wYHWH at Zech.9.14#0",
-    "3-phonetics: divineName phonetic mYHWH at Zech.10.1#1",
-    "3-phonetics: divineName phonetic vYHWH at Zech.10.7#12",
-    "3-phonetics: divineName phonetic vYHWH at Zech.10.12#1",
-    "3-phonetics: divineName phonetic vYHWH at Zech.12.5#8",
-    "3-phonetics: divineName phonetic lYHWH at Zech.14.1#3",
-    "3-phonetics: divineName phonetic lYHWH at Zech.14.7#5",
-    "3-phonetics: divineName phonetic lYHWH at Zech.14.20#7",
-    "3-phonetics: divineName phonetic lYHWH at Zech.14.21#6",
-    "3-phonetics: divineName phonetic lYHWH at Mal.2.12#11",
-    "3-phonetics: divineName phonetic lYHWH at Mal.3.3#13",
-    "3-phonetics: divineName phonetic lYHWH at Mal.3.4#1"
-  ],
+  "ok": true,
+  "failures": [],
   "samples": {
-    "neviimNestedSegs": {
-      "known": [
-        "Judg.18.30",
-        "Isa.44.14",
-        "Jer.39.13"
-      ],
-      "xLargeInOshbNeviim": 0,
-      "note": "OSHB Nevi'im scan: 0 x-large; 1 x-suspended; 2 x-small nested in <w>"
-    },
-    "yhwhCount": 941,
+    "yhwhCount": 8,
     "h3068": {
       "primary": "LORD",
       "definitionHasJehovah": true,
@@ -73,83 +10,10 @@
       "displayPrimary": "LORD"
     },
     "missingJps": 0,
-    "ketivQereCount": 161
+    "ketivQereCount": 116
   },
-  "soferSamples": {
-    "Ezek.1.1": {
-      "english": "NOW IT came to pass in the thirtieth year, in the fourth month, in the fifth day of the month, as I was among the captiv",
-      "wordCount": 17,
-      "first": {
-        "he": "וַיְהִי",
-        "phonetic": "wayĕhî"
-      },
-      "yhwh": []
-    },
-    "Hos.1.1": {
-      "english": "THE WORD of the LORD that came unto Hosea the son of Beeri, in the days of Uzziah, Jotham, Ahaz, and Hezekiah, kings of ",
-      "wordCount": 21,
-      "first": {
-        "he": "דְּבַר",
-        "phonetic": "dĕvar"
-      },
-      "yhwh": [
-        {
-          "he": "יהוה",
-          "phonetic": "YHWH"
-        }
-      ]
-    },
-    "Amos.5.24": {
-      "english": "But let justice well up as waters, and righteousness as a mighty stream.",
-      "wordCount": 6,
-      "first": {
-        "he": "וְיִגַּל",
-        "phonetic": "wĕyiggal"
-      },
-      "yhwh": []
-    },
-    "Mic.6.8": {
-      "english": "It hath been told thee, O man, what is good, and what the LORD doth require of thee: only to do justly, and to love merc",
-      "wordCount": 19,
-      "first": {
-        "he": "הִגִּיד",
-        "phonetic": "higgîd"
-      },
-      "yhwh": [
-        {
-          "he": "יהוה",
-          "phonetic": "YHWH"
-        }
-      ]
-    },
-    "Mal.3.23": {
-      "english": "Behold, I will send you Elijah the prophet before the coming of the great and terrible day of the LORD.",
-      "wordCount": 13,
-      "first": {
-        "he": "הִנֵּה",
-        "phonetic": "hinnēh"
-      },
-      "yhwh": [
-        {
-          "he": "יהוה",
-          "phonetic": "YHWH"
-        }
-      ]
-    }
-  },
+  "soferSamples": {},
   "checkedBooks": [
-    "Ezek",
-    "Hos",
-    "Joel",
-    "Amos",
-    "Obad",
-    "Jonah",
-    "Mic",
-    "Nah",
-    "Hab",
-    "Zeph",
-    "Hag",
-    "Zech",
-    "Mal"
+    "Dan"
   ]
 }

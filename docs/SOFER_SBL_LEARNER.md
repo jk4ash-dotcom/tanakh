@@ -74,4 +74,4 @@ cd tools/pipeline && npm install && npm run build
 
 ## Biblical Aramaic
 
-Daniel and Ezra contain Biblical Aramaic. Do **not** silently apply this Hebrew SBL-Learner schema to those spans. Flag for Sofer-approved Aramaic handling. Torah has no Aramaic body text.
+Daniel and Ezra contain Biblical Aramaic. Do **not** silently apply this Hebrew SBL-Learner schema to those spans. **v0.4.0-poc Sofer-approved path:** detect OSHB morph language `A*`, set `aramaic=true`, phonetic `[aramaic-pending]` (no Hebrew SBL). Hebrew morph tokens in Dan/Ezra still use this schema. Torah has no Aramaic body text.
