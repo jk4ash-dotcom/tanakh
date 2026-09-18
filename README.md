@@ -2,7 +2,7 @@
 
 Offline-first Android learner for Hebrew Tanakh.
 
-**Package:** `com.tanakhpoc.learner` · **versionName:** `0.4.2-poc` · **scope:** Full Tanakh (Torah + Nevi’im + Ketuvim)
+**Package:** `com.tanakhpoc.learner` · **versionName:** `0.4.3-poc` · **scope:** Full Tanakh (Torah + Nevi’im + Ketuvim)
 
 ## What ships in this build
 
@@ -44,3 +44,8 @@ cd tools/pipeline && npm install && npm run build:all
 ## Quality gates
 
 Pack build runs Sofer hard-fail checks 1–8 (coverage, token order + x-large/nested-seg flatten, phonetics, YHWH, gloss sanitize, JPS, LTR, ketiv/qere). Auto K/Q reports in `reports/{torah,neviim,ketuvim,tanakh}-ketiv-qere.md`. Sofer ping: `reports/SOFER_PING_TANAKH_v0.4.md`.
+
+## Signing (POC)
+
+- **Debug APK:** default Android debug keystore (`~/.android/debug.keystore`).
+- **Release APK (non-debuggable):** also signed with the **local debug keystore** via `signingConfig = signingConfigs.getByName("debug")` in `app/build.gradle.kts`. This is intentional for Play Protect / Argus sideload testing without a Play App Signing key — not a store upload key.

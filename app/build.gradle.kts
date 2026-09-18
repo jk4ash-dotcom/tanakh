@@ -13,14 +13,17 @@ android {
         applicationId = "com.tanakhpoc.learner"
         minSdk = 26
         targetSdk = 35
-        versionCode = 12
-        versionName = "0.4.2-poc"
+        versionCode = 13
+        versionName = "0.4.3-poc"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
+    // POC: release uses the local debug keystore so we can ship a
+    // non-debuggable APK without a Play App Signing key. Documented in README.
     buildTypes {
         release {
             isMinifyEnabled = false
+            signingConfig = signingConfigs.getByName("debug")
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
@@ -56,39 +59,61 @@ android {
 }
 
 // Regression: packaged APK must contain catalog + glosses (gz or plain after aapt2).
-tasks.register("verifyDebugApkAssets") {
-    group = "verification"
-    description = "Assert catalog/glosses/book assets exist inside the debug APK"
-    dependsOn("assembleDebug")
-    doLast {
-        val apk = layout.buildDirectory.file("outputs/apk/debug/app-debug.apk").get().asFile
-        require(apk.isFile) { "Missing APK: $apk" }
-        // Avoid java.* in Gradle Kotlin DSL (java = JavaPluginExtension).
-        val proc = ProcessBuilder("unzip", "-Z1", apk.absolutePath)
-            .redirectErrorStream(true)
-            .start()
-        val names = proc.inputStream.bufferedReader().readLines().filter { it.isNotBlank() }.toSet()
-        val code = proc.waitFor()
-        require(code == 0) { "unzip -Z1 failed ($code) on $apk" }
-        fun has(path: String) = path in names
-        require(has("assets/data/catalog.json")) { "APK missing assets/data/catalog.json" }
-        val glossOk = has("assets/data/glosses.json.gz") || has("assets/data/glosses.json")
-        require(glossOk) {
-            "APK missing glosses (expected assets/data/glosses.json.gz or .json). Sample: " +
-                names.filter { it.startsWith("assets/data/") }.take(20)
+fun verifyApkAssets(taskName: String, apkRel: String, assembleTask: String) {
+    tasks.register(taskName) {
+        group = "verification"
+        description = "Assert catalog/glosses/book assets exist inside $apkRel"
+        dependsOn(assembleTask)
+        doLast {
+            val apk = layout.buildDirectory.file(apkRel).get().asFile
+            require(apk.isFile) { "Missing APK: $apk" }
+            // Avoid java.* in Gradle Kotlin DSL (java = JavaPluginExtension).
+            val proc = ProcessBuilder("unzip", "-Z1", apk.absolutePath)
+                .redirectErrorStream(true)
+                .start()
+            val names = proc.inputStream.bufferedReader().readLines().filter { it.isNotBlank() }.toSet()
+            val code = proc.waitFor()
+            require(code == 0) { "unzip -Z1 failed ($code) on $apk" }
+            fun has(path: String) = path in names
+            require(has("assets/data/catalog.json")) { "APK missing assets/data/catalog.json" }
+            val glossOk = has("assets/data/glosses.json.gz") || has("assets/data/glosses.json")
+            require(glossOk) {
+                "APK missing glosses (expected assets/data/glosses.json.gz or .json). Sample: " +
+                    names.filter { it.startsWith("assets/data/") }.take(20)
+            }
+            val genOk = has("assets/data/books/Gen.json.gz") || has("assets/data/books/Gen.json")
+            require(genOk) { "APK missing Genesis pack under assets/data/books/" }
+            val glossLabel = if (has("assets/data/glosses.json.gz")) "glosses.json.gz" else "glosses.json"
+            val genLabel = if (has("assets/data/books/Gen.json.gz")) "Gen.json.gz" else "Gen.json"
+            logger.lifecycle("$taskName OK — glosses=$glossLabel gen=$genLabel")
         }
-        val genOk = has("assets/data/books/Gen.json.gz") || has("assets/data/books/Gen.json")
-        require(genOk) { "APK missing Genesis pack under assets/data/books/" }
-        val glossLabel = if (has("assets/data/glosses.json.gz")) "glosses.json.gz" else "glosses.json"
-        val genLabel = if (has("assets/data/books/Gen.json.gz")) "Gen.json.gz" else "Gen.json"
-        logger.lifecycle("verifyDebugApkAssets OK — glosses=$glossLabel gen=$genLabel")
     }
 }
+
+verifyApkAssets(
+    "verifyDebugApkAssets",
+    "outputs/apk/debug/app-debug.apk",
+    "assembleDebug"
+)
+verifyApkAssets(
+    "verifyReleaseApkAssets",
+    "outputs/apk/release/app-release.apk",
+    "assembleRelease"
+)
 
 tasks.named("check") {
     dependsOn("verifyDebugApkAssets")
 }
 
+
+// Belt-and-suspenders: do not pull emoji2 (GMS font fetch) or profileinstaller
+// exported receiver. Manifest tools:node="remove" is the primary control.
+configurations.configureEach {
+    exclude(group = "androidx.emoji2", module = "emoji2")
+    exclude(group = "androidx.emoji2", module = "emoji2-views")
+    exclude(group = "androidx.emoji2", module = "emoji2-views-helper")
+    exclude(group = "androidx.profileinstaller", module = "profileinstaller")
+}
 
 dependencies {
     val composeBom = platform("androidx.compose:compose-bom:2024.10.01")
