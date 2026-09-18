@@ -7,18 +7,27 @@ import kotlinx.coroutines.sync.withLock
 import kotlinx.coroutines.withContext
 import kotlinx.serialization.json.Json
 import java.io.BufferedReader
+import java.io.FileNotFoundException
+import java.io.IOException
+import java.io.InputStream
 import java.io.InputStreamReader
+import java.io.PushbackInputStream
 import java.util.zip.GZIPInputStream
 
 /**
  * Offline catalog + per-book lazy packs (gzip assets) + shared gloss catalog.
  * Loads off the main thread.
+ *
+ * Note: aapt2 decompresses `*.gz` under assets/ and strips the `.gz` suffix, so
+ * packaged APKs often contain `data/glosses.json` / `data/books/X.json` even when
+ * the source tree ships `.json.gz`. [readAssetText] tries gz then plain paths and
+ * only wraps [GZIPInputStream] when the stream starts with gzip magic bytes.
  */
 class PackRepository private constructor(
     val catalog: Catalog,
     private val glosses: Map<String, Gloss>,
     private val books: MutableMap<String, Pack>,
-    private val assetOpener: (String) -> java.io.InputStream
+    private val assetOpener: (String) -> InputStream
 ) {
     val metaVersion: String get() = catalog.version
     val scope: String get() = catalog.scope
@@ -45,20 +54,11 @@ class PackRepository private constructor(
             books[book]?.let { return@withLock it }
             val summary = catalog.books.find { it.osis == book }
                 ?: error("Unknown book $book")
-            val asset = summary.assetGz?.removePrefix("data/") 
-                ?: summary.asset.removePrefix("data/")
-            val path = if (asset.startsWith("books/")) "data/$asset" else "data/$asset"
-            val text = readAssetText(path)
+            val candidates = assetCandidates(summary.assetGz, summary.asset)
+            val text = readAssetText(assetOpener, *candidates.toTypedArray())
             val pack = json.decodeFromString(Pack.serializer(), text)
             books[book] = pack
             pack
-        }
-    }
-
-    private fun readAssetText(path: String): String {
-        assetOpener(path).use { raw ->
-            val stream = if (path.endsWith(".gz")) GZIPInputStream(raw) else raw
-            return BufferedReader(InputStreamReader(stream, Charsets.UTF_8)).use { it.readText() }
         }
     }
 
@@ -67,6 +67,7 @@ class PackRepository private constructor(
     companion object {
         private const val CATALOG = "data/catalog.json"
         private const val GLOSSES_GZ = "data/glosses.json.gz"
+        private const val GLOSSES_PLAIN = "data/glosses.json"
 
         @Volatile
         private var instance: PackRepository? = null
@@ -74,6 +75,63 @@ class PackRepository private constructor(
         private val json = Json {
             ignoreUnknownKeys = true
             isLenient = true
+        }
+
+        /** Normalize catalog asset paths to AssetManager-relative form (`data/...`). */
+        fun normalizeAssetPath(path: String): String {
+            val trimmed = path.trim().removePrefix("/")
+            return if (trimmed.startsWith("data/")) trimmed else "data/$trimmed"
+        }
+
+        /**
+         * Ordered open candidates: gzip path(s) first, then plain JSON.
+         * Dedupes and drops blanks.
+         */
+        fun assetCandidates(vararg paths: String?): List<String> =
+            paths.filterNotNull()
+                .map { it.trim() }
+                .filter { it.isNotEmpty() }
+                .map { normalizeAssetPath(it) }
+                .distinct()
+
+        /**
+         * Read asset text, trying each candidate path. Auto-detects gzip via magic
+         * bytes so both source `.gz` and aapt2-decompressed plain JSON work.
+         */
+        fun readAssetText(opener: (String) -> InputStream, vararg candidates: String): String {
+            require(candidates.isNotEmpty()) { "No asset candidates" }
+            var last: Exception? = null
+            for (path in candidates) {
+                try {
+                    opener(path).use { raw ->
+                        return decodePossiblyGzipped(raw)
+                    }
+                } catch (e: FileNotFoundException) {
+                    last = e
+                } catch (e: IOException) {
+                    last = e
+                }
+            }
+            throw IOException(
+                "Missing asset (tried: ${candidates.joinToString()})",
+                last
+            )
+        }
+
+        fun decodePossiblyGzipped(raw: InputStream): String {
+            val pushback = PushbackInputStream(raw, 2)
+            val header = ByteArray(2)
+            val n = pushback.read(header)
+            if (n > 0) {
+                pushback.unread(header, 0, n)
+            }
+            val stream: InputStream =
+                if (n == 2 && header[0] == 0x1f.toByte() && header[1] == 0x8b.toByte()) {
+                    GZIPInputStream(pushback)
+                } else {
+                    pushback
+                }
+            return BufferedReader(InputStreamReader(stream, Charsets.UTF_8)).use { it.readText() }
         }
 
         /** Pure parse for unit tests (single combined pack fixture). */
@@ -121,14 +179,18 @@ class PackRepository private constructor(
                 instance ?: synchronized(this@Companion) {
                     instance ?: run {
                         val appCtx = context.applicationContext
-                        val opener: (String) -> java.io.InputStream = { path ->
+                        val opener: (String) -> InputStream = { path ->
                             appCtx.assets.open(path)
                         }
-                        val catalogText = opener(CATALOG).bufferedReader(Charsets.UTF_8).use { it.readText() }
+                        val catalogText = readAssetText(opener, CATALOG)
                         val catalog = json.decodeFromString(Catalog.serializer(), catalogText)
-                        val glossText = opener(GLOSSES_GZ).use { gz ->
-                            GZIPInputStream(gz).bufferedReader(Charsets.UTF_8).use { it.readText() }
-                        }
+                        val glossCandidates = assetCandidates(
+                            catalog.glossesAssetGz,
+                            catalog.glossesAsset,
+                            GLOSSES_GZ,
+                            GLOSSES_PLAIN
+                        )
+                        val glossText = readAssetText(opener, *glossCandidates.toTypedArray())
                         val glosses: Map<String, Gloss> = json.decodeFromString(glossText)
                         PackRepository(catalog, glosses, mutableMapOf(), opener).also { instance = it }
                     }

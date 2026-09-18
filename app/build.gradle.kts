@@ -13,8 +13,8 @@ android {
         applicationId = "com.tanakhpoc.learner"
         minSdk = 26
         targetSdk = 35
-        versionCode = 11
-        versionName = "0.4.1-poc"
+        versionCode = 12
+        versionName = "0.4.2-poc"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -47,7 +47,48 @@ android {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
         }
     }
+
+    // Keep *.gz bytes intact when possible; PackRepository still falls back if
+    // aapt2 gunzips and renames (known assets quirk).
+    androidResources {
+        noCompress += "gz"
+    }
 }
+
+// Regression: packaged APK must contain catalog + glosses (gz or plain after aapt2).
+tasks.register("verifyDebugApkAssets") {
+    group = "verification"
+    description = "Assert catalog/glosses/book assets exist inside the debug APK"
+    dependsOn("assembleDebug")
+    doLast {
+        val apk = layout.buildDirectory.file("outputs/apk/debug/app-debug.apk").get().asFile
+        require(apk.isFile) { "Missing APK: $apk" }
+        // Avoid java.* in Gradle Kotlin DSL (java = JavaPluginExtension).
+        val proc = ProcessBuilder("unzip", "-Z1", apk.absolutePath)
+            .redirectErrorStream(true)
+            .start()
+        val names = proc.inputStream.bufferedReader().readLines().filter { it.isNotBlank() }.toSet()
+        val code = proc.waitFor()
+        require(code == 0) { "unzip -Z1 failed ($code) on $apk" }
+        fun has(path: String) = path in names
+        require(has("assets/data/catalog.json")) { "APK missing assets/data/catalog.json" }
+        val glossOk = has("assets/data/glosses.json.gz") || has("assets/data/glosses.json")
+        require(glossOk) {
+            "APK missing glosses (expected assets/data/glosses.json.gz or .json). Sample: " +
+                names.filter { it.startsWith("assets/data/") }.take(20)
+        }
+        val genOk = has("assets/data/books/Gen.json.gz") || has("assets/data/books/Gen.json")
+        require(genOk) { "APK missing Genesis pack under assets/data/books/" }
+        val glossLabel = if (has("assets/data/glosses.json.gz")) "glosses.json.gz" else "glosses.json"
+        val genLabel = if (has("assets/data/books/Gen.json.gz")) "Gen.json.gz" else "Gen.json"
+        logger.lifecycle("verifyDebugApkAssets OK — glosses=$glossLabel gen=$genLabel")
+    }
+}
+
+tasks.named("check") {
+    dependsOn("verifyDebugApkAssets")
+}
+
 
 dependencies {
     val composeBom = platform("androidx.compose:compose-bom:2024.10.01")
@@ -69,8 +110,6 @@ dependencies {
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.7.3")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.9.0")
 
-    debugImplementation("androidx.compose.ui:ui-tooling")
-    debugImplementation("androidx.compose.ui:ui-test-manifest")
 
     testImplementation("junit:junit:4.13.2")
 }
