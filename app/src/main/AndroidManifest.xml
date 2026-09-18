@@ -23,15 +23,23 @@
             </intent-filter>
         </activity>
 
-        <!-- Argus: after stripping emoji2/profileinstaller initializers, remove the
-             empty androidx.startup.InitializationProvider entirely — leftover
-             provider can reference a class not in the APK and crash at process start. -->
+        <!-- Argus: keep emoji2 AAR + InitializationProvider (Compose subclasses
+             EmojiCompat.InitCallback; Startup needed for process init). Strip ONLY
+             EmojiCompatInitializer so it never auto-runs / never triggers GMS
+             downloadable emoji-font fetch. Same for ProfileInstaller. -->
         <provider
             android:name="androidx.startup.InitializationProvider"
             android:authorities="${applicationId}.androidx-startup"
-            tools:node="remove" />
+            android:exported="false"
+            tools:node="merge">
+            <meta-data
+                android:name="androidx.emoji2.text.EmojiCompatInitializer"
+                tools:node="remove" />
+            <meta-data
+                android:name="androidx.profileinstaller.ProfileInstallerInitializer"
+                tools:node="remove" />
+        </provider>
 
-        <!-- Shrink exported surface: ProfileInstallReceiver is exported=true from androidx. -->
         <receiver
             android:name="androidx.profileinstaller.ProfileInstallReceiver"
             tools:node="remove" />

@@ -1,0 +1,15 @@
+  * Task{b663e85 #10 type=standard A=10194:com.tanakhpoc.learner U=0 visible=true visibleRequested=true mode=fullscreen translucent=false sz=1}
+    topResumedActivity=ActivityRecord{2b90e93 u0 com.tanakhpoc.learner/.MainActivity t10}
+    * Hist  #0: ActivityRecord{2b90e93 u0 com.tanakhpoc.learner/.MainActivity t10}
+      packageName=com.tanakhpoc.learner processName=com.tanakhpoc.learner
+      app=ProcessRecord{1305642 6729:com.tanakhpoc.learner/u0a194}
+      Intent { flg=0x10000000 cmp=com.tanakhpoc.learner/.MainActivity }
+      rootOfTask=true task=Task{b663e85 #10 type=standard A=10194:com.tanakhpoc.learner}
+      taskAffinity=10194:com.tanakhpoc.learner
+      mActivityComponent=com.tanakhpoc.learner/.MainActivity
+      baseDir=/data/app/~~SKC0Fw9pwkzrnEKBXyggXw==/com.tanakhpoc.learner-Ijy8AWN9KT03WkEU5LdreA==/base.apk
+      dataDir=/data/user/0/com.tanakhpoc.learner
+      windows=[Window{5e38f5d u0 com.tanakhpoc.learner/com.tanakhpoc.learner.MainActivity}]
+    Resumed: ActivityRecord{2b90e93 u0 com.tanakhpoc.learner/.MainActivity t10}
+  ResumedActivity: ActivityRecord{2b90e93 u0 com.tanakhpoc.learner/.MainActivity t10}
+  topDisplayFocusedRootTask=Task{b663e85 #10 type=standard A=10194:com.tanakhpoc.learner}

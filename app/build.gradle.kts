@@ -13,8 +13,8 @@ android {
         applicationId = "com.tanakhpoc.learner"
         minSdk = 26
         targetSdk = 35
-        versionCode = 14
-        versionName = "0.4.4-poc"
+        versionCode = 15
+        versionName = "0.4.5-poc"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         // Stamp short SHA at configure time (matches git HEAD when building from a clean tree).
         val gitSha = providers.exec {
@@ -111,12 +111,12 @@ tasks.named("check") {
 }
 
 
-// Belt-and-suspenders: do not pull emoji2 (GMS font fetch) or profileinstaller
-// exported receiver. Manifest tools:node="remove" is the primary control.
+// Keep androidx.emoji2 on the classpath — Compose ui-text subclasses
+// EmojiCompat.InitCallback; excluding the AAR causes NoClassDefFoundError at
+// first Text composition (release won't launch). Argus control is manifesto
+// tools:node="remove" on EmojiCompatInitializer (no auto GMS font fetch).
+// Still exclude profileinstaller (exported receiver); strip via manifest too.
 configurations.configureEach {
-    exclude(group = "androidx.emoji2", module = "emoji2")
-    exclude(group = "androidx.emoji2", module = "emoji2-views")
-    exclude(group = "androidx.emoji2", module = "emoji2-views-helper")
     exclude(group = "androidx.profileinstaller", module = "profileinstaller")
 }
 
