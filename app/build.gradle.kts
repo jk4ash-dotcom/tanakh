@@ -13,8 +13,8 @@ android {
         applicationId = "com.tanakhpoc.learner"
         minSdk = 26
         targetSdk = 35
-        versionCode = 15
-        versionName = "0.4.5-poc"
+        versionCode = 16
+        versionName = "0.5.0-dss-poc"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         // Stamp short SHA at configure time (matches git HEAD when building from a clean tree).
         val gitSha = providers.exec {
