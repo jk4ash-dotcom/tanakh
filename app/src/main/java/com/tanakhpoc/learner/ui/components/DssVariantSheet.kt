@@ -15,15 +15,19 @@ import androidx.compose.material3.TextButton
 import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextDirection
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.tanakhpoc.learner.data.DssResolvedNote
 import com.tanakhpoc.learner.ui.theme.HebrewFontFamily
 import com.tanakhpoc.learner.ui.theme.Ink
 
 /**
- * Subtle verse-level DSS indicator (hidden when [notes] empty).
- * Does not clutter Hebrew chips.
+ * Clear readable **Q** (Qumran) verse-level indicator (hidden when [notes] empty).
+ * Does not clutter Hebrew chips; OSHB base text unchanged.
  */
 @Composable
 fun DssVariantIndicator(
@@ -33,16 +37,27 @@ fun DssVariantIndicator(
 ) {
     if (notes.isEmpty()) return
     val label = notes.first().uxLabel.ifBlank { "Qumran reading" }
-    TextButton(onClick = onOpen, modifier = modifier) {
+    TextButton(
+        onClick = onOpen,
+        modifier = modifier.semantics { contentDescription = "Q — $label" }
+    ) {
         Text(
-            "◇ $label",
+            text = "Q",
+            style = MaterialTheme.typography.titleMedium.copy(
+                fontWeight = FontWeight.Bold,
+                fontSize = 18.sp
+            ),
+            color = MaterialTheme.colorScheme.secondary
+        )
+        Text(
+            text = "  $label",
             style = MaterialTheme.typography.labelLarge,
             color = MaterialTheme.colorScheme.secondary
         )
     }
 }
 
-/** Compact marker rendered directly below a Hebrew/phonetic word chip. */
+/** Compact, readable **Q** marker below a Hebrew/phonetic word chip (not inside the chip). */
 @Composable
 fun DssVariantWordMarker(
     notes: List<DssResolvedNote>,
@@ -52,12 +67,15 @@ fun DssVariantWordMarker(
     if (notes.isEmpty()) return
     TextButton(
         onClick = onOpen,
-        modifier = modifier,
-        contentPadding = PaddingValues(horizontal = 4.dp, vertical = 0.dp)
+        modifier = modifier.semantics { contentDescription = "Q — Qumran reading" },
+        contentPadding = PaddingValues(horizontal = 6.dp, vertical = 2.dp)
     ) {
         Text(
-            "◇",
-            style = MaterialTheme.typography.labelMedium,
+            text = "Q",
+            style = MaterialTheme.typography.titleMedium.copy(
+                fontWeight = FontWeight.Bold,
+                fontSize = 18.sp
+            ),
             color = MaterialTheme.colorScheme.secondary
         )
     }

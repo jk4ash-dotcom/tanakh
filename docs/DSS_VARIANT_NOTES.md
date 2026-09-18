@@ -141,7 +141,7 @@ Sheet: **dssHebrew · mss · dssSummary · disclaimer**
 - Visible = `ship == true` only (Batch 1: 16 visible; 4 held).
 - At runtime, `VerseScreen` receives the live `PackRepository` verse; word anchors are hard-checked against `verse.words[wordIndex]` and mismatches are dropped fail-closed.
 - Placement derived at load (see table): word notes attach to chips; seams and book-level literary notes render in their dedicated markers.
-- Verse screen: subtle indicator when visible notes exist → bottom sheet.
+- Verse screen: clear readable **Q** (Qumran) indicator when visible notes exist → bottom sheet. Home **?** Notes help explains that **Q** marks a Qumran difference.
 
 ## Batch 1 status
 
