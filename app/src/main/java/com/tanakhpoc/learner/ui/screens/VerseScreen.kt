@@ -45,8 +45,12 @@ import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.tanakhpoc.learner.data.BookTitles
-import com.tanakhpoc.learner.ui.components.DssVariantIndicator
+import com.tanakhpoc.learner.ui.components.DssVariantBookBanner
 import com.tanakhpoc.learner.ui.components.DssVariantBottomSheet
+import com.tanakhpoc.learner.ui.components.DssVariantIndicator
+import com.tanakhpoc.learner.ui.components.DssVariantSeamMarker
+import com.tanakhpoc.learner.ui.components.DssVariantWordMarker
+import com.tanakhpoc.learner.data.DssPlacement
 import com.tanakhpoc.learner.data.DssResolvedNote
 import com.tanakhpoc.learner.data.Gloss
 import com.tanakhpoc.learner.data.GlossDisplay
@@ -71,6 +75,9 @@ fun VerseScreen(
     val title = BookTitles.verseLabel(verse.book, verse.chapter, verse.verse)
     val tokens = GlossDisplay.displayTokens(verse)
     val visibleDss = dssNotes
+    val bookBanners = visibleDss.filter { it.placement == DssPlacement.BOOK_BANNER }
+    val seamMarkers = visibleDss.filter { it.placement == DssPlacement.SEAM_MARKER }
+    val verseIndicators = visibleDss.filter { it.placement == DssPlacement.VERSE_INDICATOR }
 
     Scaffold(
         topBar = {
@@ -98,6 +105,18 @@ fun VerseScreen(
                 color = MaterialTheme.colorScheme.onSurfaceVariant
             )
             Spacer(Modifier.height(8.dp))
+            if (bookBanners.isNotEmpty()) {
+                DssVariantBookBanner(
+                    notes = bookBanners,
+                    onOpen = { dssOpen = true }
+                )
+            }
+            if (seamMarkers.isNotEmpty()) {
+                DssVariantSeamMarker(
+                    notes = seamMarkers,
+                    onOpen = { dssOpen = true }
+                )
+            }
             // Force LTR so RTL device locale cannot reverse OSHB token order.
             CompositionLocalProvider(LocalLayoutDirection provides LayoutDirection.Ltr) {
                 Row(
@@ -105,7 +124,13 @@ fun VerseScreen(
                     horizontalArrangement = Arrangement.spacedBy(8.dp),
                     verticalAlignment = Alignment.Top
                 ) {
-                    tokens.forEach { token ->
+                    tokens.forEachIndexed { index, token ->
+                        val wordNotes = visibleDss.filter { note ->
+                            if (note.placement != DssPlacement.WORD_CHIP) return@filter false
+                            val start = note.anchor.wordIndex ?: return@filter false
+                            val end = note.anchor.wordIndexEnd ?: start
+                            index in start..end
+                        }
                         Column(
                             horizontalAlignment = Alignment.CenterHorizontally,
                             modifier = Modifier.widthIn(min = 72.dp)
@@ -150,6 +175,12 @@ fun VerseScreen(
                                     labelColor = Ink
                                 )
                             )
+                            if (wordNotes.isNotEmpty()) {
+                                DssVariantWordMarker(
+                                    notes = wordNotes,
+                                    onOpen = { dssOpen = true }
+                                )
+                            }
                         }
                     }
                 }
@@ -166,10 +197,10 @@ fun VerseScreen(
                 color = MaterialTheme.colorScheme.onSurfaceVariant,
                 modifier = Modifier.padding(top = 6.dp)
             )
-            if (visibleDss.isNotEmpty()) {
+            if (verseIndicators.isNotEmpty()) {
                 Spacer(Modifier.height(8.dp))
                 DssVariantIndicator(
-                    notes = visibleDss,
+                    notes = verseIndicators,
                     onOpen = { dssOpen = true }
                 )
             }

@@ -201,6 +201,31 @@ class DssVariantRepositoryTest {
     }
 
     @Test
+    fun visibleWordNotes_failClosedAgainstLiveVerse() {
+        val repo = DssVariantRepository.parse(
+            """
+            {"notes":[{
+              "id":"word","osis":"Isa.53.11","oshbBook":"Isa","chapter":53,"verse":11,
+              "anchor":{"type":"word","wordIndex":0,"he":"יִרְאֶה","lemmaId":"H7200"},
+              "category":"plus","mss":["1QIsa_a"],"dssHebrew":"אור","dssSummary":"s",
+              "ship":true,"advanced":false
+            }]}
+            """.trimIndent()
+        )
+        val drifted = Verse(
+            id = "Isa.53.11",
+            book = "Isa",
+            chapter = 53,
+            verse = 11,
+            english = EnglishLine(text = "x"),
+            words = listOf(Token(he = "WRONG", lemmaId = "H7200", phonetic = "x"))
+        )
+        val matching = drifted.copy(words = listOf(Token(he = "יִרְאֶה", lemmaId = "H7200", phonetic = "x")))
+        assertTrue(repo.visibleNotesForVerse("Isa.53.11", drifted).isEmpty())
+        assertEquals(1, repo.visibleNotesForVerse("Isa.53.11", matching).size)
+    }
+
+    @Test
     fun driftCheck_okWhenSnapshotMatches() {
         val note = DssVariantNote(
             id = "dss-isa-53-11-a",

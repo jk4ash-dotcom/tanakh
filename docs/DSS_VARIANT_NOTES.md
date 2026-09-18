@@ -139,7 +139,8 @@ Sheet: **dssHebrew · mss · dssSummary · disclaimer**
 
 - `DssVariantRepository` — IO; gz/plain candidates; missing → empty.
 - Visible = `ship == true` only (Batch 1: 16 visible; 4 held).
-- Placement derived at load (see table).
+- At runtime, `VerseScreen` receives the live `PackRepository` verse; word anchors are hard-checked against `verse.words[wordIndex]` and mismatches are dropped fail-closed.
+- Placement derived at load (see table): word notes attach to chips; seams and book-level literary notes render in their dedicated markers.
 - Verse screen: subtle indicator when visible notes exist → bottom sheet.
 
 ## Batch 1 status

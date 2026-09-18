@@ -1,6 +1,7 @@
 package com.tanakhpoc.learner.ui.components
 
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -39,6 +40,47 @@ fun DssVariantIndicator(
             color = MaterialTheme.colorScheme.secondary
         )
     }
+}
+
+/** Compact marker rendered directly below a Hebrew/phonetic word chip. */
+@Composable
+fun DssVariantWordMarker(
+    notes: List<DssResolvedNote>,
+    onOpen: () -> Unit,
+    modifier: Modifier = Modifier
+) {
+    if (notes.isEmpty()) return
+    TextButton(
+        onClick = onOpen,
+        modifier = modifier,
+        contentPadding = PaddingValues(horizontal = 4.dp, vertical = 0.dp)
+    ) {
+        Text(
+            "◇",
+            style = MaterialTheme.typography.labelMedium,
+            color = MaterialTheme.colorScheme.secondary
+        )
+    }
+}
+
+/** Marker for a Hebrew/Aramaic language seam in the verse chip row. */
+@Composable
+fun DssVariantSeamMarker(
+    notes: List<DssResolvedNote>,
+    onOpen: () -> Unit,
+    modifier: Modifier = Modifier
+) {
+    DssVariantIndicator(notes = notes, onOpen = onOpen, modifier = modifier)
+}
+
+/** Banner for literary notes that target an entire book. */
+@Composable
+fun DssVariantBookBanner(
+    notes: List<DssResolvedNote>,
+    onOpen: () -> Unit,
+    modifier: Modifier = Modifier
+) {
+    DssVariantIndicator(notes = notes, onOpen = onOpen, modifier = modifier)
 }
 
 @OptIn(ExperimentalMaterial3Api::class)

@@ -25,11 +25,31 @@ class DssVariantRepository private constructor(
     fun notesForVerse(osis: String): List<DssResolvedNote> =
         resolved.filter { it.osis == osis }.sortedBy { it.priority }
 
-    fun visibleNotesForVerse(osis: String): List<DssResolvedNote> =
-        notesForVerse(osis).filter { it.ship && !it.advanced }
+    /**
+     * Visible notes for a live verse. Word anchors are fail-closed when their
+     * stored Hebrew/lemma snapshot does not match [verse].words.
+     *
+     * A null verse is accepted for verse/book-level callers, but intentionally
+     * hides word anchors because they cannot be verified safely.
+     */
+    fun visibleNotesForVerse(osis: String, verse: Verse? = null): List<DssResolvedNote> =
+        notesForVerse(osis).filter { note ->
+            isVisible(note) && driftCheck(note.raw, verse) == null
+        }
 
-    fun hasVisibleForVerse(osis: String): Boolean =
-        visibleNotesForVerse(osis).isNotEmpty()
+    /** Book-level literary banners are shown with every verse in that book. */
+    fun visibleBookNotes(book: String): List<DssResolvedNote> =
+        resolved.filter { note ->
+            isVisible(note) &&
+                note.raw.oshbBook == book &&
+                note.placement == DssPlacement.BOOK_BANNER &&
+                driftCheck(note.raw, null) == null
+        }.sortedBy { it.priority }
+
+    fun hasVisibleForVerse(osis: String, verse: Verse? = null): Boolean =
+        visibleNotesForVerse(osis, verse).isNotEmpty()
+
+    private fun isVisible(note: DssResolvedNote): Boolean = note.ship && !note.advanced
 
     companion object {
         const val ASSET_GZ = "data/dss_variants.json.gz"

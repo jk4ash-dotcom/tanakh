@@ -168,10 +168,12 @@ fun TanakhNavGraph() {
                 }
                 else -> {
                     val verse = ready.verse(id)!!
+                    val verseNotes = dssRepo?.visibleNotesForVerse(id, verse).orEmpty()
+                    val bookNotes = dssRepo?.visibleBookNotes(book).orEmpty()
                     VerseScreen(
                         verse = verse,
                         resolveGloss = { ready.gloss(it) },
-                        dssNotes = dssRepo?.visibleNotesForVerse(id).orEmpty(),
+                        dssNotes = (bookNotes + verseNotes).distinctBy { it.id },
                         onBack = { navController.popBackStack() }
                     )
                 }
