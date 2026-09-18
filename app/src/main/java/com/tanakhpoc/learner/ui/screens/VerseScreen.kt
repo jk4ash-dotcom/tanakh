@@ -45,6 +45,9 @@ import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.tanakhpoc.learner.data.BookTitles
+import com.tanakhpoc.learner.ui.components.DssVariantIndicator
+import com.tanakhpoc.learner.ui.components.DssVariantBottomSheet
+import com.tanakhpoc.learner.data.DssResolvedNote
 import com.tanakhpoc.learner.data.Gloss
 import com.tanakhpoc.learner.data.GlossDisplay
 import com.tanakhpoc.learner.data.Token
@@ -59,12 +62,15 @@ import com.tanakhpoc.learner.ui.theme.Ink
 fun VerseScreen(
     verse: Verse,
     resolveGloss: (String?) -> Gloss?,
+    dssNotes: List<DssResolvedNote> = emptyList(),
     onBack: () -> Unit
 ) {
     var selected by remember { mutableStateOf<Token?>(null) }
+    var dssOpen by remember { mutableStateOf(false) }
     val sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)
     val title = BookTitles.verseLabel(verse.book, verse.chapter, verse.verse)
     val tokens = GlossDisplay.displayTokens(verse)
+    val visibleDss = dssNotes
 
     Scaffold(
         topBar = {
@@ -160,6 +166,13 @@ fun VerseScreen(
                 color = MaterialTheme.colorScheme.onSurfaceVariant,
                 modifier = Modifier.padding(top = 6.dp)
             )
+            if (visibleDss.isNotEmpty()) {
+                Spacer(Modifier.height(8.dp))
+                DssVariantIndicator(
+                    notes = visibleDss,
+                    onOpen = { dssOpen = true }
+                )
+            }
             Spacer(Modifier.height(12.dp))
             Text(
                 "Tap a phonetic chip for possible sense(s). Gloss ≠ verse translation.",
@@ -167,6 +180,13 @@ fun VerseScreen(
                 color = MaterialTheme.colorScheme.onSurfaceVariant
             )
         }
+    }
+
+    if (dssOpen && visibleDss.isNotEmpty()) {
+        DssVariantBottomSheet(
+            notes = visibleDss,
+            onDismiss = { dssOpen = false }
+        )
     }
 
     val token = selected

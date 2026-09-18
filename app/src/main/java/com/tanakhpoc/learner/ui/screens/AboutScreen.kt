@@ -102,6 +102,13 @@ fun AboutScreen(
                 color = MaterialTheme.colorScheme.onSurfaceVariant
             )
             Spacer(Modifier.height(12.dp))
+            Text("Qumran / DSS notes", style = MaterialTheme.typography.titleMedium)
+            Text(
+                "Optional Qumran readings are notes only; they do not replace the Masoretic/OSHB text. Offline curated pack — no scroll images.",
+                style = MaterialTheme.typography.bodyMedium,
+                color = MaterialTheme.colorScheme.onSurfaceVariant
+            )
+            Spacer(Modifier.height(12.dp))
             Text("Licenses", style = MaterialTheme.typography.titleMedium)
             Text(
                 "OSHB (PD + CC BY 4.0) · TBESH (CC BY 4.0, STEPBible) · JPS 1917 (PD) · hebrew-transliteration (MIT) · Noto Sans Hebrew (SIL OFL 1.1).",

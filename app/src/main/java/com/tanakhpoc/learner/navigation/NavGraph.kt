@@ -39,6 +39,7 @@ fun TanakhNavGraph() {
     val navController = rememberNavController()
     val app = TanakhApp.from(LocalContext.current)
     val repo by app.repository.collectAsStateWithLifecycle()
+    val dssRepo by app.dssRepository.collectAsStateWithLifecycle()
     val loadError by app.loadError.collectAsStateWithLifecycle()
 
     val ready = repo
@@ -170,6 +171,7 @@ fun TanakhNavGraph() {
                     VerseScreen(
                         verse = verse,
                         resolveGloss = { ready.gloss(it) },
+                        dssNotes = dssRepo?.visibleNotesForVerse(id).orEmpty(),
                         onBack = { navController.popBackStack() }
                     )
                 }
