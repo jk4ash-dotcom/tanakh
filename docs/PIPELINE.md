@@ -110,3 +110,27 @@ Hard-fail asserts those verse IDs. See `reports/SOFER_PING_TANAKH_v0.4.md`.
 
 `titleHints` for Proverbs must be anchored (`/^The Proverbs\.?$/i`) so verse 1
 “THE PROVERBS of Solomon…” is not treated as a title line (would drop Prov.1.33 / Prov.10.32).
+
+
+## Ketuvim nested `<seg>` hard-fail
+
+Gated like Torah/Nevi’im flatten parity (`tools/pipeline/hard-fail-checks.mjs`):
+
+| Verse | Type | Surface cons |
+|-------|------|--------------|
+| Job.38.13 | x-suspended | רשעים |
+| Job.38.15 | x-suspended | מרשעים |
+| Ps.80.14 | x-suspended | מיער |
+| Prov.16.28 | x-small | ונרגן |
+
+Standalone re-check (no rebuild): `node tools/pipeline/run-hard-fail.mjs`
+
+## Proclitic compound gloss patch (small)
+
+Without a full `--scope all` rethink, refresh compound proclitic glosses:
+
+```bash
+node tools/pipeline/patch-proclitic-gloss.mjs
+```
+
+See Data Contract § Proclitic-only compound lemmas.

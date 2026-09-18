@@ -18,6 +18,11 @@ import java.util.zip.GZIPInputStream
  * Offline catalog + per-book lazy packs (gzip assets) + shared gloss catalog.
  * Loads off the main thread.
  *
+ * Critic MEDIUM:
+ * - Per-book verseId → Verse index (O(1) [verse], chapter lists via index)
+ * - Gloss cold-start: catalog/nav can appear before gloss map finishes;
+ *   [ensureGlosses] / first [gloss] path loads once under mutex.
+ *
  * Note: aapt2 decompresses `*.gz` under assets/ and strips the `.gz` suffix, so
  * packaged APKs often contain `data/glosses.json` / `data/books/X.json` even when
  * the source tree ships `.json.gz`. [readAssetText] tries gz then plain paths and
@@ -25,28 +30,49 @@ import java.util.zip.GZIPInputStream
  */
 class PackRepository private constructor(
     val catalog: Catalog,
-    private val glosses: Map<String, Gloss>,
+    @Volatile private var glosses: Map<String, Gloss>?,
     private val books: MutableMap<String, Pack>,
-    private val assetOpener: (String) -> InputStream
+    private val bookIndex: MutableMap<String, BookIndex>,
+    private val assetOpener: (String) -> InputStream,
+    private val glossCandidates: List<String>
 ) {
     val metaVersion: String get() = catalog.version
     val scope: String get() = catalog.scope
     val bookSummaries: List<CatalogBook> get() = catalog.books
+
+    val glossesReady: Boolean get() = glosses != null
 
     fun chaptersFor(book: String): List<ChapterIndex> =
         books[book]?.chapters ?: emptyList()
 
     fun verse(id: String): Verse? {
         val book = id.substringBefore('.')
+        bookIndex[book]?.byId?.get(id)?.let { return it }
         return books[book]?.verses?.firstOrNull { it.id == id }
     }
 
-    fun gloss(id: String?): Gloss? = id?.let { glosses[it] }
+    fun gloss(id: String?): Gloss? {
+        val key = id ?: return null
+        return glosses?.get(key)
+    }
 
-    fun versesInChapter(book: String, chapter: Int): List<Verse> =
-        books[book]?.verses?.filter { it.book == book && it.chapter == chapter } ?: emptyList()
+    fun versesInChapter(book: String, chapter: Int): List<Verse> {
+        bookIndex[book]?.byChapter?.get(chapter)?.let { return it }
+        return books[book]?.verses?.filter { it.book == book && it.chapter == chapter } ?: emptyList()
+    }
 
     fun isBookLoaded(book: String): Boolean = books.containsKey(book)
+
+    suspend fun ensureGlosses(): Map<String, Gloss> = withContext(Dispatchers.IO) {
+        glosses?.let { return@withContext it }
+        glossMutex.withLock {
+            glosses?.let { return@withLock it }
+            val text = readAssetText(assetOpener, *glossCandidates.toTypedArray())
+            val loaded: Map<String, Gloss> = json.decodeFromString(text)
+            glosses = loaded
+            loaded
+        }
+    }
 
     suspend fun ensureBook(book: String): Pack = withContext(Dispatchers.IO) {
         books[book]?.let { return@withContext it }
@@ -58,11 +84,39 @@ class PackRepository private constructor(
             val text = readAssetText(assetOpener, *candidates.toTypedArray())
             val pack = json.decodeFromString(Pack.serializer(), text)
             books[book] = pack
+            bookIndex[book] = BookIndex.from(pack)
             pack
         }
     }
 
     private val bookMutex = Mutex()
+    private val glossMutex = Mutex()
+
+    private data class BookIndex(
+        val byId: Map<String, Verse>,
+        val byChapter: Map<Int, List<Verse>>
+    ) {
+        companion object {
+            fun from(pack: Pack): BookIndex {
+                val byId = HashMap<String, Verse>(pack.verses.size)
+                val byChapter = HashMap<Int, MutableList<Verse>>()
+                for (v in pack.verses) {
+                    byId[v.id] = v
+                    byChapter.getOrPut(v.chapter) { mutableListOf() }.add(v)
+                }
+                // Prefer chapter.verseIds order when present
+                val ordered = HashMap<Int, List<Verse>>(byChapter.size)
+                for (ch in pack.chapters) {
+                    val list = ch.verseIds.mapNotNull { byId[it] }
+                    if (list.isNotEmpty()) ordered[ch.chapter] = list
+                }
+                for ((ch, list) in byChapter) {
+                    ordered.putIfAbsent(ch, list)
+                }
+                return BookIndex(byId, ordered)
+            }
+        }
+    }
 
     companion object {
         private const val CATALOG = "data/catalog.json"
@@ -167,12 +221,24 @@ class PackRepository private constructor(
                     glosses = emptyMap()
                 )
             }.toMutableMap()
-            return PackRepository(catalog, pack.glosses, byBook) { error("no assets in parseCombined") }
+            val indexes = byBook.mapValues { (_, p) -> BookIndex.from(p) }.toMutableMap()
+            return PackRepository(
+                catalog,
+                pack.glosses,
+                byBook,
+                indexes,
+                { error("no assets in parseCombined") },
+                emptyList()
+            )
         }
 
         /** @deprecated use parseCombined */
         fun parse(text: String): PackRepository = parseCombined(text)
 
+        /**
+         * Catalog-first load (nav cold-start), then gloss map under [ensureGlosses].
+         * Callers that need senses should await [ensureGlosses] (VerseScreen path).
+         */
         suspend fun load(context: Context): PackRepository {
             instance?.let { return it }
             return withContext(Dispatchers.IO) {
@@ -190,9 +256,15 @@ class PackRepository private constructor(
                             GLOSSES_GZ,
                             GLOSSES_PLAIN
                         )
-                        val glossText = readAssetText(opener, *glossCandidates.toTypedArray())
-                        val glosses: Map<String, Gloss> = json.decodeFromString(glossText)
-                        PackRepository(catalog, glosses, mutableMapOf(), opener).also { instance = it }
+                        // Critic MEDIUM gloss cold-start: do not block catalog on gloss parse.
+                        PackRepository(
+                            catalog,
+                            glosses = null,
+                            books = mutableMapOf(),
+                            bookIndex = mutableMapOf(),
+                            assetOpener = opener,
+                            glossCandidates = glossCandidates
+                        ).also { instance = it }
                     }
                 }
             }

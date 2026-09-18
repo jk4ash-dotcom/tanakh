@@ -150,14 +150,15 @@ fun TanakhNavGraph() {
         ) { e ->
             val id = e.arguments?.getString("verseId") ?: return@composable
             val book = id.substringBefore('.')
-            var verseReady by remember(id) { mutableStateOf(ready.verse(id) != null) }
+            var verseReady by remember(id) { mutableStateOf(ready.verse(id) != null && ready.glossesReady) }
             var err by remember(id) { mutableStateOf<String?>(null) }
             LaunchedEffect(id) {
-                if (!verseReady) {
-                    runCatching { ready.ensureBook(book) }
-                        .onSuccess { verseReady = true }
-                        .onFailure { err = it.message }
+                runCatching {
+                    ready.ensureBook(book)
+                    ready.ensureGlosses()
                 }
+                    .onSuccess { verseReady = true }
+                    .onFailure { err = it.message }
             }
             when {
                 err != null -> Box(Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {

@@ -582,6 +582,84 @@
         "ישראל"
       ]
     },
+    "Job_38_13": {
+      "wordCount": 6,
+      "hes": [
+        "לֶאֱחֹז",
+        "בְּכַנְפוֹת",
+        "הָאָרֶץ",
+        "וְיִנָּעֲרוּ",
+        "רְשָׁעִים",
+        "מִמֶּנָּה"
+      ],
+      "consonants": [
+        "לאחז",
+        "בכנפות",
+        "הארץ",
+        "וינערו",
+        "רשעים",
+        "ממנה"
+      ]
+    },
+    "Job_38_15": {
+      "wordCount": 6,
+      "hes": [
+        "וְיִמָּנַע",
+        "מֵרְשָׁעִים",
+        "אוֹרָם",
+        "וּזְרוֹעַ",
+        "רָמָה",
+        "תִּשָּׁבֵר"
+      ],
+      "consonants": [
+        "וימנע",
+        "מרשעים",
+        "אורם",
+        "וזרוע",
+        "רמה",
+        "תשבר"
+      ]
+    },
+    "Ps_80_14": {
+      "wordCount": 6,
+      "hes": [
+        "יְכַרְסְמֶנָּה",
+        "חֲזִיר",
+        "מִיָּעַר",
+        "וְזִיז",
+        "שָׂדַי",
+        "יִרְעֶנָּה"
+      ],
+      "consonants": [
+        "יכרסמנה",
+        "חזיר",
+        "מיער",
+        "וזיז",
+        "שדי",
+        "ירענה"
+      ]
+    },
+    "Prov_16_28": {
+      "wordCount": 7,
+      "hes": [
+        "אִישׁ",
+        "תַּהְפֻּכוֹת",
+        "יְשַׁלַּח",
+        "מָדוֹן",
+        "וְנִרְגָּן",
+        "מַפְרִיד",
+        "אַלּוּף"
+      ],
+      "consonants": [
+        "איש",
+        "תהפכות",
+        "ישלח",
+        "מדון",
+        "ונרגן",
+        "מפריד",
+        "אלוף"
+      ]
+    },
     "neviimNestedSegs": {
       "known": [
         "Judg.18.30",
@@ -590,6 +668,15 @@
       ],
       "xLargeInOshbNeviim": 0,
       "note": "OSHB Nevi'im scan: 0 x-large; 1 x-suspended; 2 x-small nested in <w>"
+    },
+    "ketuvimNestedSegs": {
+      "known": [
+        "Job.38.13",
+        "Job.38.15",
+        "Ps.80.14",
+        "Prov.16.28"
+      ],
+      "note": "OSHB Ketuvim: Job.38.13/15 + Ps.80.14 x-suspended; Prov.16.28 x-small — flatten parity gated"
     },
     "yhwhCount": 6828,
     "h3068": {
@@ -832,6 +919,42 @@
           "phonetic": "YHWH"
         }
       ]
+    },
+    "Job.38.13": {
+      "english": "That it might take hold of the ends of the earth, and the wicked be shaken out of it?",
+      "wordCount": 6,
+      "first": {
+        "he": "לֶאֱחֹז",
+        "phonetic": "leʾĕḥōz"
+      },
+      "yhwh": []
+    },
+    "Job.38.15": {
+      "english": "But from the wicked their light is withholden, and the high arm is broken.",
+      "wordCount": 6,
+      "first": {
+        "he": "וְיִמָּנַע",
+        "phonetic": "wĕyimmānaʿ"
+      },
+      "yhwh": []
+    },
+    "Ps.80.14": {
+      "english": "The boar out of the wood doth ravage it, that which moveth in the field feedeth on it.",
+      "wordCount": 6,
+      "first": {
+        "he": "יְכַרְסְמֶנָּה",
+        "phonetic": "yĕkharsĕmennâ"
+      },
+      "yhwh": []
+    },
+    "Prov.16.28": {
+      "english": "A froward man soweth strife; and a whisperer separateth familiar friends.",
+      "wordCount": 7,
+      "first": {
+        "he": "אִישׁ",
+        "phonetic": "ʾîsh"
+      },
+      "yhwh": []
     }
   },
   "checkedBooks": [

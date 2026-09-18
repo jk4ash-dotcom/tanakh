@@ -31,7 +31,7 @@ const ROOT = path.resolve(__dirname, "../..");
 const VENDOR = path.join(ROOT, "vendor");
 const OUT_DIR = path.join(ROOT, "app/src/main/assets/data");
 const REPORTS = path.join(ROOT, "reports");
-const PACK_VERSION = "0.4.1-poc";
+const PACK_VERSION = "0.6.0-template-poc";
 const schema = createSoferSblLearnerSchema();
 
 const CANTILLATION = /[\u0591-\u05AF\u05BD\u05BF\u05C0\u05C3\u05C6]/g;
@@ -161,6 +161,23 @@ function parseLemma(lemmaAttr) {
     };
   }
   const parts = trimmed.split("/");
+  // Compound proclitic-only (c/l, c/b, c/m, s/l, i/l, …): every segment is a
+  // single prefix letter — no content Strong's core. Do NOT invent TBESH senses.
+  if (
+    parts.length >= 2 &&
+    parts.every((p) => /^[bciklmds]$/i.test(p))
+  ) {
+    const prefixes = parts.map((p) => p.toLowerCase());
+    return {
+      baseId: null,
+      prefixes,
+      aug: null,
+      raw: lemmaAttr,
+      numeric: null,
+      prefixOnly: true,
+      compoundProclitic: true,
+    };
+  }
   const prefixes = [];
   let core = parts[parts.length - 1];
   for (let i = 0; i < parts.length - 1; i++) prefixes.push(parts[i]);
@@ -249,6 +266,19 @@ function loadHebrewStrong(filePath) {
 }
 
 function resolveGloss(tbesh, strong, lemmaInfo) {
+  // Sofer: proclitic-only compounds (c/l, c/b, …) — functional role line only;
+  // never invent a fake TBESH content gloss. Real numeric lemmas stay below.
+  if (lemmaInfo.compoundProclitic) {
+    const functional = prefixNote(lemmaInfo.prefixes) || "proclitic compound";
+    return {
+      id: `pfx:${lemmaInfo.raw}`,
+      primary: functional,
+      senses: [],
+      source: "proclitic-functional",
+      note:
+        "OSHB proclitic-only compound (no content lemma); functional role — not a TBESH lexical sense",
+    };
+  }
   if (!lemmaInfo.baseId) {
     return {
       id: "unknown",
@@ -605,6 +635,8 @@ function main() {
         if (ph.error) allGaps.push(`Phonetic note ${v.osisId}#${i}: ${ph.error}`);
         if (gloss.source === "none") {
           allGaps.push(`Gloss gap ${v.osisId} lemma=${lemmaInfo.raw}`);
+        } else if (gloss.source === "proclitic-functional") {
+          // Policy OK — not a gap; counted in gaps file as note only if desired
         }
         words.push(word);
       }

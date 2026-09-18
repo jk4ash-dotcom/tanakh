@@ -192,6 +192,23 @@ export function runHardFailChecks(ctx) {
     "Jer.31.38": { mustIncludeCons: ["באים"] },
     "Jer.48.44": { mustIncludeCons: ["הנס"] },
     "Jer.50.29": { mustIncludeCons: ["לה"], mustIncludeSeqCons: ["יהי", "לה", "פלטה"] },
+    // Ketuvim nested segs (assert when book present) — Sofer GATE
+    "Job.38.13": {
+      // x-suspended ayin inside רְשָׁעִים
+      mustIncludeCons: ["רשעים"],
+    },
+    "Job.38.15": {
+      // x-suspended ayin inside מֵרְשָׁעִים
+      mustIncludeCons: ["מרשעים"],
+    },
+    "Ps.80.14": {
+      // x-suspended ayin inside מִיָּעַר
+      mustIncludeCons: ["מיער"],
+    },
+    "Prov.16.28": {
+      // x-small final nun inside וְנִרְגָּן
+      mustIncludeCons: ["ונרגן"],
+    },
   };
   for (const [id, spec] of Object.entries(XLARGE)) {
     const book = id.split(".")[0];
@@ -248,6 +265,12 @@ export function runHardFailChecks(ctx) {
       known: ["Judg.18.30", "Isa.44.14", "Jer.39.13"],
       xLargeInOshbNeviim: 0,
       note: "OSHB Nevi'im scan: 0 x-large; 1 x-suspended; 2 x-small nested in <w>",
+    };
+  }
+  if (books.some((b) => KETUVIM.includes(b))) {
+    samples.ketuvimNestedSegs = {
+      known: ["Job.38.13", "Job.38.15", "Ps.80.14", "Prov.16.28"],
+      note: "OSHB Ketuvim: Job.38.13/15 + Ps.80.14 x-suspended; Prov.16.28 x-small — flatten parity gated",
     };
   }
 
@@ -537,6 +560,10 @@ export function runHardFailChecks(ctx) {
     "Mic.6.8",
     "Judg.18.30",
     "Mal.3.23",
+    "Job.38.13",
+    "Job.38.15",
+    "Ps.80.14",
+    "Prov.16.28",
   ]) {
     const book = id.split(".")[0];
     const v = packByBook[book]?.verses.find((x) => x.id === id);

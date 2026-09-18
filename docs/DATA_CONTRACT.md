@@ -57,3 +57,19 @@ Shared glosses: `assets/data/glosses.json.gz`.
 | `vendor/TBESH.txt` | Primary glosses |
 | `vendor/HebrewStrong.xml` | Fallback glosses |
 | Sofer SBL-Learner schema | Phonetics from niqqud |
+
+## Proclitic-only compound lemmas (Sofer policy)
+
+OSHB sometimes tags tokens as **proclitic stacks with no content Strong’s core**, e.g.
+`c/l`, `c/b`, `c/m`, `s/l`, `i/l` (vav+lamed, vav+bet, …).
+
+| Rule | Behavior |
+|------|----------|
+| Resolution | `glossId` = `pfx:{lemmaRaw}`; `source` = `proclitic-functional` |
+| Primary | Short **functional** line from `procliticNote` (conjunction/preposition roles) |
+| Forbidden | Inventing a fake TBESH **content** sense for morph-only stacks |
+| Real lemmas | Numeric cores (`c/1961`, `l/402`, …) still resolve TBESH / HebrewStrong normally |
+| YHWH / DN | Unchanged — divine-name sanitize path is never weakened |
+| UI | Prefer functional line; else “No gloss available for this token.” |
+
+Single-letter prefix-only lemmas (`c`, `l`, …) may still use TBESH H900x entries when present.

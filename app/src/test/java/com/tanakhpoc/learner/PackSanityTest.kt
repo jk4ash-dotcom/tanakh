@@ -326,4 +326,35 @@ class PackSanityTest {
         assertNull(d.definition)
     }
 
+
+    @Test
+    fun glossDisplay_procliticCompound_functionalNotFakeTbesh() {
+        val token = Token(
+            he = "וְלָהֶם",
+            lemmaId = null,
+            lemmaRaw = "c/l",
+            phonetic = "wĕlāhem",
+            glossId = "pfx:c/l",
+            procliticNote = "וְ (vav) proclitic — often 'and'; לְ (lamed) proclitic — often 'to/for'"
+        )
+        val gloss = Gloss(
+            id = "pfx:c/l",
+            primary = token.procliticNote!!,
+            senses = emptyList(),
+            source = "proclitic-functional",
+            note = "functional role — not a TBESH lexical sense"
+        )
+        val shown = GlossDisplay.forToken(token, gloss)
+        assertEquals(token.procliticNote, shown.primary)
+        assertEquals("proclitic-functional", shown.source)
+        assertTrue(shown.policyNote!!.contains("not a lexical gloss"))
+        assertTrue(shown.senses.isEmpty())
+        // YHWH path still wins over proclitic functional
+        val yhwh = GlossDisplay.forToken(
+            Token(he = "יהוה", lemmaId = "H3068", phonetic = "YHWH", glossId = "H3068", divineName = true),
+            Gloss(id = "H3068", primary = "LORD", source = "TBESH")
+        )
+        assertEquals("LORD", yhwh.primary)
+    }
+
 }

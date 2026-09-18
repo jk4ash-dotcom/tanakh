@@ -26,12 +26,27 @@ object GlossDisplay {
         if (token.divineName || isYhwhLemma(token) || consonantsAreYhwh(token.he)) {
             return yhwhDisplay(gloss)
         }
-        if (gloss == null) {
+        // Sofer: proclitic-only compounds (c/l, c/b, …) — functional role OR "No gloss".
+        // Never invent content TBESH; never weaken YHWH path above.
+        if (isProcliticFunctional(gloss) || (gloss == null && !token.procliticNote.isNullOrBlank())) {
+            val functional = gloss?.primary?.takeIf { it.isNotBlank() && it != "(no lemma)" }
+                ?: token.procliticNote
+            if (!functional.isNullOrBlank()) {
+                return DisplayedGloss(
+                    primary = functional,
+                    senses = emptyList(),
+                    definition = null,
+                    source = gloss?.source?.ifBlank { "proclitic-functional" } ?: "proclitic-functional",
+                    policyNote = "Functional proclitic role — not a lexical gloss"
+                )
+            }
+        }
+        if (gloss == null || gloss.primary == "(no lemma)" || gloss.source == "none") {
             return DisplayedGloss(
                 primary = "No gloss available for this token.",
                 senses = emptyList(),
                 definition = null,
-                source = ""
+                source = gloss?.source ?: ""
             )
         }
         // HIGH: never `sanitizeLine ?: primary` — that re-leaks Jehovah-nissi (H3071 / Exod.17.15)
@@ -49,6 +64,13 @@ object GlossDisplay {
             definition = sanitizeDefinition(gloss.definition),
             source = gloss.source.ifBlank { "lexicon" }
         )
+    }
+
+
+    private fun isProcliticFunctional(gloss: Gloss?): Boolean {
+        if (gloss == null) return false
+        if (gloss.source == "proclitic-functional") return true
+        return gloss.id.startsWith("pfx:")
     }
 
     fun sanitizeDefinition(raw: String?): String? {

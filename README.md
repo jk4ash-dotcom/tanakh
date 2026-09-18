@@ -2,7 +2,7 @@
 
 Offline-first Android learner for Hebrew Tanakh.
 
-**Package:** `com.tanakhpoc.learner` · **versionName:** `0.5.1-dss-poc` · **scope:** Full Tanakh (Torah + Nevi’im + Ketuvim)
+**Package:** `com.tanakhpoc.learner` · **versionName:** `0.6.0-template-poc` · **scope:** Full Tanakh (Torah + Nevi’im + Ketuvim)
 
 ## What ships in this build
 

@@ -27,7 +27,13 @@ class TanakhApp : Application() {
         super.onCreate()
         appScope.launch {
             runCatching { PackRepository.load(this@TanakhApp) }
-                .onSuccess { _repository.value = it }
+                .onSuccess { repo ->
+                    _repository.value = repo
+                    // Critic MEDIUM: warm glosses after catalog so home is not blocked.
+                    launch {
+                        runCatching { repo.ensureGlosses() }
+                    }
+                }
                 .onFailure { _loadError.value = it.message ?: "Failed to load pack" }
             // DSS pack is optional: empty on failure → no chrome.
             runCatching { DssVariantRepository.load(this@TanakhApp) }
