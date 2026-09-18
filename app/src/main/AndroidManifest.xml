@@ -23,19 +23,13 @@
             </intent-filter>
         </activity>
 
-        <!-- Argus / Play Protect: block androidx.emoji2 auto-init (GMS emoji font fetch). -->
+        <!-- Argus: after stripping emoji2/profileinstaller initializers, remove the
+             empty androidx.startup.InitializationProvider entirely — leftover
+             provider can reference a class not in the APK and crash at process start. -->
         <provider
             android:name="androidx.startup.InitializationProvider"
             android:authorities="${applicationId}.androidx-startup"
-            android:exported="false"
-            tools:node="merge">
-            <meta-data
-                android:name="androidx.emoji2.text.EmojiCompatInitializer"
-                tools:node="remove" />
-            <meta-data
-                android:name="androidx.profileinstaller.ProfileInstallerInitializer"
-                tools:node="remove" />
-        </provider>
+            tools:node="remove" />
 
         <!-- Shrink exported surface: ProfileInstallReceiver is exported=true from androidx. -->
         <receiver

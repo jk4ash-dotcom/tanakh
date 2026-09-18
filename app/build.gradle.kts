@@ -13,9 +13,14 @@ android {
         applicationId = "com.tanakhpoc.learner"
         minSdk = 26
         targetSdk = 35
-        versionCode = 13
-        versionName = "0.4.3-poc"
+        versionCode = 14
+        versionName = "0.4.4-poc"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        // Stamp short SHA at configure time (matches git HEAD when building from a clean tree).
+        val gitSha = providers.exec {
+            commandLine("git", "rev-parse", "--short=12", "HEAD")
+        }.standardOutput.asText.get().trim()
+        buildConfigField("String", "GIT_SHA", "\"$gitSha\"")
     }
 
     // POC: release uses the local debug keystore so we can ship a

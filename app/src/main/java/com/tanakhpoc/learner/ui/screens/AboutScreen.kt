@@ -110,7 +110,7 @@ fun AboutScreen(
             )
             Spacer(Modifier.height(24.dp))
             Text(
-                "App ${BuildConfig.VERSION_NAME} · pack $version · ${BuildConfig.APPLICATION_ID}",
+                "App ${BuildConfig.VERSION_NAME} (${BuildConfig.GIT_SHA}) · pack $version · ${BuildConfig.APPLICATION_ID}",
                 style = MaterialTheme.typography.bodySmall,
                 color = MaterialTheme.colorScheme.onSurfaceVariant
             )
