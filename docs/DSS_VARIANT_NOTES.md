@@ -1,6 +1,6 @@
-# DSS variant notes — Phase-1 stub
+# DSS variant notes — Phase 1
 
-**Status:** scaffolding only. Content is **pending Sofer**. Not a feature release.
+**Status:** Batch 1 loaded (`sofer-signed-batch1`): **16 visible** notes (`ship: true`); 4 held (`ship: false`). Not a feature release; no phone-promote version bump.
 **Base text:** OSHB / WLC remains the sole displayed Hebrew. DSS notes are optional
 learner annotations; they never replace Masoretic/OSHB tokens.
 
@@ -13,7 +13,7 @@ learner annotations; they never replace Masoretic/OSHB tokens.
 | No IAA images | No scroll photographs, fragment viewers, or image URLs. |
 | No DSS Bible English | Do not paste “DSS Bible” English translations as the note body. |
 | Sense-changing | Prefer `plus` / `minus` / `lexeme` / `literary` / `language_seam`. Orthography-only is out of Phase-1 defaults (`advanced` / future). |
-| Gate UI | Show chrome only when `ship: true` **and** pack has ≥1 such note. Stub seeds use `ship: false`. |
+| Gate UI | Show chrome only when `ship: true` **and** pack has ≥1 such note. Batch 1 has 16 visible notes; held notes remain hidden. |
 | About one-liner | “Optional Qumran readings are notes only; they do not replace the Masoretic/OSHB text.” |
 
 ### Out of scope (Phase-1)
@@ -138,19 +138,12 @@ Sheet: **dssHebrew · mss · dssSummary · disclaimer**
 ## App wiring
 
 - `DssVariantRepository` — IO; gz/plain candidates; missing → empty.
-- Visible = `ship == true` only (SAMPLE seeds → no chrome).
+- Visible = `ship == true` only (Batch 1: 16 visible; 4 held).
 - Placement derived at load (see table).
 - Verse screen: subtle indicator when visible notes exist → bottom sheet.
 
-## SAMPLE seeds (`ship: false`)
+## Batch 1 status
 
-| id | osis | anchor | category |
-|----|------|--------|----------|
-| `dss-isa-53-11-a` | Isa.53.11 | word @ 2 יִרְאֶה/H7200 | plus |
-| `dss-deut-32-8-a` | Deut.32.8 | verse | lexeme |
-| `dss-deut-32-43-a` | Deut.32.43 | verse | literary |
-| `dss-ps-145-nun-a` | Ps.145.13 | verse | plus |
-| `dss-dan-seam-a` | Dan.2.4 | verse | language_seam |
-| `dss-jer-edition-a` | Jer.10.4 | verse | literary |
-
-Not Sofer-signed — not apparatus.
+The Sofer-signed Batch 1 asset is loaded at `app/src/main/assets/data/dss_variants.json`.
+It contains 20 notes: 16 visible (`ship: true`) and 4 held (`ship: false`).
+See `docs/placement-map-batch1.md` for the note-by-note attachment map.

@@ -1,6 +1,6 @@
 {
-  "version": "0.1-stub",
-  "status": "SAMPLE — not Sofer-signed",
+  "version": "0.1-batch1",
+  "status": "sofer-signed-batch1",
   "notes": [
     {
       "id": "dss-isa-53-11-a",
@@ -11,19 +11,60 @@
       "anchor": {
         "type": "word",
         "wordIndex": 2,
+        "wordIndexEnd": null,
         "he": "יִרְאֶה",
-        "lemmaId": "H7200"
+        "lemmaId": "H7200",
+        "oshbWordIds": []
       },
       "priority": 1,
       "category": "plus",
-      "mss": ["1QIsa_a"],
-      "mtSummary": "SAMPLE placeholder — Sofer fills MT contrast.",
-      "dssHebrew": "",
-      "dssSummary": "SAMPLE: learner one-liner — Sofer fills consonants + gloss.",
+      "mss": [
+        "1QIsa_a"
+      ],
+      "mtSummary": "MT: מעמל נפשו יראה ישבע — verb 'see' with no object 'light'.",
+      "dssHebrew": "יראה אור וישבע",
+      "dssSummary": "1QIsaᵃ has the servant see light (אור) after anguish — a life/vindication idiom absent from MT.",
       "uxLabel": "Qumran reading",
       "disclaimer": "Does not replace the Masoretic/OSHB text",
-      "refs": ["Ulrich BQS p.__", "DJD ___"],
-      "ship": false,
+      "refs": [
+        "Ulrich, Biblical Qumran Scrolls (BQS), Isaiah 53:11 apparatus",
+        "DJD XXXII (Ulrich/Flint), 1QIsaᵃ",
+        "Tov, Text of Isaiah at Qumran; Text and Canon Institute Isa 53:11 collation"
+      ],
+      "ship": true,
+      "advanced": false
+    },
+    {
+      "id": "dss-isa-53-11-b",
+      "osis": "Isa.53.11",
+      "oshbBook": "Isa",
+      "chapter": 53,
+      "verse": 11,
+      "anchor": {
+        "type": "word",
+        "wordIndex": 2,
+        "wordIndexEnd": null,
+        "he": "יִרְאֶה",
+        "lemmaId": "H7200",
+        "oshbWordIds": []
+      },
+      "priority": 2,
+      "category": "plus",
+      "mss": [
+        "1QIsa_b",
+        "4QIsa_d"
+      ],
+      "mtSummary": "MT lacks אור; even proto-MT-leaning 1QIsaᵇ here joins the plus.",
+      "dssHebrew": "יראה אור ישבע",
+      "dssSummary": "1QIsaᵇ (usually close to MT) and 4QIsaᵈ also read 'see light,' strengthening the non-MT plus.",
+      "uxLabel": "Qumran reading",
+      "disclaimer": "Does not replace the Masoretic/OSHB text",
+      "refs": [
+        "DJD XXXII, 1QIsaᵇ",
+        "Ulrich BQS Isa 53:11",
+        "Ferguson, Text & Canon: Servant Who Sees Light"
+      ],
+      "ship": true,
       "advanced": false
     },
     {
@@ -32,17 +73,31 @@
       "oshbBook": "Deut",
       "chapter": 32,
       "verse": 8,
-      "anchor": { "type": "verse" },
-      "priority": 2,
+      "anchor": {
+        "type": "word",
+        "wordIndex": 11,
+        "wordIndexEnd": null,
+        "he": "יִשְׂרָאֵל",
+        "lemmaId": "H3478",
+        "oshbWordIds": []
+      },
+      "priority": 1,
       "category": "lexeme",
-      "mss": ["4QDeut_j"],
-      "mtSummary": "SAMPLE placeholder — sons of Israel / sons of God contrast.",
-      "dssHebrew": "",
-      "dssSummary": "SAMPLE: Qumran reading differs at the divine-council phrasing (Sofer fills).",
+      "mss": [
+        "4QDeut_j"
+      ],
+      "mtSummary": "MT: למספר בני ישראל — 'according to the number of the sons of Israel'.",
+      "dssHebrew": "בני אלוהים",
+      "dssSummary": "4QDeutʲ reads 'sons of God' (בני אלוהים), aligning with LXX angels/sons of God against MT 'sons of Israel'.",
       "uxLabel": "Qumran reading",
       "disclaimer": "Does not replace the Masoretic/OSHB text",
-      "refs": ["Ulrich BQS p.__"],
-      "ship": false,
+      "refs": [
+        "DJD XIV (Ulrich et al.), 4Q37 / 4QDeutʲ",
+        "Tov, TheTorah.com on Deut 32:8",
+        "Ulrich BQS Deuteronomy 32:8",
+        "Qumran-Digital transcription 4Q37 col.12: בני אלוהים"
+      ],
+      "ship": true,
       "advanced": false
     },
     {
@@ -51,17 +106,28 @@
       "oshbBook": "Deut",
       "chapter": 32,
       "verse": 43,
-      "anchor": { "type": "verse" },
-      "priority": 3,
+      "anchor": {
+        "type": "verse",
+        "oshbWordIds": [],
+        "note": "Verse-level literary; MT shorter Song ending vs 4QDeutᵍ fuller cola"
+      },
+      "priority": 1,
       "category": "literary",
-      "mss": ["4QDeut_q"],
-      "mtSummary": "SAMPLE placeholder — plus / literary expansion.",
-      "dssHebrew": "",
-      "dssSummary": "SAMPLE: Qumran preserves a longer poetic form (Sofer fills).",
+      "mss": [
+        "4QDeut_g"
+      ],
+      "mtSummary": "MT four cola: הרנינו גוים עמו … דם עבדיו … ולא משנאיו line absent; no 'heavens/gods' opening.",
+      "dssHebrew": "הרנינו שמים עמו והשתחוו לו כל אלהים כי דם בניו יקום … ולמשנאיו ישלם ויכפר אדמת עמו",
+      "dssSummary": "4QDeutᵍ preserves a longer ending (heavens + all gods worship; blood of his sons; repay haters) closer to LXX than short MT.",
       "uxLabel": "Qumran reading",
       "disclaimer": "Does not replace the Masoretic/OSHB text",
-      "refs": ["Ulrich BQS p.__"],
-      "ship": false,
+      "refs": [
+        "DJD XIV, 4Q44 / 4QDeutᵍ",
+        "Ulrich BQS Deut 32:43",
+        "McCarthy, BHQ Deuteronomy apparatus (six-cola reconstruction)",
+        "Qumran-Digital 4Q44 frg.5 ii"
+      ],
+      "ship": true,
       "advanced": false
     },
     {
@@ -70,17 +136,86 @@
       "oshbBook": "Ps",
       "chapter": 145,
       "verse": 13,
-      "anchor": { "type": "verse" },
-      "priority": 4,
+      "anchor": {
+        "type": "verse",
+        "oshbWordIds": [],
+        "note": "Verse-level plus after mem-line (v.13); samekh-line is v.14 in MT numbering"
+      },
+      "priority": 1,
       "category": "plus",
-      "mss": ["11QPs_a"],
-      "mtSummary": "SAMPLE placeholder — nun line absent in MT acrostic.",
-      "dssHebrew": "",
-      "dssSummary": "SAMPLE: Qumran supplies the missing nun-acrostic line (Sofer fills).",
+      "mss": [
+        "11QPs_a"
+      ],
+      "mtSummary": "MT acrostic skips nun between mem (v.13) and samekh (v.14).",
+      "dssHebrew": "נאמן אלוהים בדבריו וחסיד בכול מעשיו",
+      "dssSummary": "11QPsᵃ (and LXX) supply the missing nun-line: God is faithful in his words and gracious in all his works.",
       "uxLabel": "Qumran reading",
       "disclaimer": "Does not replace the Masoretic/OSHB text",
-      "refs": ["Ulrich BQS p.__"],
-      "ship": false,
+      "refs": [
+        "DJD IV (Sanders), 11Q5 / 11QPsᵃ col. XVII",
+        "Ulrich BQS Psalm 145",
+        "BHS/BHQ apparatus Ps 145:13 (1 Heb MS + G S)"
+      ],
+      "ship": true,
+      "advanced": false
+    },
+    {
+      "id": "dss-jer-edition-a",
+      "osis": "Jer.10.6",
+      "oshbBook": "Jer",
+      "chapter": 10,
+      "verse": 6,
+      "anchor": {
+        "type": "verse",
+        "oshbWordIds": [],
+        "note": "Edition-level: MT vv.6–8 (+10) absent from shorter tradition; do not claim verse-by-verse without cite"
+      },
+      "priority": 1,
+      "category": "literary",
+      "mss": [
+        "4QJer_b",
+        "4QJer_d"
+      ],
+      "mtSummary": "MT Jer 10 includes hymnic vv.6–8 (and v.10) amid the idol satire; longer edition overall (~15% longer than OG).",
+      "dssHebrew": "",
+      "dssSummary": "Hebrew fragments 4QJerᵇ/ᵈ align with the shorter LXX-like edition of Jeremiah (arrangement + omissions), not a verse dump of every plus.",
+      "uxLabel": "Edition note",
+      "disclaimer": "Does not replace the Masoretic/OSHB text",
+      "refs": [
+        "Tov, large-scale differences LXX/MT (Jeremiah edition I vs II)",
+        "DJD XV, 4Q70/4Q72a (4QJerᵇ/ᵈ)",
+        "Ulrich BQS Jeremiah; Janzen, Studies in the Text of Jeremiah"
+      ],
+      "ship": true,
+      "advanced": false
+    },
+    {
+      "id": "dss-jer-edition-b",
+      "osis": "Jer.10.4",
+      "oshbBook": "Jer",
+      "chapter": 10,
+      "verse": 4,
+      "anchor": {
+        "type": "verse",
+        "oshbWordIds": [],
+        "note": "High-level edition pointer near idol pericope; MT base unchanged"
+      },
+      "priority": 2,
+      "category": "literary",
+      "mss": [
+        "4QJer_b",
+        "4QJer_d"
+      ],
+      "mtSummary": "MT Jeremiah is the longer, rearranged edition (incl. Oracles Against the Nations placement).",
+      "dssHebrew": "",
+      "dssSummary": "Treat Qumran short Jeremiah as an alternate ancient edition (with OG), not as replacing OSHB verse text.",
+      "uxLabel": "Edition note",
+      "disclaimer": "Does not replace the Masoretic/OSHB text",
+      "refs": [
+        "Tov, Textual Criticism of the Hebrew Bible (Jeremiah editions)",
+        "Oxford Handbook of Jeremiah — Two Ancient Editions"
+      ],
+      "ship": true,
       "advanced": false
     },
     {
@@ -89,37 +224,392 @@
       "oshbBook": "Dan",
       "chapter": 2,
       "verse": 4,
-      "anchor": { "type": "verse" },
-      "priority": 5,
+      "anchor": {
+        "type": "verse",
+        "oshbWordIds": [],
+        "note": "Language seam: Hebrew narrative → Aramaic speech; DSS preserve bilingual book"
+      },
+      "priority": 1,
       "category": "language_seam",
-      "mss": ["1QDan_a"],
-      "mtSummary": "SAMPLE placeholder — Hebrew/Aramaic language seam.",
+      "mss": [
+        "1QDan_a",
+        "4QDan_a"
+      ],
+      "mtSummary": "MT shifts to Aramaic at 2:4b after the cue אֲרָמִית; continues Aramaic through 7:28.",
+      "dssHebrew": "ארמית",
+      "dssSummary": "Qumran Daniel MSS preserve the same Hebrew→Aramaic seam at 2:4 as MT (not inventing phonetics).",
+      "uxLabel": "Language seam",
+      "disclaimer": "Does not replace the Masoretic/OSHB text",
+      "refs": [
+        "DJD XVI (Ulrich), Daniel manuscripts",
+        "Ulrich BQS Daniel",
+        "ABR / scholarly summaries of 1QDanᵃ, 4QDanᵃ seams"
+      ],
+      "ship": true,
+      "advanced": false
+    },
+    {
+      "id": "dss-dan-seam-b",
+      "osis": "Dan.8.1",
+      "oshbBook": "Dan",
+      "chapter": 8,
+      "verse": 1,
+      "anchor": {
+        "type": "verse",
+        "oshbWordIds": [],
+        "note": "Return to Hebrew after Aramaic block 2:4b–7:28; 4QDanᵃ spans 7:28–8:1"
+      },
+      "priority": 1,
+      "category": "language_seam",
+      "mss": [
+        "4QDan_a",
+        "4QDan_b"
+      ],
+      "mtSummary": "MT resumes Hebrew at 8:1 after Aramaic chs. 2–7.",
       "dssHebrew": "",
-      "dssSummary": "SAMPLE: language-seam marker for learner awareness (Sofer fills).",
+      "dssSummary": "DSS Daniel confirms the Aramaic→Hebrew return at 8:1; seam is structural, not a single substituted lexeme.",
+      "uxLabel": "Language seam",
+      "disclaimer": "Does not replace the Masoretic/OSHB text",
+      "refs": [
+        "DJD XVI, 4Q112 / 4QDanᵃ",
+        "Ulrich BQS Daniel 7–8"
+      ],
+      "ship": true,
+      "advanced": false
+    },
+    {
+      "id": "dss-isa-21-8-a",
+      "osis": "Isa.21.8",
+      "oshbBook": "Isa",
+      "chapter": 21,
+      "verse": 8,
+      "anchor": {
+        "type": "word",
+        "wordIndex": 1,
+        "wordIndexEnd": null,
+        "he": "אַרְיֵה",
+        "lemmaId": "H0738b",
+        "oshbWordIds": []
+      },
+      "priority": 1,
+      "category": "lexeme",
+      "mss": [
+        "1QIsa_a"
+      ],
+      "mtSummary": "MT: ויקרא אריה — 'and a lion called'.",
+      "dssHebrew": "הראה",
+      "dssSummary": "1QIsaᵃ reads הראה ('the seer/watcher'), fitting the watchman context better than MT אריה 'lion'.",
       "uxLabel": "Qumran reading",
       "disclaimer": "Does not replace the Masoretic/OSHB text",
-      "refs": ["Ulrich BQS p.__"],
+      "refs": [
+        "Parry, Exploring the Isaiah Scrolls and Their Textual Variants (Isa 21:8)",
+        "Ulrich BQS / DJD XXXII 1QIsaᵃ Isa 21:8"
+      ],
+      "ship": true,
+      "advanced": false
+    },
+    {
+      "id": "dss-isa-49-17-a",
+      "osis": "Isa.49.17",
+      "oshbBook": "Isa",
+      "chapter": 49,
+      "verse": 17,
+      "anchor": {
+        "type": "word",
+        "wordIndex": 1,
+        "wordIndexEnd": null,
+        "he": "בָּנָיִךְ",
+        "lemmaId": "H1121a",
+        "oshbWordIds": []
+      },
+      "priority": 1,
+      "category": "lexeme",
+      "mss": [
+        "1QIsa_a"
+      ],
+      "mtSummary": "MT: מהרו בניך — 'your sons hurry'.",
+      "dssHebrew": "בוניך",
+      "dssSummary": "1QIsaᵃ reads בוניך 'your builders' (rebuild Zion), a sense change from MT בניך 'your sons'.",
+      "uxLabel": "Qumran reading",
+      "disclaimer": "Does not replace the Masoretic/OSHB text",
+      "refs": [
+        "Ulrich BQS Isa 49:17",
+        "DJD XXXII 1QIsaᵃ",
+        "Parry, Isaiah Scrolls textual variants"
+      ],
+      "ship": true,
+      "advanced": false
+    },
+    {
+      "id": "dss-1sam-17-4-a",
+      "osis": "1Sam.17.4",
+      "oshbBook": "1Sam",
+      "chapter": 17,
+      "verse": 4,
+      "anchor": {
+        "type": "word",
+        "wordIndex": 9,
+        "wordIndexEnd": null,
+        "he": "שֵׁשׁ",
+        "lemmaId": "H8337",
+        "oshbWordIds": []
+      },
+      "priority": 1,
+      "category": "lexeme",
+      "mss": [
+        "4QSam_a"
+      ],
+      "mtSummary": "MT: גבהו שש אמות וזרת — six cubits and a span.",
+      "dssHebrew": "ארבע אמות וזרת",
+      "dssSummary": "4QSamᵃ (with LXX) reads four cubits and a span, not MT six — a clear numerical sense change.",
+      "uxLabel": "Qumran reading",
+      "disclaimer": "Does not replace the Masoretic/OSHB text",
+      "refs": [
+        "DJD XVII (Cross/Parry/Saley/Ulrich), 4Q51 / 4QSamᵃ",
+        "Hays, JETS 48 (2005) 'Reconsidering the Height of Goliath'",
+        "Ulrich BQS 1 Samuel 17:4"
+      ],
+      "ship": true,
+      "advanced": false
+    },
+    {
+      "id": "dss-1sam-1-22-a",
+      "osis": "1Sam.1.22",
+      "oshbBook": "1Sam",
+      "chapter": 1,
+      "verse": 22,
+      "anchor": {
+        "type": "word",
+        "wordIndex": 17,
+        "wordIndexEnd": null,
+        "he": "עוֹלָם",
+        "lemmaId": "H5769",
+        "oshbWordIds": []
+      },
+      "priority": 2,
+      "category": "plus",
+      "mss": [
+        "4QSam_a"
+      ],
+      "mtSummary": "MT: וישב שם עד עולם — dwell there forever (no explicit נזיר).",
+      "dssHebrew": "נזיר עד עולם",
+      "dssSummary": "4QSamᵃ makes Samuel’s lifelong dedication explicitly Nazirite (נזיר), clarifying MT’s 'forever' vow.",
+      "uxLabel": "Qumran reading",
+      "disclaimer": "Does not replace the Masoretic/OSHB text",
+      "refs": [
+        "DJD XVII, 4QSamᵃ 1 Sam 1",
+        "Ulrich, Qumran Text of Samuel and Josephus",
+        "NOTE: consonants widely cited; confirm lineation in DJD plates before ship:true"
+      ],
       "ship": false,
       "advanced": false
     },
     {
-      "id": "dss-jer-edition-a",
-      "osis": "Jer.10.4",
-      "oshbBook": "Jer",
-      "chapter": 10,
-      "verse": 4,
-      "anchor": { "type": "verse" },
-      "priority": 6,
-      "category": "literary",
-      "mss": ["4QJer_b"],
-      "mtSummary": "SAMPLE placeholder — shorter/edition tradition.",
+      "id": "dss-isa-40-7-a",
+      "osis": "Isa.40.7",
+      "oshbBook": "Isa",
+      "chapter": 40,
+      "verse": 7,
+      "anchor": {
+        "type": "verse",
+        "oshbWordIds": [],
+        "note": "1QIsaᵃ originally shorter in 40:7–8 area (aligns with LXX shortness); later hand supplements — literary/minus"
+      },
+      "priority": 2,
+      "category": "minus",
+      "mss": [
+        "1QIsa_a"
+      ],
+      "mtSummary": "MT has full 'grass withers… breath of YHWH blows… surely people are grass' sequence into v.8.",
       "dssHebrew": "",
-      "dssSummary": "SAMPLE: edition-level difference vs MT Jeremiah (Sofer fills).",
+      "dssSummary": "1QIsaᵃ’s first hand is shorter in 40:7–8 (with LXX); a later scribe filled toward MT — flag as growth, not orthography.",
       "uxLabel": "Qumran reading",
       "disclaimer": "Does not replace the Masoretic/OSHB text",
-      "refs": ["Ulrich BQS p.__"],
+      "refs": [
+        "Ulrich/Flint DJD XXXII on Isa 40:7–8",
+        "Scholarly notes on 1QIsaᵃ second-hand supplement at 40:7"
+      ],
+      "ship": true,
+      "advanced": false
+    },
+    {
+      "id": "dss-deut-32-43-b",
+      "osis": "Deut.32.43",
+      "oshbBook": "Deut",
+      "chapter": 32,
+      "verse": 43,
+      "anchor": {
+        "type": "word",
+        "wordIndex": 5,
+        "wordIndexEnd": null,
+        "he": "עֲבָדָיו",
+        "lemmaId": "H5650",
+        "oshbWordIds": []
+      },
+      "priority": 2,
+      "category": "lexeme",
+      "mss": [
+        "4QDeut_g"
+      ],
+      "mtSummary": "MT: כי דם עבדיו יקום — blood of his servants.",
+      "dssHebrew": "דם בניו",
+      "dssSummary": "4QDeutᵍ reads 'blood of his sons' (בניו) where MT has 'servants' (עבדיו) — related demythologizing pattern as 32:8.",
+      "uxLabel": "Qumran reading",
+      "disclaimer": "Does not replace the Masoretic/OSHB text",
+      "refs": [
+        "DJD XIV 4Q44",
+        "McCarthy BHQ; van der Kooij on Deut 32:43"
+      ],
+      "ship": true,
+      "advanced": false
+    },
+    {
+      "id": "dss-1sam-10-27-a",
+      "osis": "1Sam.10.27",
+      "oshbBook": "1Sam",
+      "chapter": 10,
+      "verse": 27,
+      "anchor": {
+        "type": "verse",
+        "oshbWordIds": [],
+        "note": "Literary plus between 10:27 and 11:1 in 4QSamᵃ (Nahash episode); verse-level"
+      },
+      "priority": 1,
+      "category": "literary",
+      "mss": [
+        "4QSam_a"
+      ],
+      "mtSummary": "MT jumps from scorn of Saul (10:27) to Nahash besieging Jabesh (11:1) without the 4QSamᵃ bridge narrative.",
+      "dssHebrew": "",
+      "dssSummary": "4QSamᵃ preserves a longer Nahash/Jabesh lead-in absent from MT — edition-like narrative plus (see DJD XVII).",
+      "uxLabel": "Qumran reading",
+      "disclaimer": "Does not replace the Masoretic/OSHB text",
+      "refs": [
+        "DJD XVII 4QSamᵃ",
+        "Cross, 'The Ammonite Oppression' / Ulrich Samuel studies"
+      ],
+      "ship": true,
+      "advanced": false
+    },
+    {
+      "id": "dss-isa-37-20-a",
+      "osis": "Isa.37.20",
+      "oshbBook": "Isa",
+      "chapter": 37,
+      "verse": 20,
+      "anchor": {
+        "type": "word",
+        "wordIndex": 10,
+        "wordIndexEnd": null,
+        "he": "אַתָּה",
+        "lemmaId": "H0859a",
+        "oshbWordIds": []
+      },
+      "priority": 3,
+      "category": "plus",
+      "mss": [
+        "1QIsa_a"
+      ],
+      "mtSummary": "MT: כי אתה יהוה לבדך — 'for you YHWH alone'.",
+      "dssHebrew": "אתה הוא אלהים לבדכה",
+      "dssSummary": "1QIsaᵃ expands to 'you are God alone' (הוא אלהים) — sense-clarifying plus vs shorter MT; CONFIRM lineation in DJD XXXII.",
+      "uxLabel": "Qumran reading",
+      "disclaimer": "Does not replace the Masoretic/OSHB text",
+      "refs": [
+        "DJD XXXII 1QIsaᵃ Isa 37:20",
+        "Ulrich BQS Isa 37:20",
+        "UNCERTAIN exact spacing/wording — Sofer must verify plate before ship:true"
+      ],
+      "ship": false,
+      "advanced": false
+    },
+    {
+      "id": "dss-ps-145-nun-b",
+      "osis": "Ps.145.14",
+      "oshbBook": "Ps",
+      "chapter": 145,
+      "verse": 14,
+      "anchor": {
+        "type": "verse",
+        "oshbWordIds": [],
+        "note": "Samekh-line; nun-line belongs between 13 and 14 — cross-ref dss-ps-145-nun-a"
+      },
+      "priority": 3,
+      "category": "plus",
+      "mss": [
+        "11QPs_a"
+      ],
+      "mtSummary": "MT v.14 begins samekh (סומך) immediately after mem-line.",
+      "dssHebrew": "נאמן אלוהים בדבריו וחסיד בכול מעשיו",
+      "dssSummary": "Learner cue: the Qumran/LXX nun-line sits just before this samekh verse.",
+      "uxLabel": "Qumran reading",
+      "disclaimer": "Does not replace the Masoretic/OSHB text",
+      "refs": [
+        "DJD IV 11Q5",
+        "See dss-ps-145-nun-a"
+      ],
+      "ship": false,
+      "advanced": false
+    },
+    {
+      "id": "dss-jer-10-10-a",
+      "osis": "Jer.10.10",
+      "oshbBook": "Jer",
+      "chapter": 10,
+      "verse": 10,
+      "anchor": {
+        "type": "verse",
+        "oshbWordIds": [],
+        "note": "MT verse absent from shorter OG/4QJer tradition — category minus relative to short edition, shown as literary"
+      },
+      "priority": 2,
+      "category": "literary",
+      "mss": [
+        "4QJer_b"
+      ],
+      "mtSummary": "MT Jer 10:10 hymnic 'YHWH is true God…' present in long edition.",
+      "dssHebrew": "",
+      "dssSummary": "Short Jeremiah (OG + 4QJerᵇ/ᵈ pattern) lacks this MT verse among the 10:6–8,10 expansions — edition difference.",
+      "uxLabel": "Edition note",
+      "disclaimer": "Does not replace the Masoretic/OSHB text",
+      "refs": [
+        "Janzen; Tov on Jer 10 short vs long",
+        "DJD XV 4QJerᵇ"
+      ],
+      "ship": true,
+      "advanced": false
+    },
+    {
+      "id": "dss-deut-32-8-b",
+      "osis": "Deut.32.8",
+      "oshbBook": "Deut",
+      "chapter": 32,
+      "verse": 8,
+      "anchor": {
+        "type": "word",
+        "wordIndex": 10,
+        "wordIndexEnd": null,
+        "he": "בְּנֵי",
+        "lemmaId": "H1121a",
+        "oshbWordIds": []
+      },
+      "priority": 3,
+      "category": "lexeme",
+      "mss": [
+        "4QDeut_j"
+      ],
+      "mtSummary": "MT בני ישראל.",
+      "dssHebrew": "בני אל",
+      "dssSummary": "Some scholars reconstruct an earlier בני אל behind בני אלוהים/LXX; treat as uncertain alternate, not ship-ready alone.",
+      "uxLabel": "Qumran reading",
+      "disclaimer": "Does not replace the Masoretic/OSHB text",
+      "refs": [
+        "Tov, TheTorah.com n.6 (possible בני אל)",
+        "FLAG: 4Q37 digital transcription shows בני אלוהים; בני אל not verified as separate extant line"
+      ],
       "ship": false,
       "advanced": false
     }
-  ]
+  ],
+  "soferNote": "Batch 1 Sofer-signed 2026-09-18. ship:true = accuracy-approved sense overlays; OSHB base unchanged. 4QDeut_g = 4Q44 / 4QDeutᵍ (was stub 4QDeut_q). Ulrich BQS page #s not verified (paywall); DJD loci cited. ship:false held: dss-isa-37-20-a, dss-1sam-1-22-a, dss-deut-32-8-b, dss-ps-145-nun-b"
 }

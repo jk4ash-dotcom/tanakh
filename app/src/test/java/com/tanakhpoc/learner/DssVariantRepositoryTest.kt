@@ -229,7 +229,7 @@ class DssVariantRepositoryTest {
     }
 
     @Test
-    fun sourceAsset_stubSeedsAllShipFalse() {
+    fun sourceAsset_batch1HasExpectedShipCounts() {
         val roots = listOf(
             java.io.File("src/main/assets/data/dss_variants.json"),
             java.io.File("../app/src/main/assets/data/dss_variants.json"),
@@ -239,9 +239,12 @@ class DssVariantRepositoryTest {
             ?: error("dss_variants.json not found from cwd=${java.io.File(".").absolutePath}")
         val repo = DssVariantRepository.parse(file.readText(Charsets.UTF_8))
         assertTrue(repo.pack.notes.isNotEmpty())
-        assertTrue(repo.pack.status.contains("SAMPLE", ignoreCase = true))
-        assertFalse("stub asset must not ship UI chrome", repo.hasVisibleNotes)
-        val isa = repo.notesForVerse("Isa.53.11").single()
+        assertEquals("sofer-signed-batch1", repo.pack.status)
+        assertEquals(16, repo.pack.notes.count { it.ship })
+        assertEquals(4, repo.pack.notes.count { !it.ship })
+        assertTrue("Batch 1 should expose visible UI chrome", repo.hasVisibleNotes)
+        assertEquals(2, repo.notesForVerse("Isa.53.11").size)
+        val isa = repo.notesForVerse("Isa.53.11").first { it.id == "dss-isa-53-11-a" }
         assertEquals(2, isa.anchor.wordIndex)
         assertEquals("יִרְאֶה", isa.anchor.he)
         assertEquals("H7200", isa.anchor.lemmaId)
