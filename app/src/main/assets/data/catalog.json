@@ -1,7 +1,7 @@
 {
   "name": "tanakh-learner",
-  "version": "0.4.0-poc",
-  "generatedAt": "2026-09-18T05:40:18.184Z",
+  "version": "0.4.1-poc",
+  "generatedAt": "2026-09-18T07:52:20.434Z",
   "scope": "Full Tanakh (Torah + Nevi'im + Ketuvim)",
   "navOrder": "Jewish Tanakh",
   "hebrewPin": "OSHB morphhb v.2.2",
@@ -443,6 +443,6 @@
     "verses": 23213,
     "glosses": 9200,
     "ketivQere": 1245,
-    "gaps": 9573
+    "gaps": 4927
   }
 }

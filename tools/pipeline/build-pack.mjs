@@ -21,6 +21,7 @@ import { BOOKS, TORAH, NEVIIM, KETUVIM, ARAMAIC_FLAG_BOOKS, jewishSortKey } from
 import { createSoferSblLearnerSchema } from "./sofer-sbl-learner.mjs";
 import { runHardFailChecks } from "./hard-fail-checks.mjs";
 import { extractWTokens } from "./oshb-w.mjs";
+import { isAramaicMorph } from "./morph-lang.mjs";
 
 const require = createRequire(import.meta.url);
 const { transliterate } = require("hebrew-transliteration");
@@ -30,7 +31,7 @@ const ROOT = path.resolve(__dirname, "../..");
 const VENDOR = path.join(ROOT, "vendor");
 const OUT_DIR = path.join(ROOT, "app/src/main/assets/data");
 const REPORTS = path.join(ROOT, "reports");
-const PACK_VERSION = "0.4.0-poc";
+const PACK_VERSION = "0.4.1-poc";
 const schema = createSoferSblLearnerSchema();
 
 const CANTILLATION = /[\u0591-\u05AF\u05BD\u05BF\u05C0\u05C3\u05C6]/g;
@@ -324,14 +325,6 @@ function surfaceHebrew(raw) {
   return stripCantillation(raw.replace(/\//g, ""));
 }
 
-/** OSHB morph language: segments starting with A = Biblical Aramaic. */
-function isAramaicMorph(morph) {
-  if (!morph) return false;
-  return String(morph)
-    .split("/")
-    .some((seg) => /^A/.test(seg));
-}
-
 function phoneticForToken(heSurface, lemmaInfo, opts = {}) {
   if (opts.aramaic) {
     return {
@@ -548,7 +541,12 @@ function main() {
     const packVerses = [];
     const chaptersMap = new Map();
 
+    let verseIdx = 0;
     for (const v of oshbVerses) {
+      verseIdx++;
+      if (verseIdx === 1 || verseIdx % 100 === 0 || verseIdx === oshbVerses.length) {
+        console.log(`  … ${bookOsis} verse ${verseIdx}/${oshbVerses.length}`);
+      }
       const jps = jpsForWlc(v.osisId, verseMap, jpsByKjv);
       if (!jps.text) {
         allGaps.push(`Missing JPS for ${v.osisId} (kjvRef=${jps.kjvRef})`);
@@ -690,7 +688,10 @@ function main() {
       `  Wrote ${outName} (${(bytes / 1024 / 1024).toFixed(2)} MB, ${packVerses.length} verses)`
     );
 
-    packByBook[bookOsis] = bookPack;
+    // Avoid retaining full verse graphs during multi-book builds (OOM / thrash).
+    // Hard-fail reloads packs from gzip below.
+    packByBook[bookOsis] = null;
+    if (global.gc) global.gc();
     totalVerses += packVerses.length;
     catalogBooks.push({
       osis: bookOsis,
@@ -820,6 +821,18 @@ function main() {
     if (fs.existsSync(p)) fs.unlinkSync(p);
   }
 
+  console.log("Reloading packs from disk for hard-fail…");
+  for (const b of bookList) {
+    const gzPath = path.join(OUT_DIR, `books/${b}.json.gz`);
+    const jsonPath = path.join(OUT_DIR, `books/${b}.json`);
+    if (WRITE_GZIP && fs.existsSync(gzPath)) {
+      packByBook[b] = JSON.parse(zlib.gunzipSync(fs.readFileSync(gzPath)).toString("utf8"));
+    } else if (fs.existsSync(jsonPath)) {
+      packByBook[b] = JSON.parse(fs.readFileSync(jsonPath, "utf8"));
+    } else {
+      throw new Error(`Missing pack on disk for hard-fail: ${b}`);
+    }
+  }
   console.log("Running hard-fail checks 1–8…");
   const checkResult = runHardFailChecks({
     catalog,

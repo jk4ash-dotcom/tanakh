@@ -6,6 +6,7 @@ import fs from "fs";
 import path from "path";
 import { BOOKS, TORAH, NEVIIM, KETUVIM } from "./books.mjs";
 import { extractWTokens, verseBodyFromOshbXml } from "./oshb-w.mjs";
+import { isAramaicMorph } from "./morph-lang.mjs";
 
 const YHWH_CONS = "יהוה";
 const FORBIDDEN_GLOSS = /jehovah|ye\.?\s*ho\.?\s*vah|yehovah|vowel\s*pointings?\s+of|a\.?\s*do\.?\s*na/i;
@@ -256,12 +257,21 @@ export function runHardFailChecks(ctx) {
     for (const v of pack.verses) {
       for (let i = 0; i < v.words.length; i++) {
         const w = v.words[i];
-        const morphAramaic =
-          w.aramaic === true ||
-          (w.morph &&
-            String(w.morph)
-              .split("/")
-              .some((seg) => /^A/.test(seg)));
+        const morphAramaic = isAramaicMorph(w.morph);
+        // Hebrew language code (first char H) must never be treated as Aramaic,
+        // even when a later /A… POS segment is an adjective (e.g. HTd/Aamsa).
+        if (w.morph && /^H/.test(String(w.morph))) {
+          if (w.aramaic === true) {
+            failures.push(
+              `3-phonetics: Hebrew morph incorrectly aramaic=true at ${v.id}#${i} morph=${w.morph}`
+            );
+          }
+          if (w.phonetic === "[aramaic-pending]") {
+            failures.push(
+              `3-phonetics: Hebrew morph incorrectly [aramaic-pending] at ${v.id}#${i} morph=${w.morph}`
+            );
+          }
+        }
         if (morphAramaic) {
           // Sofer: Biblical Aramaic must not silently use Hebrew SBL-Learner
           if (w.aramaic !== true) {
@@ -460,6 +470,51 @@ export function runHardFailChecks(ctx) {
     }
   }
   samples.ketivQereCount = ketivQere.length;
+
+  // --- Aramaic morph language regression (Critic HIGH) ---
+  // Hebrew adjective POS /A… must NOT be Aramaic; true A… morph must be.
+  if (!isAramaicMorph("ANcmsd/Td")) {
+    failures.push("3-phonetics: isAramaicMorph(ANcmsd/Td) should be true");
+  }
+  if (isAramaicMorph("HTd/Aamsa")) {
+    failures.push("3-phonetics: isAramaicMorph(HTd/Aamsa) Hebrew adj must be false");
+  }
+  const genPack = packByBook["Gen"];
+  if (genPack) {
+    const g116 = genPack.verses.find((x) => x.id === "Gen.1.16");
+    if (g116) {
+      for (let i = 0; i < g116.words.length; i++) {
+        const w = g116.words[i];
+        if (w.morph && String(w.morph).includes("/A") && /^H/.test(String(w.morph))) {
+          if (w.phonetic === "[aramaic-pending]" || w.aramaic === true) {
+            failures.push(
+              `3-phonetics: Gen.1.16 Hebrew adj spuriously Aramaic #${i} morph=${w.morph}`
+            );
+          }
+        }
+      }
+    }
+  }
+  const danPack = packByBook["Dan"];
+  if (danPack) {
+    let danAramaic = 0;
+    for (const v of danPack.verses) {
+      for (const w of v.words) {
+        if (isAramaicMorph(w.morph)) {
+          danAramaic++;
+          if (w.phonetic !== "[aramaic-pending]") {
+            failures.push(`3-phonetics: Dan true Aramaic missing pending at ${v.id}`);
+            break;
+          }
+        }
+      }
+    }
+    samples.danTrueAramaicPending = danAramaic;
+    if (danAramaic < 1000) {
+      failures.push(`3-phonetics: Dan expected many true Aramaic tokens, got ${danAramaic}`);
+    }
+  }
+
 
   // Sample verses for Sofer ping (Torah + Nevi'im)
   const soferSamples = {};

@@ -7,7 +7,7 @@
     "build": "node build-pack.mjs --scope torah+neviim",
     "build:torah": "node build-pack.mjs --scope torah",
     "build:book": "node build-pack.mjs --scope book=Gen",
-    "test": "node --test oshb-w.test.mjs",
+    "test": "node --test oshb-w.test.mjs morph-lang.test.mjs",
     "build:neviim": "node build-pack.mjs --scope neviim",
     "build:tn": "node build-pack.mjs --scope torah+neviim",
     "build:ketuvim": "node build-pack.mjs --scope ketuvim",

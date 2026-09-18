@@ -1,7 +1,7 @@
 {
-  "version": "0.4.0-poc",
+  "version": "0.4.1-poc",
   "division": "Nevi'im",
-  "generatedAt": "2026-09-18T05:40:18.188Z",
+  "generatedAt": "2026-09-18T07:52:20.437Z",
   "count": 673,
   "byBook": {
     "Josh": 32,
@@ -230,7 +230,7 @@
       "tokenIndex": 10,
       "ketiv": "הגבול",
       "qereHe": "הַגָּדוֹל",
-      "qerePhonetic": "[aramaic-pending]",
+      "qerePhonetic": "haggādôl",
       "lemmaId": "H1419a",
       "morph": "HTd/Aamsa",
       "oshbId": "06S8w"
@@ -1101,7 +1101,7 @@
       "tokenIndex": 6,
       "ketiv": "באלפו",
       "qereHe": "בַּאֲלָפָיו",
-      "qerePhonetic": "[aramaic-pending]",
+      "qerePhonetic": "baʾălāfāyw",
       "lemmaId": "H0505",
       "morph": "HR/Acbpc/Sp3ms",
       "oshbId": "09RJK"
@@ -1244,7 +1244,7 @@
       "tokenIndex": 16,
       "ketiv": "באלפו",
       "qereHe": "בַּאֲלָפָיו",
-      "qerePhonetic": "[aramaic-pending]",
+      "qerePhonetic": "baʾălāfāyw",
       "lemmaId": "H0505",
       "morph": "HR/Acbpc/Sp3ms",
       "oshbId": "09VGa"
@@ -2102,7 +2102,7 @@
       "tokenIndex": 2,
       "ketiv": "באחת",
       "qereHe": "בְּאַחַד",
-      "qerePhonetic": "[aramaic-pending]",
+      "qerePhonetic": "bĕʾaḥad",
       "lemmaId": "H0259",
       "morph": "HR/Acmsc",
       "oshbId": "10DE1"
@@ -2583,7 +2583,7 @@
       "tokenIndex": 7,
       "ketiv": "גברים",
       "qereHe": "הַגִּבֹּרִים",
-      "qerePhonetic": "[aramaic-pending]",
+      "qerePhonetic": "haggibbōrîm",
       "lemmaId": "H1368",
       "morph": "HTd/Aampa",
       "oshbId": "10J7S"
@@ -2609,7 +2609,7 @@
       "tokenIndex": 7,
       "ketiv": "השלשי",
       "qereHe": "הַשְּׁלֹשָׁה",
-      "qerePhonetic": "[aramaic-pending]",
+      "qerePhonetic": "hashshĕlōshâ",
       "lemmaId": "H7969",
       "morph": "HTd/Acmsa",
       "oshbId": "10aPi"
@@ -2791,7 +2791,7 @@
       "tokenIndex": 16,
       "ketiv": "אחד",
       "qereHe": "הָאֶחָד",
-      "qerePhonetic": "[aramaic-pending]",
+      "qerePhonetic": "hāʾeḥād",
       "lemmaId": "H0259",
       "morph": "HTd/Acmsa",
       "oshbId": "11vua"
@@ -3701,7 +3701,7 @@
       "tokenIndex": 7,
       "ketiv": "המאיות",
       "qereHe": "הַמֵּאוֹת",
-      "qerePhonetic": "[aramaic-pending]",
+      "qerePhonetic": "hammēʾôth",
       "lemmaId": "H3967",
       "morph": "HTd/Acbpa",
       "oshbId": "12PRQ"
@@ -3714,7 +3714,7 @@
       "tokenIndex": 2,
       "ketiv": "המאיות",
       "qereHe": "הַמֵּאוֹת",
-      "qerePhonetic": "[aramaic-pending]",
+      "qerePhonetic": "hammēʾôth",
       "lemmaId": "H3967",
       "morph": "HTd/Acbpa",
       "oshbId": "12TnS"
@@ -3727,7 +3727,7 @@
       "tokenIndex": 3,
       "ketiv": "המאיות",
       "qereHe": "הַמֵּאוֹת",
-      "qerePhonetic": "[aramaic-pending]",
+      "qerePhonetic": "hammēʾôth",
       "lemmaId": "H3967",
       "morph": "HTd/Acbpa",
       "oshbId": "12SM8"
@@ -3740,7 +3740,7 @@
       "tokenIndex": 5,
       "ketiv": "המיאות",
       "qereHe": "הַמֵּאוֹת",
-      "qerePhonetic": "[aramaic-pending]",
+      "qerePhonetic": "hammēʾôth",
       "lemmaId": "H3967",
       "morph": "HTd/Acbpa",
       "oshbId": "12ZxC"
@@ -4312,7 +4312,7 @@
       "tokenIndex": 11,
       "ketiv": "ועתידתיהם",
       "qereHe": "וַעֲתוּדוֹתֵיהֶם",
-      "qerePhonetic": "[aramaic-pending]",
+      "qerePhonetic": "waʿăthûdôthêhem",
       "lemmaId": "H6264",
       "morph": "HC/Aampc/Sp3mp",
       "oshbId": "23Lft"
@@ -5599,7 +5599,7 @@
       "tokenIndex": 1,
       "ketiv": "הרעה",
       "qereHe": "הָרַע",
-      "qerePhonetic": "[aramaic-pending]",
+      "qerePhonetic": "hāraʿ",
       "lemmaId": "H7451a",
       "morph": "HTd/Aamsa",
       "oshbId": "24Zvg"
@@ -5937,7 +5937,7 @@
       "tokenIndex": 19,
       "ketiv": "עינו",
       "qereHe": "עֵינָיו",
-      "qerePhonetic": "[aramaic-pending]",
+      "qerePhonetic": "ʿênāyw",
       "lemmaId": "H5869a",
       "morph": "HTd/Aofsa",
       "oshbId": "24Gnb"
@@ -6717,7 +6717,7 @@
       "tokenIndex": 6,
       "ketiv": "הימיני",
       "qereHe": "הַיְמָנִי",
-      "qerePhonetic": "[aramaic-pending]",
+      "qerePhonetic": "hayĕmānî",
       "lemmaId": "H3233",
       "morph": "HTd/Aamsa",
       "oshbId": "26KvW"
@@ -7133,7 +7133,7 @@
       "tokenIndex": 19,
       "ketiv": "רשע",
       "qereHe": "הָרָשָׁע",
-      "qerePhonetic": "[aramaic-pending]",
+      "qerePhonetic": "hārāshāʿ",
       "lemmaId": "H7563",
       "morph": "HTd/Aamsa",
       "oshbId": "26vf3"
@@ -8602,7 +8602,7 @@
       "tokenIndex": 3,
       "ketiv": "וגדול",
       "qereHe": "וּגְדָל",
-      "qerePhonetic": "[aramaic-pending]",
+      "qerePhonetic": "ûgĕdāl",
       "lemmaId": "H1419a",
       "morph": "HC/Aamsc",
       "oshbId": "34W26"
