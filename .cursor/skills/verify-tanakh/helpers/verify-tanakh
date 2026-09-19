@@ -1,0 +1,22 @@
+#!/usr/bin/env bash
+# Dispatcher. Invocation is also listed in SKILL.md Helpers.
+set -euo pipefail
+DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+cmd="${1:-}"
+shift || true
+case "$cmd" in
+  doctor) exec "$DIR/doctor.sh" "$@" ;;
+  launch) exec "$DIR/launch.sh" "$@" ;;
+  drive) exec "$DIR/drive.sh" "$@" ;;
+  cleanup) exec "$DIR/cleanup.sh" "$@" ;;
+  bootstrap-sdk) exec "$DIR/bootstrap-android-sdk.sh" "$@" ;;
+  "")
+    echo "usage: verify-tanakh doctor|launch|drive|cleanup|bootstrap-sdk [args]" >&2
+    exit 2
+    ;;
+  *)
+    echo "unknown command: $cmd" >&2
+    echo "usage: verify-tanakh doctor|launch|drive|cleanup|bootstrap-sdk [args]" >&2
+    exit 2
+    ;;
+esac

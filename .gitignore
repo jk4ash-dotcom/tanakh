@@ -19,3 +19,6 @@ reports/build-pack.log
 reports/build-*.log
 reports/gradle-build*.log
 reports/build-b-poll.log
+
+# verify-tanakh helper scratch (evidence run dirs are kept)
+/artifacts/verify-tanakh/.state/
