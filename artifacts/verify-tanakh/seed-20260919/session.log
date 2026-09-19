@@ -1,0 +1,8 @@
+[2026-09-19T18:54:11Z] launch mode=jvm root=/workspace
+[2026-09-19T18:54:12Z] READY jvm — no process to keep alive; Drive uses ./gradlew unit tests / APK asset tasks
+[2026-09-19T18:54:38Z] drive pack-sanity (testDebugUnitTest: PackSanityTest, AssetPathResolutionTest, DssVariantRepositoryTest)
+[2026-09-19T18:56:16Z] drive pack-sanity PASSED
+[2026-09-19T18:56:21Z] drive apk-debug (:app:verifyDebugApkAssets)
+[2026-09-19T18:57:25Z] drive apk-debug PASSED
+[2026-09-19T18:57:34Z] cleanup start
+[2026-09-19T18:57:34Z] cleanup done; evidence kept at /workspace/artifacts/verify-tanakh/seed-20260919

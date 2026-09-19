@@ -1,0 +1,34 @@
+verify-tanakh doctor
+root=/workspace
+evidence=/workspace/artifacts/verify-tanakh/seed-20260919
+time=2026-09-19T18:56:21Z
+---
+PASS  gradlew executable
+PASS  settings.gradle.kts rootProject.name=TanakhLearner
+PASS  applicationId/namespace com.tanakhpoc.learner
+PASS  versionName 0.6.0-template-poc (app/build.gradle.kts)
+PASS  JAVA_HOME=/usr/lib/jvm/java-21-openjdk-amd64 (openjdk version "21.0.10" 2026-01-20)
+PASS  ANDROID_HOME=/workspace/android-sdk
+PASS  SDK tools present under ANDROID_HOME
+PASS  source asset catalog.json
+PASS  source asset glosses.json.gz
+PASS  source asset books/Gen.json.gz
+PASS  source asset dss_variants.json
+PASS  unit fixture app/src/test/resources/data/pack_torah_samples.json
+PASS  unit test PackSanityTest.kt
+PASS  unit test AssetPathResolutionTest.kt
+PASS  unit test DssVariantRepositoryTest.kt
+PASS  gradle APK asset tasks verifyDebugApkAssets / verifyReleaseApkAssets
+PASS  source AndroidManifest.xml has no INTERNET permission
+PASS  source AndroidManifest.xml has no storage/location/network-state permissions
+PASS  catalog.navOrder=Jewish Tanakh
+PASS  catalog first book Gen
+PASS  catalog last book 2Chr
+PASS  Dan is in Writings position (index 34, after Esth)
+PASS  catalog.totals.books=39
+INFO  catalog.version=0.4.2-poc scope="Full Tanakh (Torah + Nevi'im + Ketuvim)" verses=23213 glosses=9205
+PASS  merged manifest has no INTERNET (/workspace/app/build/intermediates/merged_manifest/debug/processDebugMainManifest/AndroidManifest.xml)
+WARN  adb present but no device in 'device' state
+---
+fails=0 warns=1
+RESULT=HEALTHY (JVM path). Emulator/device Compose Drive is a separate Launch mode.

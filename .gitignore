@@ -22,3 +22,7 @@ reports/build-b-poll.log
 
 # verify-tanakh helper scratch (evidence run dirs are kept)
 /artifacts/verify-tanakh/.state/
+/artifacts/verify-tanakh/**/test-results/binary/
+
+# Local SDK from helpers/bootstrap-android-sdk.sh (not the repo)
+/android-sdk/

@@ -30,7 +30,10 @@ export ANDROID_HOME="$PREFIX"
 export ANDROID_SDK_ROOT="$PREFIX"
 export PATH="$PREFIX/cmdline-tools/latest/bin:$PREFIX/platform-tools:$PATH"
 
-yes | sdkmanager --sdk_root="$PREFIX" --licenses >/dev/null
+# `yes` gets SIGPIPE when sdkmanager closes stdin; do not fail the script on that.
+set +o pipefail
+yes | sdkmanager --sdk_root="$PREFIX" --licenses >/dev/null || true
+set -o pipefail
 sdkmanager --sdk_root="$PREFIX" \
   "platforms;android-35" \
   "build-tools;35.0.0" \
