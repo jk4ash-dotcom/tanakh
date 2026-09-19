@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.tanakhpoc.learner.PackSanityTest" tests="17" skipped="0" failures="0" errors="0" timestamp="2026-09-19T18:56:15" hostname="cursor" time="0.018">
+  <properties/>
+  <testcase name="gen11_tokenOrderAndPhonetics" classname="com.tanakhpoc.learner.PackSanityTest" time="0.001"/>
+  <testcase name="glossDisplay_stripsYeHovahFromElohimDefinition" classname="com.tanakhpoc.learner.PackSanityTest" time="0.009"/>
+  <testcase name="xLargeSegVerses_lev1142_num275_keepLargeLetterWords" classname="com.tanakhpoc.learner.PackSanityTest" time="0.0"/>
+  <testcase name="deut64_xLargeSegFlatten_sixTokensIncludingShemaEchad" classname="com.tanakhpoc.learner.PackSanityTest" time="0.0"/>
+  <testcase name="glossDisplay_stripsAdonaiVowelSenseOnH3068Raw" classname="com.tanakhpoc.learner.PackSanityTest" time="0.0"/>
+  <testcase name="glossDisplay_h3069_pointed_usesYhwhPath" classname="com.tanakhpoc.learner.PackSanityTest" time="0.0"/>
+  <testcase name="glossDisplay_sanitizeDefinition_globalForbidden" classname="com.tanakhpoc.learner.PackSanityTest" time="0.0"/>
+  <testcase name="jps_verseLevel_notWordAligned" classname="com.tanakhpoc.learner.PackSanityTest" time="0.0"/>
+  <testcase name="sampleVerses_perTorahBook_present" classname="com.tanakhpoc.learner.PackSanityTest" time="0.001"/>
+  <testcase name="glossDisplay_h3071_jehovahNissi_doesNotLeakPrimary" classname="com.tanakhpoc.learner.PackSanityTest" time="0.0"/>
+  <testcase name="yhwh_hardRule_consonantsAndPhonetic" classname="com.tanakhpoc.learner.PackSanityTest" time="0.001"/>
+  <testcase name="ketivQere_flagAndPhoneticFromQere" classname="com.tanakhpoc.learner.PackSanityTest" time="0.0"/>
+  <testcase name="ltr_order_invariant_displayTokensNeverReverses" classname="com.tanakhpoc.learner.PackSanityTest" time="0.001"/>
+  <testcase name="catalog_jewishOrder_torahBooks" classname="com.tanakhpoc.learner.PackSanityTest" time="0.0"/>
+  <testcase name="glossDisplay_procliticCompound_functionalNotFakeTbesh" classname="com.tanakhpoc.learner.PackSanityTest" time="0.0"/>
+  <testcase name="glossDisplay_yhwh_hidesJehovahDump" classname="com.tanakhpoc.learner.PackSanityTest" time="0.002"/>
+  <testcase name="gloss_resolve_knownIds" classname="com.tanakhpoc.learner.PackSanityTest" time="0.0"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

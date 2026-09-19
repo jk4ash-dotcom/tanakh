@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.tanakhpoc.learner.AssetPathResolutionTest" tests="5" skipped="0" failures="0" errors="0" timestamp="2026-09-19T18:56:15" hostname="cursor" time="0.074">
+  <properties/>
+  <testcase name="readAssetText_readsGzipMagic" classname="com.tanakhpoc.learner.AssetPathResolutionTest" time="0.028"/>
+  <testcase name="sourceAssets_shipGlossesGzAndCatalog" classname="com.tanakhpoc.learner.AssetPathResolutionTest" time="0.021"/>
+  <testcase name="assetCandidates_prefersGzThenPlain_dedupes" classname="com.tanakhpoc.learner.AssetPathResolutionTest" time="0.014"/>
+  <testcase name="readAssetText_fallsBackWhenGzMissing_plainJson" classname="com.tanakhpoc.learner.AssetPathResolutionTest" time="0.002"/>
+  <testcase name="readAssetText_allMissing_listsTriedPaths" classname="com.tanakhpoc.learner.AssetPathResolutionTest" time="0.006"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

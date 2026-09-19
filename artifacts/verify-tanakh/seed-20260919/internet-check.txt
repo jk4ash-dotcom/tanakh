@@ -1,0 +1,2 @@
+PASS no INTERNET in merged-manifest-debug (/workspace/app/build/intermediates/merged_manifest/debug/processDebugMainManifest/AndroidManifest.xml)
+PASS aapt dump permissions has no INTERNET (debug)

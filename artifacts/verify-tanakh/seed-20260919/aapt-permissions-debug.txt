@@ -1,0 +1,3 @@
+package: com.tanakhpoc.learner
+permission: com.tanakhpoc.learner.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION
+uses-permission: name='com.tanakhpoc.learner.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION'
