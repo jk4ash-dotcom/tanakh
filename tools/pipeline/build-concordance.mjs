@@ -138,7 +138,7 @@ export function buildConcordance() {
     keys,
     particles: Object.fromEntries([...particles].sort()),
   };
-  return { index, catalog, catalogPath, packHash, wordAt, rows, particles, ketivWords, ketivExcluded };
+  return { index, catalog, catalogPath, packHash, packs, wordAt, rows, particles, ketivWords, ketivExcluded };
 }
 
 function parseRows(r) {
@@ -176,6 +176,14 @@ export function runGates(ctx) {
     }
   }
   if (!index.packHash || index.packHash !== ctx.packHash) f("G2", "packHash stamp mismatch");
+  // Sofer v0.7.1: storage-format guard — every row verseId must be Book.C.V.
+  const VID = /^[1-3]?[A-Za-z]+\.\d+\.\d+$/;
+  let badIds = 0;
+  for (const [k, e] of Object.entries(index.keys)) for (const [v] of parseRows(e.r)) if (!VID.test(v)) { badIds++; f("G2", `${k}: malformed verseId ${v}`); }
+  // Sofer v0.7.1: no JPS line may carry a YHWH vocalization (Adonai-x titles allowed).
+  const JPS_DN = /jehovah|yehovah|yahweh/i;
+  const jpsHits = [];
+  for (const p of ctx.packs) for (const v of p.verses) if (JPS_DN.test(v.english.text)) { jpsHits.push(v.id); f("G4", `JPS vocalization in ${v.id}`); }
   // G3
   const byLemma = new Map();
   for (const k of Object.keys(index.keys)) { const l = k.slice(2); byLemma.set(l, [...(byLemma.get(l) || []), k]); }
@@ -217,7 +225,7 @@ export function runGates(ctx) {
   const pass = (g) => !(fails[g] && fails[g].length);
   const w = (g, body) => fs.writeFileSync(path.join(REPORTS, `concordance_gate_${g}.json`), JSON.stringify({ gate: g, ok: pass(g), packHash: index.packHash, failures: (fails[g] || []).slice(0, 200), ...body }, null, 2));
   w("G1", { totals: index.totals, duplicateEntries: dup, note: "UI label reads ConcordanceEntry.count (stored c); see ConcordanceGateTest.G1d" });
-  w("G2", { rowsChecked: g2checked, packHashStampedInCatalog: true, loader: "ConcordanceRepository refuses index.packHash != catalog.concordance.packHash; JVM test recomputes hash from packs" });
+  w("G2", { rowsChecked: g2checked, verseIdFormat: "^[1-3]?[A-Za-z]+\\.\\d+\\.\\d+$", malformedVerseIds: badIds, packHashStampedInCatalog: true, loader: "ConcordanceRepository refuses index.packHash != catalog.concordance.packHash; JVM test recomputes hash from packs" });
   w("G3", { aramaicTokensIndexed: aramTotal, rowsUnderAKeys: aramInA, aKeys: Object.keys(index.keys).filter((k) => k[0] === "A").length, INFO_lemmasUnderBothHandA: both, spot });
   w("G5", { ketivWords, ketivExcludedAsParticleOrNoLemma: ketivExcluded, kqFlaggedRows: kqRows, jer_48_44: { he: jer.he, ketiv: jer.ketiv, lemmaId: jer.lemmaId, row: jerRow } });
   w("G6", { rule: "isParticle = lemmaId H9xxx OR glossId pfx:*", INFO_particleKeys: index.particles, H0853: index.keys["H:H0853"]?.c, H3605: index.keys["H:H3605"]?.c });
@@ -245,6 +253,7 @@ if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.me
   fs.writeFileSync(ctx.catalogPath, JSON.stringify(ctx.catalog, null, 2));
   const res = runGates(ctx);
   console.log(`concordance: keys=${ctx.index.totals.keys} indexed=${ctx.index.totals.indexed} particles=${ctx.index.totals.excludedParticle} noLemma=${ctx.index.totals.excludedNoLemma} hash=${ctx.packHash.slice(0, 12)} gz=${fs.statSync(path.join(DATA, "concordance.json.gz")).size}B`);
+  if (res.fails.G4?.length) console.error("G4 (JPS) failures:", res.fails.G4);
   if (!res.ok) { console.error("CONCORDANCE HARD FAIL", JSON.stringify(res.fails, null, 1).slice(0, 4000)); process.exit(1); }
   console.log("concordance gates G1/G2/G3/G5/G6 PASSED; G7 dump written");
 }

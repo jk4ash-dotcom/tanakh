@@ -31,7 +31,7 @@ const ROOT = path.resolve(__dirname, "../..");
 const VENDOR = path.join(ROOT, "vendor");
 const OUT_DIR = path.join(ROOT, "app/src/main/assets/data");
 const REPORTS = path.join(ROOT, "reports");
-const PACK_VERSION = "0.6.0-template-poc";
+const PACK_VERSION = "0.7.1-concordance-poc";
 const schema = createSoferSblLearnerSchema();
 
 const CANTILLATION = /[\u0591-\u05AF\u05BD\u05BF\u05C0\u05C3\u05C6]/g;
@@ -462,7 +462,9 @@ function loadJpsBook(bookMeta) {
       if (titleHints.some((re) => re.test(line))) continue;
       vNum += 1;
       // Strip leading Hebrew-ref annotation like "(32-1) " if present — keep body
-      const text = line.replace(/^\(\d+-\d+\)\s*/, "");
+      // Sofer MEDIUM-1 (v0.7.1): ebible substitutes "Jehovah" where JPS 1917 printed the
+      // Tetragrammaton (Exod.6.3) — normalize to YHWH. "Adonai-x" titles stay verbatim.
+      const text = line.replace(/^\(\d+-\d+\)\s*/, "").replace(/\b(jehovah|yehovah|yahweh)\b/gi, "YHWH");
       byKjv.set(`${osisBook}.${chapter}.${vNum}`, text);
     }
   }

@@ -1,10 +1,10 @@
 {
   "gate": "G4", "ok": true,
-  "packHash": "27461e42762d0505434d24be07d555045b984b648bfaac525dd3b4c7289dda8e",
+  "packHash": "39dbe3605dbef47875b1b2e76de0a7fa2a5a3d878e4b18fccad6cf36fc6df429",
   "dnKeys": ["H:H3068", "H:H3069"],
-  "rowsRendered": 6872,
+  "rowsRendered": 6828,
   "forbiddenHits": [],
   "headerStrings": ["יהוה", "H3068", "LORD", "Appears 6521 times", "in this text (OSHB)", "יהוה", "H3069", "God", "Appears 306 times", "in this text (OSHB)"],
-  "englishPolicy": "rows rewrite ebible Jehovah/Adonai-x substitutions to YHWH (Gen.22.14, Exod.6.3, Exod.17.15, Judg.6.24) — reading line unchanged; for Sofer ruling",
+  "englishPolicy": "JPS verbatim in rows (== reading line). Adonai-x titles allowed (Gen.22.14, Exod.17.15, Judg.6.24); Exod.6.3 fixed to YHWH in the pack; no JPS line contains jehovah/yehovah/yahweh",
   "perf": {"H3068count": 6521, "page0Rows": 30, "page200Rows": 30, "rowsDecodedTotal": 60, "firstPageMs": 0.01}
 }

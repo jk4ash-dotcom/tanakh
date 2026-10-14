@@ -1,6 +1,6 @@
 {
   "name": "tanakh-learner",
-  "version": "0.4.2-poc",
+  "version": "0.7.1-concordance-poc",
   "generatedAt": "2026-09-18T07:52:20.434Z",
   "scope": "Full Tanakh (Torah + Nevi'im + Ketuvim)",
   "navOrder": "Jewish Tanakh",
@@ -448,7 +448,7 @@
   "concordance": {
     "asset": "data/concordance.json",
     "assetGz": "data/concordance.json.gz",
-    "packHash": "27461e42762d0505434d24be07d555045b984b648bfaac525dd3b4c7289dda8e",
+    "packHash": "39dbe3605dbef47875b1b2e76de0a7fa2a5a3d878e4b18fccad6cf36fc6df429",
     "schema": 1
   }
 }

@@ -61,3 +61,6 @@ Pack build runs Sofer hard-fail checks 1–8 (coverage, token order + x-large/ne
 - Sofer gates G1–G7: `reports/concordance_gate_G*.json`; G1–G6 re-verified by `ConcordanceGateTest` (JVM, hard-fail).
 - Screens (Paparazzi/layoutlib render — note layoutlib draws Hebrew words in logical LTR order; device bidi is RTL):
   `reports/concordance_screens/`.
+- **v0.7.1** (Sofer MEDIUM-1): JPS shown verbatim in rows (Adonai-x titles kept); Exod.6.3 ebible "Jehovah" → "YHWH"
+  in the pack (`tools/pipeline/patch-jps-dn.mjs`; build-pack.mjs normalizes the same way); hard-fails: no JPS
+  jehovah/yehovah/yahweh, concordance verseIds match `^[1-3]?[A-Za-z]+\.\d+\.\d+$`; catalog version fixed.

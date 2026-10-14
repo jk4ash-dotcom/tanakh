@@ -168,7 +168,7 @@ class ConcordanceGateTest {
     }
 
     // ---------- G4 ----------
-    private val forbidden = Regex("""(?i)jehovah|yahweh|yehovah|ye\.?\s*ho\.?\s*vah|adonai|a\.?\s*do\.?\s*na[iy]""")
+    private val forbidden = Regex("""(?i)jehovah|yahweh|yehovah|ye\.\s*ho\.\s*vah|a\.\s*do\.\s*na[iy]""")
     private val vocalizedYhwh = Regex("י[\u0591-\u05C7]+ה[\u0591-\u05C7]*ו[\u0591-\u05C7]*ה")
 
     @Test
@@ -208,7 +208,7 @@ class ConcordanceGateTest {
   "rowsRendered": $rendered,
   "forbiddenHits": [${hits.take(50).joinToString { "\"" + it.replace("\"", "'") + "\"" }}],
   "headerStrings": [${headers.joinToString { "\"$it\"" }}],
-  "englishPolicy": "rows rewrite ebible Jehovah/Adonai-x substitutions to YHWH (Gen.22.14, Exod.6.3, Exod.17.15, Judg.6.24) — reading line unchanged; for Sofer ruling",
+  "englishPolicy": "JPS verbatim in rows (== reading line). Adonai-x titles allowed (Gen.22.14, Exod.17.15, Judg.6.24); Exod.6.3 fixed to YHWH in the pack; no JPS line contains jehovah/yehovah/yahweh",
   "perf": {"H3068count": ${fresh.count}, "page0Rows": ${p0.size}, "page200Rows": ${deep.size}, "rowsDecodedTotal": $decodedAfter, "firstPageMs": ${"%.2f".format(firstPageMs)}}
 }"""
         File(root, "reports/concordance_gate_G4.json").writeText(report)
@@ -216,6 +216,29 @@ class ConcordanceGateTest {
         assertEquals("G4 DN pagination must not decode all rows", 60, decodedAfter)
         assertTrue(fresh.count > 6000)
         assertTrue("G4 first page < 200ms", firstPageMs < 200)
+    }
+
+    @Test
+    fun G4_jpsHasNoYhwhVocalization() {
+        val bad = Regex("(?i)jehovah|yehovah|yahweh")
+        val hits = verses.values.filter { bad.containsMatchIn(it.english.text) }.map { it.id }
+        assertTrue("JPS vocalization in $hits", hits.isEmpty())
+        assertTrue(verses["Exod.6.3"]!!.english.text.contains("by My name YHWH"))
+        mapOf("Gen.22.14" to "Adonai-jireh", "Exod.17.15" to "Adonai-nissi", "Judg.6.24" to "'Adonai-shalom'").forEach { (id, s) ->
+            assertTrue("$id keeps $s", verses[id]!!.english.text.contains(s))
+            assertEquals(verses[id]!!.english.text, ConcordanceDisplay.render(verses[id]!!, 0, false).english)
+        }
+    }
+
+    @Test
+    fun G2_verseIdFormat() {
+        val re = Regex("^[1-3]?[A-Za-z]+\\.\\d+\\.\\d+$")
+        for (k in index.keys) for (r in index.entry(k)!!.allRows()) assertTrue("bad verseId ${r.verseId}", re.matches(r.verseId))
+    }
+
+    @Test
+    fun catalogVersionMatchesApp() {
+        assertEquals("0.7.1-concordance-poc", catalog.version)
     }
 
     // ---------- G5 ----------

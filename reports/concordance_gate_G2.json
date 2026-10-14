@@ -1,9 +1,11 @@
 {
   "gate": "G2",
   "ok": true,
-  "packHash": "27461e42762d0505434d24be07d555045b984b648bfaac525dd3b4c7289dda8e",
+  "packHash": "39dbe3605dbef47875b1b2e76de0a7fa2a5a3d878e4b18fccad6cf36fc6df429",
   "failures": [],
   "rowsChecked": 299560,
+  "verseIdFormat": "^[1-3]?[A-Za-z]+\\.\\d+\\.\\d+$",
+  "malformedVerseIds": 0,
   "packHashStampedInCatalog": true,
   "loader": "ConcordanceRepository refuses index.packHash != catalog.concordance.packHash; JVM test recomputes hash from packs"
 }

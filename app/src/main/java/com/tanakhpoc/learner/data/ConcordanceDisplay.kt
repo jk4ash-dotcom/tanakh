@@ -31,7 +31,6 @@ object ConcordanceDisplay {
     const val MAQAF = '\u05BE'
     const val MAX_WORDS = 16
 
-    private val DN_ENGLISH = Regex("""(?i)\b(jehovah|yehovah|yahweh|adonai)\b""")
 
     /** Divine-name sanitizer for the Hebrew token: never show a vocalized YHWH. */
     fun displayHe(token: Token): String {
@@ -43,8 +42,6 @@ object ConcordanceDisplay {
         } else token.he
     }
 
-    /** JPS line in rows: ebible substitutes Jehovah / Adonai-x; rows show YHWH (Sofer DN policy). */
-    fun sanitizeEnglish(text: String): String = DN_ENGLISH.replace(text, "YHWH")
 
     private fun joinsNext(t: Token) = t.he.endsWith(MAQAF)
 
@@ -101,7 +98,8 @@ object ConcordanceDisplay {
         return RenderedRow(
             ref = BookTitles.verseLabel(verse.book, verse.chapter, verse.verse),
             hebrew = trim(verse.words, wordIndex),
-            english = sanitizeEnglish(verse.english.text),
+            // JPS verbatim — identical to the reading line (Sofer MEDIUM-1, v0.7.1).
+            english = verse.english.text,
             // Aramaic keeps the pack's [aramaic-pending]; never Hebrew SBL for A rows.
             phonetic = if (aram) "[aramaic-pending]" else token.phonetic,
             badges = badges,
