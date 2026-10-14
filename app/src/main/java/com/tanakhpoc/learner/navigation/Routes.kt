@@ -9,6 +9,6 @@ object Routes {
     const val CONCORDANCE = "concordance/{key}"
     fun book(book: String) = "book/$book"
     fun chapter(book: String, chapter: Int) = "chapter/$book/$chapter"
-    fun verse(verseId: String, wordIndex: Int = -1) = "verse/$verseId?w=$wordIndex"
+    fun verse(verseId: String, wordIndex: Int = -1) = "verse/${android.net.Uri.encode(verseId)}?w=$wordIndex"
     fun concordance(key: String) = "concordance/${android.net.Uri.encode(key)}"
 }

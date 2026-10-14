@@ -64,3 +64,7 @@ Pack build runs Sofer hard-fail checks 1–8 (coverage, token order + x-large/ne
 - **v0.7.1** (Sofer MEDIUM-1): JPS shown verbatim in rows (Adonai-x titles kept); Exod.6.3 ebible "Jehovah" → "YHWH"
   in the pack (`tools/pipeline/patch-jps-dn.mjs`; build-pack.mjs normalizes the same way); hard-fails: no JPS
   jehovah/yehovah/yahweh, concordance verseIds match `^[1-3]?[A-Za-z]+\.\d+\.\d+$`; catalog version fixed.
+- **v0.7.3** (Critic MEDIUM batch): `ConcordancePager` (per-page Deferred, loader on Default, CancellationException
+  rethrown, Failed page + Retry row, Missing slots keep alignment, single snapshotFlow drives loading);
+  explicit `ConcordanceLoad.Failed` hides the gloss-card link; page-offset cache; atomic counters; flash-once;
+  encoded verse routes; `ConcordancePagerTest`.

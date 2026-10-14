@@ -15,6 +15,8 @@ import androidx.compose.ui.layout.positionInParent
 import androidx.compose.ui.platform.testTag
 import com.tanakhpoc.learner.data.ConcordanceLink
 import com.tanakhpoc.learner.data.ConcordanceRules
+import com.tanakhpoc.learner.data.FocusPolicy
+import androidx.compose.runtime.saveable.rememberSaveable
 import com.tanakhpoc.learner.ui.theme.ConcordanceHighlight
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -100,13 +102,19 @@ fun VerseScreen(
     val chipScroll = rememberScrollState()
     val chipX = remember { mutableStateMapOf<Int, Int>() }
     val flash = remember { Animatable(0f) }
-    LaunchedEffect(focusWordIndex, chipX[focusWordIndex]) {
-        val x = chipX[focusWordIndex] ?: return@LaunchedEffect
+    // Critic L6/L7: only a real wordIndex may focus; flash once (consumed survives recreation/back).
+    val focus = FocusPolicy.validFocus(verse, focusWordIndex)
+    var flashConsumed by rememberSaveable(verse.id, focusWordIndex) { mutableStateOf(false) }
+    LaunchedEffect(focus, chipX[focus ?: -1]) {
+        val f = focus ?: return@LaunchedEffect
+        val x = chipX[f] ?: return@LaunchedEffect
+        if (flashConsumed) return@LaunchedEffect
         chipScroll.animateScrollTo((x - 48).coerceAtLeast(0))
         repeat(2) {
             flash.animateTo(1f, tween(280))
             flash.animateTo(0f, tween(420))
         }
+        flashConsumed = true
     }
 
     Scaffold(
@@ -161,7 +169,7 @@ fun VerseScreen(
                             val end = note.anchor.wordIndexEnd ?: start
                             index in start..end
                         }
-                        val focused = index == focusWordIndex
+                        val focused = focus != null && index == focus && !flashConsumed
                         Column(
                             horizontalAlignment = Alignment.CenterHorizontally,
                             modifier = Modifier

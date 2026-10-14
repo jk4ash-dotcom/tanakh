@@ -47,6 +47,13 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.tanakhpoc.learner.data.ConcordanceDisplay
 import com.tanakhpoc.learner.data.ConcordanceEntry
+import com.tanakhpoc.learner.data.ConcordancePager
+import com.tanakhpoc.learner.data.PageState
+import com.tanakhpoc.learner.data.RowSlot
+import androidx.compose.material3.TextButton
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.snapshotFlow
+import kotlinx.coroutines.flow.distinctUntilChanged
 import com.tanakhpoc.learner.data.Gloss
 import com.tanakhpoc.learner.data.RenderedRow
 import com.tanakhpoc.learner.data.TrimmedLine
@@ -56,23 +63,27 @@ import com.tanakhpoc.learner.ui.theme.Ink
 
 const val CONCORDANCE_PAGE = 30
 
-/** A loaded page row: rendered strings + jump target. */
-data class ConcordanceRowUi(val verseId: String, val wordIndex: Int, val rendered: RenderedRow)
-
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ConcordanceScreen(
     entry: ConcordanceEntry,
     gloss: Gloss?,
-    loadPage: suspend (page: Int) -> List<ConcordanceRowUi>,
+    pager: ConcordancePager,
     onOpenRow: (verseId: String, wordIndex: Int) -> Unit,
     onBack: () -> Unit,
-    listState: LazyListState = rememberLazyListState(),
-    initialPages: Map<Int, List<ConcordanceRowUi>> = emptyMap()
+    listState: LazyListState = rememberLazyListState()
 ) {
     val header = remember(entry.key) { ConcordanceDisplay.header(entry, gloss) }
-    // Pages load lazily as rows scroll in; DN (6.5k rows) never loads up front.
-    val pages = remember(entry.key) { mutableStateMapOf<Int, List<ConcordanceRowUi>>().apply { putAll(initialPages) } }
+    val pages by pager.pages.collectAsState()
+    // Critic M2: one snapshotFlow on visible items drives loading (visible pages + next page);
+    // the pager de-dups via per-page Deferred, so recomposition never fans out loads.
+    LaunchedEffect(pager, listState) {
+        snapshotFlow {
+            val idx = listState.layoutInfo.visibleItemsInfo.mapNotNull { it.key as? Int }
+            if (idx.isEmpty()) setOf(0)
+            else (pager.pageOf(idx.min())..pager.pageOf(idx.max()) + 1).toSet()
+        }.distinctUntilChanged().collect { want -> want.forEach { pager.request(it) } }
+    }
     Scaffold(
         topBar = {
             TopAppBar(
@@ -91,19 +102,35 @@ fun ConcordanceScreen(
         ) {
             item(key = "header") { ConcordanceHeader(header, entry.isAramaic) }
             items(count = entry.count, key = { it }) { i ->
-                val page = i / CONCORDANCE_PAGE
-                val row = pages[page]?.getOrNull(i % CONCORDANCE_PAGE)
-                if (row == null) {
-                    LaunchedEffect(page) {
-                        if (pages[page] == null) pages[page] = loadPage(page)
+                val page = pager.pageOf(i)
+                when (val st = pages[page]) {
+                    is PageState.Failed -> if (i % pager.pageSize == 0) {
+                        Column(Modifier.fillMaxWidth().padding(16.dp)) {
+                            Text(
+                                "Couldn't load these rows (${st.message.take(80)})",
+                                style = MaterialTheme.typography.bodySmall,
+                                color = MaterialTheme.colorScheme.error
+                            )
+                            TextButton(onClick = { pager.retry(page) }) { Text("Retry") }
+                        }
+                    } else {
+                        Text("—", modifier = Modifier.fillMaxWidth().padding(horizontal = 16.dp, vertical = 4.dp),
+                            color = MaterialTheme.colorScheme.onSurfaceVariant)
                     }
-                    Text(
+                    is PageState.Loaded -> when (val slot = st.slots.getOrNull(i % pager.pageSize)) {
+                        is RowSlot.Ready -> ConcordanceRowView(slot, onOpen = { onOpenRow(slot.verseId, slot.wordIndex) })
+                        is RowSlot.Missing, null -> Text(
+                            "${(slot as? RowSlot.Missing)?.verseId ?: "?"} — verse not available",
+                            style = MaterialTheme.typography.bodySmall,
+                            color = MaterialTheme.colorScheme.onSurfaceVariant,
+                            modifier = Modifier.fillMaxWidth().padding(16.dp)
+                        )
+                    }
+                    else -> Text(
                         "…",
                         modifier = Modifier.fillMaxWidth().padding(16.dp).height(64.dp),
                         color = MaterialTheme.colorScheme.onSurfaceVariant
                     )
-                } else {
-                    ConcordanceRowView(row, onOpen = { onOpenRow(row.verseId, row.wordIndex) })
                 }
                 HorizontalDivider(color = MaterialTheme.colorScheme.outlineVariant.copy(alpha = 0.5f))
             }
@@ -168,7 +195,7 @@ private fun hebrewAnnotated(line: TrimmedLine, highlight: Color) = buildAnnotate
 }
 
 @Composable
-private fun ConcordanceRowView(row: ConcordanceRowUi, onOpen: () -> Unit) {
+private fun ConcordanceRowView(row: RowSlot.Ready, onOpen: () -> Unit) {
     var showKetiv by rememberSaveable(row.verseId, row.wordIndex) { mutableStateOf(false) }
     val r = row.rendered
     Column(

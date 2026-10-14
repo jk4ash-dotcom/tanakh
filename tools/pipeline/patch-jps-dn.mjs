@@ -9,7 +9,7 @@ import zlib from "zlib";
 import { fileURLToPath } from "url";
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "../..");
 const DATA = path.join(ROOT, "app/src/main/assets/data");
-const VERSION = "0.7.2-concordance-poc";
+const VERSION = "0.7.3-concordance-poc";
 const RE = /\b(jehovah|yehovah|yahweh)\b/gi;
 const catalogPath = path.join(DATA, "catalog.json");
 const catalog = JSON.parse(fs.readFileSync(catalogPath, "utf8"));

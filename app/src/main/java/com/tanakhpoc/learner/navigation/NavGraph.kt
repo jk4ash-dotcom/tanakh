@@ -11,10 +11,12 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.foundation.lazy.rememberLazyListState
-import com.tanakhpoc.learner.data.ConcordanceDisplay
+import com.tanakhpoc.learner.data.ConcordanceLoad
+import com.tanakhpoc.learner.data.ConcordancePager
+import androidx.compose.runtime.rememberCoroutineScope
+import kotlinx.coroutines.CancellationException
 import com.tanakhpoc.learner.data.ConcordanceEntry
 import com.tanakhpoc.learner.ui.screens.CONCORDANCE_PAGE
-import com.tanakhpoc.learner.ui.screens.ConcordanceRowUi
 import com.tanakhpoc.learner.ui.screens.ConcordanceScreen
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -161,10 +163,20 @@ fun TanakhNavGraph() {
         ) { e ->
             val id = e.arguments?.getString("verseId") ?: return@composable
             val focusW = e.arguments?.getInt("w") ?: -1
-            var conc by remember { mutableStateOf(ready.concordanceOrNull()) }
+            var conc by remember {
+                mutableStateOf<ConcordanceLoad>(
+                    ready.concordanceOrNull()?.let { ConcordanceLoad.Ready(it) } ?: ConcordanceLoad.Loading
+                )
+            }
             LaunchedEffect(Unit) {
-                // Off-main load; a hash mismatch leaves the link hidden (Unavailable).
-                runCatching { ready.ensureConcordance() }.onSuccess { conc = it }
+                // Critic M3: explicit Failed state (load/hash error) → link Unavailable, no forever-spinner.
+                conc = try {
+                    ConcordanceLoad.Ready(ready.ensureConcordance())
+                } catch (e: CancellationException) {
+                    throw e
+                } catch (e: Exception) {
+                    ConcordanceLoad.Failed(e.message ?: e.toString())
+                }
             }
             val book = id.substringBefore('.')
             var verseReady by remember(id) { mutableStateOf(ready.verse(id) != null && ready.glossesReady) }
@@ -193,7 +205,7 @@ fun TanakhNavGraph() {
                         resolveGloss = { ready.gloss(it) },
                         dssNotes = (bookNotes + verseNotes).distinctBy { it.id },
                         focusWordIndex = focusW,
-                        concordanceLink = { t -> conc?.linkFor(t) },
+                        concordanceLink = { t -> conc.linkFor(t) },
                         onSeeAll = { key -> navController.navigate(Routes.concordance(key)) },
                         onBack = { navController.popBackStack() }
                     )
@@ -222,22 +234,23 @@ fun TanakhNavGraph() {
                 loaded == null -> Box(Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
                     CircularProgressIndicator()
                 }
-                else -> ConcordanceScreen(
+                else -> {
+                    val scope = rememberCoroutineScope()
+                    val pager = remember(loaded) {
+                        ConcordancePager(loaded, scope, CONCORDANCE_PAGE) { vid ->
+                            ready.ensureBook(vid.substringBefore('.'))
+                            ready.verse(vid)
+                        }
+                    }
+                    ConcordanceScreen(
                     entry = loaded,
                     gloss = ready.gloss(loaded.lemmaId),
                     listState = listState,
-                    loadPage = { page ->
-                        withContext(Dispatchers.Default) {
-                            loaded.page(page * CONCORDANCE_PAGE, CONCORDANCE_PAGE)
-                        }.mapNotNull { r ->
-                            ready.ensureBook(r.verseId.substringBefore('.'))
-                            val v = ready.verse(r.verseId) ?: return@mapNotNull null
-                            ConcordanceRowUi(r.verseId, r.wordIndex, ConcordanceDisplay.render(v, r.wordIndex, r.ketivQere))
-                        }
-                    },
+                    pager = pager,
                     onOpenRow = { vid, wi -> navController.navigate(Routes.verse(vid, wi)) },
                     onBack = { navController.popBackStack() }
                 )
+                }
             }
         }
     }

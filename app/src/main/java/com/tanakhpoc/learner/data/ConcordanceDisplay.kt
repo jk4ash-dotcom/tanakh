@@ -88,8 +88,9 @@ object ConcordanceDisplay {
         return TrimmedLine(shown, from > 0, to < words.lastIndex)
     }
 
-    fun render(verse: Verse, wordIndex: Int, ketivQere: Boolean): RenderedRow {
-        val token = verse.words[wordIndex]
+    /** Null when [wordIndex] does not exist in [verse] (Critic M1) — caller shows a Missing row. */
+    fun render(verse: Verse, wordIndex: Int, ketivQere: Boolean): RenderedRow? {
+        val token = verse.words.getOrNull(wordIndex) ?: return null
         val aram = ConcordanceRules.lang(token) == 'A'
         val badges = buildList {
             if (aram) add("Aramaic")

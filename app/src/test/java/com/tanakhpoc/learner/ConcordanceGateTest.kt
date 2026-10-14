@@ -164,7 +164,7 @@ class ConcordanceGateTest {
             }
         }
         // Gen.31.47 Aramaic rows render with badge + aramaic-pending phonetics
-        val r = ConcordanceDisplay.render(verses["Gen.31.47"]!!, 3, false)
+        val r = ConcordanceDisplay.render(verses["Gen.31.47"]!!, 3, false)!!
         assertTrue(r.badges.contains("Aramaic")); assertEquals("[aramaic-pending]", r.phonetic)
     }
 
@@ -186,7 +186,7 @@ class ConcordanceGateTest {
         val hits = mutableListOf<String>()
         var rendered = 0
         for ((vid, wi) in targets) {
-            val row = ConcordanceDisplay.render(verses[vid]!!, wi, verses[vid]!!.words[wi].ketiv != null)
+            val row = ConcordanceDisplay.render(verses[vid]!!, wi, verses[vid]!!.words[wi].ketiv != null)!!
             rendered++
             row.allStrings().forEach { s ->
                 if (forbidden.containsMatchIn(s) || vocalizedYhwh.containsMatchIn(s)) hits += "$vid:$wi «$s»"
@@ -227,7 +227,7 @@ class ConcordanceGateTest {
         assertTrue(verses["Exod.6.3"]!!.english.text.contains("by My name YHWH"))
         mapOf("Gen.22.14" to "Adonai-jireh", "Exod.17.15" to "Adonai-nissi", "Judg.6.24" to "'Adonai-shalom'").forEach { (id, s) ->
             assertTrue("$id keeps $s", verses[id]!!.english.text.contains(s))
-            assertEquals(verses[id]!!.english.text, ConcordanceDisplay.render(verses[id]!!, 0, false).english)
+            assertEquals(verses[id]!!.english.text, ConcordanceDisplay.render(verses[id]!!, 0, false)!!.english)
         }
     }
 
@@ -256,7 +256,7 @@ class ConcordanceGateTest {
 
     @Test
     fun catalogVersionMatchesApp() {
-        assertEquals("0.7.2-concordance-poc", catalog.version)
+        assertEquals("0.7.3-concordance-poc", catalog.version)
     }
 
     // ---------- G5 ----------
@@ -277,7 +277,7 @@ class ConcordanceGateTest {
         assertEquals("הניס", jer.ketiv)
         val row = index.entry("H:${jer.lemmaId}")!!.allRows().first { it.verseId == "Jer.48.44" && it.wordIndex == 0 }
         assertTrue(row.ketivQere)
-        val rendered = ConcordanceDisplay.render(verses["Jer.48.44"]!!, 0, true)
+        val rendered = ConcordanceDisplay.render(verses["Jer.48.44"]!!, 0, true)!!
         assertTrue(rendered.badges.contains("qere"))
         assertEquals(jer.he, rendered.hebrew.words.first { it.highlighted }.text) // qere surface, by index
         assertEquals("Ketiv (written): הניס", rendered.ketivOnTap)
