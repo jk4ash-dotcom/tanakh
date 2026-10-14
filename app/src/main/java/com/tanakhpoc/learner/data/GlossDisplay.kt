@@ -15,12 +15,12 @@ data class DisplayedGloss(
 object GlossDisplay {
     /** Vocalization / Jehovah dumps that must never appear as fact in UI. */
     private val FORBIDDEN = Regex(
-        """(?i)jehovah|ye\.?\s*ho\.?\s*vah|yehovah|""" +
+        """(?i)jehovah|ye\.?\s*ho\.?\s*vah|yehovah|yahweh|""" +
             """vowel\s*pointings?\s+of|a\.?\s*do\.?\s*na(?:y|i)?|""" +
             """adonai[-\s]?vowel|unpronounced\s+except"""
     )
 
-    private val JEHOVAH_WORD = Regex("""(?i)jehovah|yehovah|ye\.?\s*ho\.?\s*vah""")
+    private val JEHOVAH_WORD = Regex("""(?i)jehovah|yehovah|yahweh|ye\.?\s*ho\.?\s*vah""")
 
     fun forToken(token: Token, gloss: Gloss?): DisplayedGloss {
         if (token.divineName || isYhwhLemma(token) || consonantsAreYhwh(token.he)) {

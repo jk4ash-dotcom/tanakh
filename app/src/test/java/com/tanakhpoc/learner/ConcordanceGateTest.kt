@@ -7,6 +7,7 @@ import com.tanakhpoc.learner.data.ConcordanceIndex
 import com.tanakhpoc.learner.data.ConcordanceLink
 import com.tanakhpoc.learner.data.ConcordanceRules
 import com.tanakhpoc.learner.data.Gloss
+import com.tanakhpoc.learner.data.GlossDisplay
 import com.tanakhpoc.learner.data.Pack
 import com.tanakhpoc.learner.data.PackRepository
 import com.tanakhpoc.learner.data.Token
@@ -231,6 +232,23 @@ class ConcordanceGateTest {
     }
 
     @Test
+    fun glossCard_noYhwhVocalizationInAnyDisplayedGloss() {
+        val bad = Regex("(?i)jehovah|yehovah|yahweh")
+        val rawHits = glosses.values.count { g -> (listOf(g.primary, g.definition.orEmpty()) + g.senses).any { bad.containsMatchIn(it) } }
+        assertTrue("expected raw Yahweh/Jehovah definitions to exercise sanitizer", rawHits > 0)
+        val hits = mutableListOf<String>()
+        for ((id, g) in glosses) {
+            for (dn in listOf(false, true)) {
+                val t = Token(he = "", lemmaId = id, glossId = id, phonetic = "", divineName = dn && id.startsWith("H3068"))
+                val d = GlossDisplay.forToken(t, g)
+                (listOf(d.primary, d.definition.orEmpty(), d.source, d.policyNote.orEmpty()) + d.senses)
+                    .filter { bad.containsMatchIn(it) }.forEach { hits += "$id «$it»" }
+            }
+        }
+        assertTrue("gloss card leaks: ${hits.take(10)}", hits.isEmpty())
+    }
+
+    @Test
     fun G2_verseIdFormat() {
         val re = Regex("^[1-3]?[A-Za-z]+\\.\\d+\\.\\d+$")
         for (k in index.keys) for (r in index.entry(k)!!.allRows()) assertTrue("bad verseId ${r.verseId}", re.matches(r.verseId))
@@ -238,7 +256,7 @@ class ConcordanceGateTest {
 
     @Test
     fun catalogVersionMatchesApp() {
-        assertEquals("0.7.1-concordance-poc", catalog.version)
+        assertEquals("0.7.2-concordance-poc", catalog.version)
     }
 
     // ---------- G5 ----------
