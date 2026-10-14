@@ -444,5 +444,11 @@
     "glosses": 9205,
     "ketivQere": 1245,
     "gaps": 4927
+  },
+  "concordance": {
+    "asset": "data/concordance.json",
+    "assetGz": "data/concordance.json.gz",
+    "packHash": "27461e42762d0505434d24be07d555045b984b648bfaac525dd3b4c7289dda8e",
+    "schema": 1
   }
 }

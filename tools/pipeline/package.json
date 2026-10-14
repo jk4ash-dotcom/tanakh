@@ -11,7 +11,8 @@
     "build:neviim": "node build-pack.mjs --scope neviim",
     "build:tn": "node build-pack.mjs --scope torah+neviim",
     "build:ketuvim": "node build-pack.mjs --scope ketuvim",
-    "build:all": "node build-pack.mjs --scope all"
+    "build:all": "node build-pack.mjs --scope all",
+    "concordance": "node build-concordance.mjs"
   },
   "keywords": [],
   "author": "",

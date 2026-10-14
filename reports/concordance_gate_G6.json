@@ -1,0 +1,24 @@
+{
+  "gate": "G6",
+  "ok": true,
+  "packHash": "27461e42762d0505434d24be07d555045b984b648bfaac525dd3b4c7289dda8e",
+  "failures": [],
+  "rule": "isParticle = lemmaId H9xxx OR glossId pfx:*",
+  "INFO_particleKeys": {
+    "A:H9003": 30,
+    "A:H9005": 62,
+    "A:pfx:c/l": 5,
+    "H:H9003": 1329,
+    "H:H9004": 9,
+    "H:H9005": 4345,
+    "H:H9006": 91,
+    "H:H9008": 1,
+    "H:pfx:c/b": 16,
+    "H:pfx:c/l": 69,
+    "H:pfx:c/m": 6,
+    "H:pfx:i/l": 1,
+    "H:pfx:s/l": 2
+  },
+  "H0853": 10977,
+  "H3605": 5413
+}

@@ -49,3 +49,15 @@ Pack build runs Sofer hard-fail checks 1–8 (coverage, token order + x-large/ne
 
 - **Debug APK:** default Android debug keystore (`~/.android/debug.keystore`).
 - **Release APK (non-debuggable):** also signed with the **local debug keystore** via `signingConfig = signingConfigs.getByName("debug")` in `app/build.gradle.kts`. This is intentional for Play Protect / Argus sideload testing without a Play App Signing key — not a store upload key.
+
+## v0.7.0-concordance-poc — Hebrew concordance (branch `concordance`)
+
+- Gloss card gains **"Appears N times · See all"** (particles: "Common function word" card).
+- **ConcordanceScreen**: headword + lemma id, "in this text (OSHB)"; rows = ref, Hebrew verse in context
+  (RTL, token highlighted by `wordIndex`, trimmed only on maqaf-group boundaries), full JPS verse muted;
+  Aramaic / qere badges (ketiv on tap). Canonical order, paged 30 rows; tap → verse, chip scrolled + flashed.
+- Index built at pack time: `node tools/pipeline/build-concordance.mjs` (also run by `build-pack.mjs`) →
+  `assets/data/concordance.json.gz`, stamped with the pack hash in `catalog.json`; the loader refuses a mismatch.
+- Sofer gates G1–G7: `reports/concordance_gate_G*.json`; G1–G6 re-verified by `ConcordanceGateTest` (JVM, hard-fail).
+- Screens (Paparazzi/layoutlib render — note layoutlib draws Hebrew words in logical LTR order; device bidi is RTL):
+  `reports/concordance_screens/`.

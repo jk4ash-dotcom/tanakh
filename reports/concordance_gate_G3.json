@@ -1,0 +1,438 @@
+{
+  "gate": "G3",
+  "ok": true,
+  "packHash": "27461e42762d0505434d24be07d555045b984b648bfaac525dd3b4c7289dda8e",
+  "failures": [],
+  "aramaicTokensIndexed": 4731,
+  "rowsUnderAKeys": 4731,
+  "aKeys": 710,
+  "INFO_lemmasUnderBothHandA": [
+    {
+      "lemmaId": "H5921a",
+      "H": 5760,
+      "A": 1
+    },
+    {
+      "lemmaId": "H3605",
+      "H": 5413,
+      "A": 1
+    },
+    {
+      "lemmaId": "H5714",
+      "H": 8,
+      "A": 2
+    },
+    {
+      "lemmaId": "H3964",
+      "H": 1,
+      "A": 1
+    },
+    {
+      "lemmaId": "H6676",
+      "H": 1,
+      "A": 3
+    },
+    {
+      "lemmaId": "H6032",
+      "H": 1,
+      "A": 30
+    },
+    {
+      "lemmaId": "H5020",
+      "H": 1,
+      "A": 31
+    }
+  ],
+  "spot": {
+    "Gen.31.47:3": {
+      "lemmaId": "H3026a",
+      "inA": true,
+      "inH": false
+    },
+    "Gen.31.47:4": {
+      "lemmaId": "H3026b",
+      "inA": true,
+      "inH": false
+    },
+    "Dan.2.4:4": {
+      "lemmaId": "H4430",
+      "inA": true,
+      "inH": false
+    },
+    "Dan.2.4:5": {
+      "lemmaId": "H5957",
+      "inA": true,
+      "inH": false
+    },
+    "Dan.2.4:6": {
+      "lemmaId": "H2418",
+      "inA": true,
+      "inH": false
+    },
+    "Dan.2.4:7": {
+      "lemmaId": "H0560",
+      "inA": true,
+      "inH": false
+    },
+    "Dan.2.4:8": {
+      "lemmaId": "H2493",
+      "inA": true,
+      "inH": false
+    },
+    "Dan.2.4:9": {
+      "lemmaId": "H5649",
+      "inA": true,
+      "inH": false
+    },
+    "Dan.2.4:10": {
+      "lemmaId": "H6591",
+      "inA": true,
+      "inH": false
+    },
+    "Dan.2.4:11": {
+      "lemmaId": "H2324",
+      "inA": true,
+      "inH": false
+    },
+    "Dan.7.28:0": {
+      "lemmaId": "H5705",
+      "inA": true,
+      "inH": false
+    },
+    "Dan.7.28:1": {
+      "lemmaId": "H3542",
+      "inA": true,
+      "inH": false
+    },
+    "Dan.7.28:2": {
+      "lemmaId": "H5491",
+      "inA": true,
+      "inH": false
+    },
+    "Dan.7.28:3": {
+      "lemmaId": "H1768",
+      "inA": true,
+      "inH": false
+    },
+    "Dan.7.28:4": {
+      "lemmaId": "H4406",
+      "inA": true,
+      "inH": false
+    },
+    "Dan.7.28:5": {
+      "lemmaId": "H0576b",
+      "inA": true,
+      "inH": false
+    },
+    "Dan.7.28:6": {
+      "lemmaId": "H1841",
+      "inA": true,
+      "inH": false
+    },
+    "Dan.7.28:7": {
+      "lemmaId": "H7690",
+      "inA": true,
+      "inH": false
+    },
+    "Dan.7.28:8": {
+      "lemmaId": "H7476",
+      "inA": true,
+      "inH": false
+    },
+    "Dan.7.28:9": {
+      "lemmaId": "H0927",
+      "inA": true,
+      "inH": false
+    },
+    "Dan.7.28:10": {
+      "lemmaId": "H2122",
+      "inA": true,
+      "inH": false
+    },
+    "Dan.7.28:11": {
+      "lemmaId": "H8133",
+      "inA": true,
+      "inH": false
+    },
+    "Dan.7.28:12": {
+      "lemmaId": "H5922",
+      "inA": true,
+      "inH": false
+    },
+    "Dan.7.28:13": {
+      "lemmaId": "H4406",
+      "inA": true,
+      "inH": false
+    },
+    "Dan.7.28:14": {
+      "lemmaId": "H3821",
+      "inA": true,
+      "inH": false
+    },
+    "Dan.7.28:15": {
+      "lemmaId": "H5202",
+      "inA": true,
+      "inH": false
+    },
+    "Ezra.4.8:0": {
+      "lemmaId": "H7348b",
+      "inA": true,
+      "inH": false
+    },
+    "Ezra.4.8:1": {
+      "lemmaId": "H1169",
+      "inA": true,
+      "inH": false
+    },
+    "Ezra.4.8:2": {
+      "lemmaId": "H2942",
+      "inA": true,
+      "inH": false
+    },
+    "Ezra.4.8:3": {
+      "lemmaId": "H8124",
+      "inA": true,
+      "inH": false
+    },
+    "Ezra.4.8:4": {
+      "lemmaId": "H5613",
+      "inA": true,
+      "inH": false
+    },
+    "Ezra.4.8:5": {
+      "lemmaId": "H3790",
+      "inA": true,
+      "inH": false
+    },
+    "Ezra.4.8:6": {
+      "lemmaId": "H0104",
+      "inA": true,
+      "inH": false
+    },
+    "Ezra.4.8:7": {
+      "lemmaId": "H2298",
+      "inA": true,
+      "inH": false
+    },
+    "Ezra.4.8:8": {
+      "lemmaId": "H5922",
+      "inA": true,
+      "inH": false
+    },
+    "Ezra.4.8:9": {
+      "lemmaId": "H3390",
+      "inA": true,
+      "inH": false
+    },
+    "Ezra.4.8:10": {
+      "lemmaId": "H0783b",
+      "inA": true,
+      "inH": false
+    },
+    "Ezra.4.8:11": {
+      "lemmaId": "H4430",
+      "inA": true,
+      "inH": false
+    },
+    "Ezra.4.8:12": {
+      "lemmaId": "H3660",
+      "inA": true,
+      "inH": false
+    },
+    "Ezra.6.18:0": {
+      "lemmaId": "H6966",
+      "inA": true,
+      "inH": false
+    },
+    "Ezra.6.18:1": {
+      "lemmaId": "H3549",
+      "inA": true,
+      "inH": false
+    },
+    "Ezra.6.18:2": {
+      "lemmaId": "H6392",
+      "inA": true,
+      "inH": false
+    },
+    "Ezra.6.18:3": {
+      "lemmaId": "H3879",
+      "inA": true,
+      "inH": false
+    },
+    "Ezra.6.18:4": {
+      "lemmaId": "H4255",
+      "inA": true,
+      "inH": false
+    },
+    "Ezra.6.18:5": {
+      "lemmaId": "H5922",
+      "inA": true,
+      "inH": false
+    },
+    "Ezra.6.18:6": {
+      "lemmaId": "H5673",
+      "inA": true,
+      "inH": false
+    },
+    "Ezra.6.18:7": {
+      "lemmaId": "H0426",
+      "inA": true,
+      "inH": false
+    },
+    "Ezra.6.18:8": {
+      "lemmaId": "H1768",
+      "inA": true,
+      "inH": false
+    },
+    "Ezra.6.18:9": {
+      "lemmaId": "H3390",
+      "inA": true,
+      "inH": false
+    },
+    "Ezra.6.18:10": {
+      "lemmaId": "H3792",
+      "inA": true,
+      "inH": false
+    },
+    "Ezra.6.18:11": {
+      "lemmaId": "H5609",
+      "inA": true,
+      "inH": false
+    },
+    "Ezra.6.18:12": {
+      "lemmaId": "H4873",
+      "inA": true,
+      "inH": false
+    },
+    "Ezra.7.12:0": {
+      "lemmaId": "H0783b",
+      "inA": true,
+      "inH": false
+    },
+    "Ezra.7.12:1": {
+      "lemmaId": "H4430",
+      "inA": true,
+      "inH": false
+    },
+    "Ezra.7.12:2": {
+      "lemmaId": "H4430",
+      "inA": true,
+      "inH": false
+    },
+    "Ezra.7.12:3": {
+      "lemmaId": "H5831",
+      "inA": true,
+      "inH": false
+    },
+    "Ezra.7.12:4": {
+      "lemmaId": "H3549",
+      "inA": true,
+      "inH": false
+    },
+    "Ezra.7.12:5": {
+      "lemmaId": "H5613",
+      "inA": true,
+      "inH": false
+    },
+    "Ezra.7.12:6": {
+      "lemmaId": "H1882",
+      "inA": true,
+      "inH": false
+    },
+    "Ezra.7.12:7": {
+      "lemmaId": "H1768",
+      "inA": true,
+      "inH": false
+    },
+    "Ezra.7.12:8": {
+      "lemmaId": "H0426",
+      "inA": true,
+      "inH": false
+    },
+    "Ezra.7.12:9": {
+      "lemmaId": "H8065",
+      "inA": true,
+      "inH": false
+    },
+    "Ezra.7.12:10": {
+      "lemmaId": "H1585",
+      "inA": true,
+      "inH": false
+    },
+    "Ezra.7.12:11": {
+      "lemmaId": "H3706",
+      "inA": true,
+      "inH": false
+    },
+    "Jer.10.11:0": {
+      "lemmaId": "H1836",
+      "inA": true,
+      "inH": false
+    },
+    "Jer.10.11:1": {
+      "lemmaId": "H0560",
+      "inA": true,
+      "inH": false
+    },
+    "Jer.10.11:3": {
+      "lemmaId": "H0426",
+      "inA": true,
+      "inH": false
+    },
+    "Jer.10.11:4": {
+      "lemmaId": "H1768",
+      "inA": true,
+      "inH": false
+    },
+    "Jer.10.11:5": {
+      "lemmaId": "H8065",
+      "inA": true,
+      "inH": false
+    },
+    "Jer.10.11:6": {
+      "lemmaId": "H0778",
+      "inA": true,
+      "inH": false
+    },
+    "Jer.10.11:7": {
+      "lemmaId": "H3809",
+      "inA": true,
+      "inH": false
+    },
+    "Jer.10.11:8": {
+      "lemmaId": "H5648",
+      "inA": true,
+      "inH": false
+    },
+    "Jer.10.11:9": {
+      "lemmaId": "H0007",
+      "inA": true,
+      "inH": false
+    },
+    "Jer.10.11:10": {
+      "lemmaId": "H0772",
+      "inA": true,
+      "inH": false
+    },
+    "Jer.10.11:11": {
+      "lemmaId": "H4481",
+      "inA": true,
+      "inH": false
+    },
+    "Jer.10.11:12": {
+      "lemmaId": "H8460",
+      "inA": true,
+      "inH": false
+    },
+    "Jer.10.11:13": {
+      "lemmaId": "H8065",
+      "inA": true,
+      "inH": false
+    },
+    "Jer.10.11:14": {
+      "lemmaId": "H0429",
+      "inA": true,
+      "inH": false
+    }
+  }
+}

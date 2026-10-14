@@ -1,6 +1,21 @@
 package com.tanakhpoc.learner.ui.screens
 
+import androidx.compose.animation.core.Animatable
+import androidx.compose.animation.core.tween
+import androidx.compose.foundation.background
 import androidx.compose.foundation.horizontalScroll
+import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.Surface
+import androidx.compose.material3.TextButton
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.mutableStateMapOf
+import androidx.compose.ui.layout.onGloballyPositioned
+import androidx.compose.ui.layout.positionInParent
+import androidx.compose.ui.platform.testTag
+import com.tanakhpoc.learner.data.ConcordanceLink
+import com.tanakhpoc.learner.data.ConcordanceRules
+import com.tanakhpoc.learner.ui.theme.ConcordanceHighlight
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -67,6 +82,9 @@ fun VerseScreen(
     verse: Verse,
     resolveGloss: (String?) -> Gloss?,
     dssNotes: List<DssResolvedNote> = emptyList(),
+    focusWordIndex: Int = -1,
+    concordanceLink: (Token) -> ConcordanceLink? = { null },
+    onSeeAll: (String) -> Unit = {},
     onBack: () -> Unit
 ) {
     var selected by remember { mutableStateOf<Token?>(null) }
@@ -78,6 +96,18 @@ fun VerseScreen(
     val bookBanners = visibleDss.filter { it.placement == DssPlacement.BOOK_BANNER }
     val seamMarkers = visibleDss.filter { it.placement == DssPlacement.SEAM_MARKER }
     val verseIndicators = visibleDss.filter { it.placement == DssPlacement.VERSE_INDICATOR }
+    // Concordance jump: scroll the chip row to the token and flash it (by wordIndex).
+    val chipScroll = rememberScrollState()
+    val chipX = remember { mutableStateMapOf<Int, Int>() }
+    val flash = remember { Animatable(0f) }
+    LaunchedEffect(focusWordIndex, chipX[focusWordIndex]) {
+        val x = chipX[focusWordIndex] ?: return@LaunchedEffect
+        chipScroll.animateScrollTo((x - 48).coerceAtLeast(0))
+        repeat(2) {
+            flash.animateTo(1f, tween(280))
+            flash.animateTo(0f, tween(420))
+        }
+    }
 
     Scaffold(
         topBar = {
@@ -120,7 +150,7 @@ fun VerseScreen(
             // Force LTR so RTL device locale cannot reverse OSHB token order.
             CompositionLocalProvider(LocalLayoutDirection provides LayoutDirection.Ltr) {
                 Row(
-                    Modifier.fillMaxWidth().horizontalScroll(rememberScrollState()),
+                    Modifier.fillMaxWidth().horizontalScroll(chipScroll),
                     horizontalArrangement = Arrangement.spacedBy(8.dp),
                     verticalAlignment = Alignment.Top
                 ) {
@@ -131,9 +161,19 @@ fun VerseScreen(
                             val end = note.anchor.wordIndexEnd ?: start
                             index in start..end
                         }
+                        val focused = index == focusWordIndex
                         Column(
                             horizontalAlignment = Alignment.CenterHorizontally,
-                            modifier = Modifier.widthIn(min = 72.dp)
+                            modifier = Modifier
+                                .widthIn(min = 72.dp)
+                                .onGloballyPositioned { chipX[index] = it.positionInParent().x.toInt() }
+                                .testTag("chip-$index")
+                                .then(
+                                    if (focused) Modifier.background(
+                                        ConcordanceHighlight.copy(alpha = 0.25f + 0.6f * flash.value),
+                                        RoundedCornerShape(10.dp)
+                                    ) else Modifier
+                                )
                         ) {
                             AssistChip(
                                 onClick = { selected = token },
@@ -299,7 +339,37 @@ fun VerseScreen(
                         color = MaterialTheme.colorScheme.onSurfaceVariant
                     )
                 }
-                Spacer(Modifier.height(16.dp))
+                Spacer(Modifier.height(12.dp))
+                when (val link = concordanceLink(token)) {
+                    is ConcordanceLink.Lemma -> TextButton(
+                        onClick = { selected = null; onSeeAll(link.key) },
+                        contentPadding = PaddingValues(0.dp)
+                    ) {
+                        Text(
+                            "${ConcordanceRules.countLabel(link.count)} · See all",
+                            style = MaterialTheme.typography.titleSmall,
+                            color = MaterialTheme.colorScheme.primary
+                        )
+                    }
+                    ConcordanceLink.FunctionWord -> Surface(
+                        color = MaterialTheme.colorScheme.surfaceVariant,
+                        shape = RoundedCornerShape(8.dp)
+                    ) {
+                        Text(
+                            ConcordanceRules.FUNCTION_WORD,
+                            style = MaterialTheme.typography.bodySmall,
+                            color = MaterialTheme.colorScheme.onSurfaceVariant,
+                            modifier = Modifier.padding(horizontal = 10.dp, vertical = 6.dp)
+                        )
+                    }
+                    ConcordanceLink.Unavailable -> Unit
+                    null -> Text(
+                        "Loading concordance…",
+                        style = MaterialTheme.typography.bodySmall,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant
+                    )
+                }
+                Spacer(Modifier.height(12.dp))
                 Text(
                     "Gloss ≠ verse translation",
                     style = MaterialTheme.typography.labelLarge,

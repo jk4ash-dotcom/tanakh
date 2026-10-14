@@ -938,6 +938,9 @@ function main() {
     process.exit(1);
   }
   console.log("Hard-fail checks PASSED.");
+  // Concordance index is rebuilt in the SAME pack step and stamped with the pack hash
+  // (Sofer G2). Hard-fails the build on any G1/G2/G3/G5/G6 failure.
+  require("child_process").execFileSync(process.execPath, [path.join(__dirname, "build-concordance.mjs")], { stdio: "inherit" });
   console.log(
     `Done. ${totalVerses} verses across ${bookList.length} books. Gloss sanitize + YHWH policy enforced.`
   );

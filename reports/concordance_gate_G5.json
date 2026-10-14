@@ -1,0 +1,19 @@
+{
+  "gate": "G5",
+  "ok": true,
+  "packHash": "27461e42762d0505434d24be07d555045b984b648bfaac525dd3b4c7289dda8e",
+  "failures": [],
+  "ketivWords": 1245,
+  "ketivExcludedAsParticleOrNoLemma": 23,
+  "kqFlaggedRows": 1222,
+  "jer_48_44": {
+    "he": "הַנָּס",
+    "ketiv": "הניס",
+    "lemmaId": "H5127",
+    "row": [
+      "Jer.48.44",
+      0,
+      true
+    ]
+  }
+}

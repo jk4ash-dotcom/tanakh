@@ -13,8 +13,8 @@ android {
         applicationId = "com.tanakhpoc.learner"
         minSdk = 26
         targetSdk = 35
-        versionCode = 18
-        versionName = "0.6.0-template-poc"
+        versionCode = 19
+        versionName = "0.7.0-concordance-poc"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         // Stamp short SHA at configure time (matches git HEAD when building from a clean tree).
         val gitSha = providers.exec {
@@ -88,6 +88,8 @@ fun verifyApkAssets(taskName: String, apkRel: String, assembleTask: String) {
             }
             val genOk = has("assets/data/books/Gen.json.gz") || has("assets/data/books/Gen.json")
             require(genOk) { "APK missing Genesis pack under assets/data/books/" }
+            val concOk = has("assets/data/concordance.json.gz") || has("assets/data/concordance.json")
+            require(concOk) { "APK missing assets/data/concordance.json(.gz)" }
             val glossLabel = if (has("assets/data/glosses.json.gz")) "glosses.json.gz" else "glosses.json"
             val genLabel = if (has("assets/data/books/Gen.json.gz")) "Gen.json.gz" else "Gen.json"
             logger.lifecycle("$taskName OK — glosses=$glossLabel gen=$genLabel")
@@ -142,4 +144,11 @@ dependencies {
 
 
     testImplementation("junit:junit:4.13.2")
+    testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.9.0")
+}
+
+// Concordance gate tests read shipped assets from src/main/assets and write reports/.
+tasks.withType<Test>().configureEach {
+    systemProperty("tanakh.root", rootProject.projectDir.absolutePath)
+    maxHeapSize = "3g"
 }

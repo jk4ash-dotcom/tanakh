@@ -13,7 +13,17 @@ data class Catalog(
     val books: List<CatalogBook> = emptyList(),
     val glossesAsset: String = "data/glosses.json",
     val glossesAssetGz: String? = "data/glosses.json.gz",
-    val totals: CatalogTotals = CatalogTotals()
+    val totals: CatalogTotals = CatalogTotals(),
+    val concordance: ConcordanceStamp? = null
+)
+
+/** Build-time concordance stamp (tools/pipeline/build-concordance.mjs). */
+@Serializable
+data class ConcordanceStamp(
+    val asset: String = "data/concordance.json",
+    val assetGz: String? = "data/concordance.json.gz",
+    val packHash: String = "",
+    val schema: Int = 1
 )
 
 @Serializable

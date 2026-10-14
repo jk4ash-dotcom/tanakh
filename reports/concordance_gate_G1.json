@@ -1,0 +1,16 @@
+{
+  "gate": "G1",
+  "ok": true,
+  "packHash": "27461e42762d0505434d24be07d555045b984b648bfaac525dd3b4c7289dda8e",
+  "failures": [],
+  "totals": {
+    "words": 305526,
+    "indexed": 299560,
+    "excludedParticle": 5966,
+    "excludedNoLemma": 0,
+    "keys": 9211,
+    "particleKeys": 13
+  },
+  "duplicateEntries": 0,
+  "note": "UI label reads ConcordanceEntry.count (stored c); see ConcordanceGateTest.G1d"
+}

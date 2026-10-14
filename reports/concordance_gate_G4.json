@@ -1,0 +1,10 @@
+{
+  "gate": "G4", "ok": true,
+  "packHash": "27461e42762d0505434d24be07d555045b984b648bfaac525dd3b4c7289dda8e",
+  "dnKeys": ["H:H3068", "H:H3069"],
+  "rowsRendered": 6872,
+  "forbiddenHits": [],
+  "headerStrings": ["יהוה", "H3068", "LORD", "Appears 6521 times", "in this text (OSHB)", "יהוה", "H3069", "God", "Appears 306 times", "in this text (OSHB)"],
+  "englishPolicy": "rows rewrite ebible Jehovah/Adonai-x substitutions to YHWH (Gen.22.14, Exod.6.3, Exod.17.15, Judg.6.24) — reading line unchanged; for Sofer ruling",
+  "perf": {"H3068count": 6521, "page0Rows": 30, "page200Rows": 30, "rowsDecodedTotal": 60, "firstPageMs": 0.01}
+}

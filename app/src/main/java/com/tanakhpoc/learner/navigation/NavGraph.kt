@@ -10,6 +10,14 @@ import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.foundation.lazy.rememberLazyListState
+import com.tanakhpoc.learner.data.ConcordanceDisplay
+import com.tanakhpoc.learner.data.ConcordanceEntry
+import com.tanakhpoc.learner.ui.screens.CONCORDANCE_PAGE
+import com.tanakhpoc.learner.ui.screens.ConcordanceRowUi
+import com.tanakhpoc.learner.ui.screens.ConcordanceScreen
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -146,9 +154,18 @@ fun TanakhNavGraph() {
         }
         composable(
             Routes.VERSE,
-            arguments = listOf(navArgument("verseId") { type = NavType.StringType })
+            arguments = listOf(
+                navArgument("verseId") { type = NavType.StringType },
+                navArgument("w") { type = NavType.IntType; defaultValue = -1 }
+            )
         ) { e ->
             val id = e.arguments?.getString("verseId") ?: return@composable
+            val focusW = e.arguments?.getInt("w") ?: -1
+            var conc by remember { mutableStateOf(ready.concordanceOrNull()) }
+            LaunchedEffect(Unit) {
+                // Off-main load; a hash mismatch leaves the link hidden (Unavailable).
+                runCatching { ready.ensureConcordance() }.onSuccess { conc = it }
+            }
             val book = id.substringBefore('.')
             var verseReady by remember(id) { mutableStateOf(ready.verse(id) != null && ready.glossesReady) }
             var err by remember(id) { mutableStateOf<String?>(null) }
@@ -175,9 +192,52 @@ fun TanakhNavGraph() {
                         verse = verse,
                         resolveGloss = { ready.gloss(it) },
                         dssNotes = (bookNotes + verseNotes).distinctBy { it.id },
+                        focusWordIndex = focusW,
+                        concordanceLink = { t -> conc?.linkFor(t) },
+                        onSeeAll = { key -> navController.navigate(Routes.concordance(key)) },
                         onBack = { navController.popBackStack() }
                     )
                 }
+            }
+        }
+        composable(
+            Routes.CONCORDANCE,
+            arguments = listOf(navArgument("key") { type = NavType.StringType })
+        ) { e ->
+            val key = e.arguments?.getString("key") ?: return@composable
+            var entry by remember(key) { mutableStateOf<ConcordanceEntry?>(null) }
+            var err by remember(key) { mutableStateOf<String?>(null) }
+            val listState = rememberLazyListState()
+            LaunchedEffect(key) {
+                runCatching {
+                    ready.ensureGlosses()
+                    ready.ensureConcordance().entry(key) ?: error("No concordance entry $key")
+                }.onSuccess { entry = it }.onFailure { err = it.message }
+            }
+            val loaded = entry
+            when {
+                err != null -> Box(Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
+                    Text(err ?: "Error", color = MaterialTheme.colorScheme.error)
+                }
+                loaded == null -> Box(Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
+                    CircularProgressIndicator()
+                }
+                else -> ConcordanceScreen(
+                    entry = loaded,
+                    gloss = ready.gloss(loaded.lemmaId),
+                    listState = listState,
+                    loadPage = { page ->
+                        withContext(Dispatchers.Default) {
+                            loaded.page(page * CONCORDANCE_PAGE, CONCORDANCE_PAGE)
+                        }.mapNotNull { r ->
+                            ready.ensureBook(r.verseId.substringBefore('.'))
+                            val v = ready.verse(r.verseId) ?: return@mapNotNull null
+                            ConcordanceRowUi(r.verseId, r.wordIndex, ConcordanceDisplay.render(v, r.wordIndex, r.ketivQere))
+                        }
+                    },
+                    onOpenRow = { vid, wi -> navController.navigate(Routes.verse(vid, wi)) },
+                    onBack = { navController.popBackStack() }
+                )
             }
         }
     }

@@ -1,0 +1,9 @@
+{
+  "gate": "G2",
+  "ok": true,
+  "packHash": "27461e42762d0505434d24be07d555045b984b648bfaac525dd3b4c7289dda8e",
+  "failures": [],
+  "rowsChecked": 299560,
+  "packHashStampedInCatalog": true,
+  "loader": "ConcordanceRepository refuses index.packHash != catalog.concordance.packHash; JVM test recomputes hash from packs"
+}

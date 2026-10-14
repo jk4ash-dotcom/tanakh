@@ -89,6 +89,29 @@ class PackRepository private constructor(
         }
     }
 
+    @Volatile private var concordance: ConcordanceIndex? = null
+    private val concordanceMutex = Mutex()
+
+    val concordanceReady: Boolean get() = concordance != null
+    fun concordanceOrNull(): ConcordanceIndex? = concordance
+
+    /**
+     * Load the build-time concordance index off the main thread (gz → plain fallback,
+     * aapt2 quirk). Refuses an index whose pack hash differs from the catalog stamp.
+     */
+    suspend fun ensureConcordance(): ConcordanceIndex = withContext(Dispatchers.IO) {
+        concordance?.let { return@withContext it }
+        concordanceMutex.withLock {
+            concordance?.let { return@withLock it }
+            val stamp = catalog.concordance ?: error("Catalog has no concordance stamp")
+            val text = readAssetText(
+                assetOpener,
+                *assetCandidates(stamp.assetGz, stamp.asset, "data/concordance.json.gz", "data/concordance.json").toTypedArray()
+            )
+            ConcordanceIndex.parse(text, stamp.packHash).also { concordance = it }
+        }
+    }
+
     private val bookMutex = Mutex()
     private val glossMutex = Mutex()
 
